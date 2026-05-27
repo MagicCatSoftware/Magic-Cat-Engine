@@ -1,0 +1,291 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "08 — Staff Directory (Pipes + Loop + DB)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M5","M9","M10","M11","M24","M28"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "720px" }
+    },
+    "M2": {
+      "id": "M2", "tag": "div", "name": "header",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "32px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Staff Directory",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M4": {
+      "id": "M4", "tag": "p", "name": "subtitle",
+      "attrs": {},
+      "text": "This example wires Pipes, the Loop System, Events, and the in-memory DB together. Four staff records are pre-seeded into the staff collection on import. Load Directory fires a GET pipe — the staffCards Loop renders each record as a card. Add Member writes a new entry via a POST pipe. The raw API response is shown at the bottom.",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "color": "#888", "font-size": "14px", "line-height": "1.7" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "toolbar",
+      "attrs": {}, "text": "", "children": ["M6","M7","M8"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "align-items": "center", "gap": "12px", "margin-bottom": "24px", "flex-wrap": "wrap" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "load_btn",
+      "attrs": { "onclick": "PipeSystem.fetch('listStaff').then(r=>{if(r&&r.status===200)EventBus.emit('staffLoaded',{})})" },
+      "text": "↓ Load Directory",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "add_btn",
+      "attrs": { "onclick": "EventBus.emit('showAddForm',{})" },
+      "text": "+ Add Member",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M8": {
+      "id": "M8", "tag": "p", "name": "status_text",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M5",
+      "wires": [
+        { "eventName": "staffLoaded", "action": "show",    "actionArgs": "" },
+        { "eventName": "staffLoaded", "action": "setText", "actionArgs": "✦  Loaded — staffCards loop rendered records from listStaff (GET /api/staff)" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "12px", "color": "#888", "margin": "0", "font-family": "monospace", "display": "none" }
+    },
+    "M9": {
+      "id": "M9", "tag": "p", "name": "empty_hint",
+      "attrs": {},
+      "text": "Click ↓ Load Directory to fetch staff from the DB. The listStaff pipe will GET /api/staff, and the staffCards loop will render each record as a card below.",
+      "children": [], "parentId": "M1",
+      "wires": [
+        { "eventName": "staffLoaded", "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "color": "#555", "font-size": "14px", "border": "1px solid #1a1a1a", "padding": "20px", "border-radius": "4px", "margin-bottom": "16px", "line-height": "1.6" }
+    },
+    "M10": {
+      "id": "M10", "tag": "div", "name": "staff_list",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "24px" }
+    },
+    "M11": {
+      "id": "M11", "tag": "div", "name": "add_panel",
+      "attrs": {}, "text": "", "children": ["M12","M13","M14","M15","M16","M17","M18","M19","M20","M21"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "showAddForm", "action": "show",   "actionArgs": "" },
+        { "eventName": "showAddForm", "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "hideAddForm", "action": "hide",   "actionArgs": "" },
+        { "eventName": "staffAdded",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #fff", "padding": "28px", "border-radius": "4px", "margin-bottom": "24px", "display": "none", "opacity": "0" }
+    },
+    "M12": {
+      "id": "M12", "tag": "h2", "name": "add_heading",
+      "attrs": {}, "text": "Add Staff Member",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "20px", "margin-bottom": "20px", "letter-spacing": "1px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "label", "name": "name_label",
+      "attrs": {}, "text": "Full Name",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M14": {
+      "id": "M14", "tag": "input", "name": "name_input",
+      "attrs": { "type": "text", "placeholder": "e.g. Jane Smith", "id": "sf-name" },
+      "text": "", "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "16px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M15": {
+      "id": "M15", "tag": "label", "name": "role_label",
+      "attrs": {}, "text": "Role / Title",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M16": {
+      "id": "M16", "tag": "input", "name": "role_input",
+      "attrs": { "type": "text", "placeholder": "e.g. Senior Engineer", "id": "sf-role" },
+      "text": "", "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "16px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M17": {
+      "id": "M17", "tag": "label", "name": "dept_label",
+      "attrs": {}, "text": "Department",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M18": {
+      "id": "M18", "tag": "input", "name": "dept_input",
+      "attrs": { "type": "text", "placeholder": "e.g. Engineering", "id": "sf-dept" },
+      "text": "", "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "16px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M19": {
+      "id": "M19", "tag": "label", "name": "email_label",
+      "attrs": {}, "text": "Email",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M20": {
+      "id": "M20", "tag": "input", "name": "email_input",
+      "attrs": { "type": "email", "placeholder": "name@company.com", "id": "sf-email" },
+      "text": "", "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "24px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M21": {
+      "id": "M21", "tag": "div", "name": "form_btns",
+      "attrs": {}, "text": "", "children": ["M22","M23"],
+      "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "gap": "12px" }
+    },
+    "M22": {
+      "id": "M22", "tag": "button", "name": "save_btn",
+      "attrs": { "onclick": "PipeSystem.execute('addStaff',{name:document.getElementById('sf-name').value||'Unknown',role:document.getElementById('sf-role').value||'',department:document.getElementById('sf-dept').value||'',email:document.getElementById('sf-email').value||''}).then(r=>{if(r&&r.status===200)EventBus.emit('staffAdded',{})})" },
+      "text": "✦ Add to Directory",
+      "children": [], "parentId": "M21", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    },
+    "M23": {
+      "id": "M23", "tag": "button", "name": "cancel_btn",
+      "attrs": { "onclick": "EventBus.emit('hideAddForm',{})" },
+      "text": "Cancel",
+      "children": [], "parentId": "M21", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M24": {
+      "id": "M24", "tag": "div", "name": "confirm_banner",
+      "attrs": {}, "text": "", "children": ["M25","M26","M27"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "staffAdded",   "action": "show",   "actionArgs": "" },
+        { "eventName": "staffAdded",   "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "confirmReset", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #fff", "padding": "20px 24px", "border-radius": "4px", "margin-bottom": "24px", "display": "none", "opacity": "0" }
+    },
+    "M25": {
+      "id": "M25", "tag": "p", "name": "confirm_msg",
+      "attrs": {}, "text": "✦  Member added via addStaff (POST /api/staff). Click Load Directory again to re-fetch — the staffCards loop will render the new card.",
+      "children": [], "parentId": "M24", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "14px", "margin-bottom": "10px", "line-height": "1.7", "color": "#fff" }
+    },
+    "M26": {
+      "id": "M26", "tag": "p", "name": "confirm_detail",
+      "attrs": {}, "text": "Loop: staffCards  ·  Pipe OUT: listStaff (GET /api/staff)  ·  Pipe IN: addStaff (POST /api/staff)  ·  Target: M10 (staff_list)",
+      "children": [], "parentId": "M24", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "margin-bottom": "14px" }
+    },
+    "M27": {
+      "id": "M27", "tag": "button", "name": "dismiss_btn",
+      "attrs": { "onclick": "EventBus.emit('confirmReset',{})" },
+      "text": "Dismiss",
+      "children": [], "parentId": "M24", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#666", "border": "1px solid #333", "padding": "6px 16px", "font-size": "12px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M28": {
+      "id": "M28", "tag": "div", "name": "raw_section",
+      "attrs": {}, "text": "", "children": ["M29","M30"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "staffLoaded", "action": "show",   "actionArgs": "" },
+        { "eventName": "staffLoaded", "action": "fadeIn", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "padding": "20px", "border-radius": "4px", "display": "none", "opacity": "0" }
+    },
+    "M29": {
+      "id": "M29", "tag": "p", "name": "raw_label",
+      "attrs": {}, "text": "Raw API Response — listStaff GET /api/staff (pipe binding → textContent)",
+      "children": [], "parentId": "M28", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "margin-bottom": "8px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M30": {
+      "id": "M30", "tag": "pre", "name": "raw_output",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M28",
+      "wires": [],
+      "pipeBindings": [{ "pipeName": "listStaff", "target": "textContent" }],
+      "viewBinding": null, "dbSource": null,
+      "css": { "background": "#0a0a0a", "border": "1px solid #1a1a1a", "padding": "14px", "border-radius": "3px", "font-size": "11px", "color": "#666", "font-family": "monospace", "overflow": "auto", "max-height": "200px", "white-space": "pre-wrap", "margin": "0" }
+    }
+  },
+  "events": {
+    "staffLoaded":  { "name": "staffLoaded",  "payload": "{}" },
+    "staffAdded":   { "name": "staffAdded",   "payload": "{}" },
+    "showAddForm":  { "name": "showAddForm",  "payload": "{}" },
+    "hideAddForm":  { "name": "hideAddForm",  "payload": "{}" },
+    "confirmReset": { "name": "confirmReset", "payload": "{}" }
+  },
+  "pipes": {
+    "listStaff": {
+      "name": "listStaff",
+      "method": "GET",
+      "endpoint": "/api/staff",
+      "collection": "staff",
+      "schema": [],
+      "description": "Fetch all staff records from the DB",
+      "delay": 400
+    },
+    "addStaff": {
+      "name": "addStaff",
+      "method": "POST",
+      "endpoint": "/api/staff",
+      "collection": "staff",
+      "schema": [
+        { "key": "name",       "type": "text" },
+        { "key": "role",       "type": "text" },
+        { "key": "department", "type": "text" },
+        { "key": "email",      "type": "text" }
+      ],
+      "description": "Insert a new staff member into the staff collection",
+      "delay": 250
+    }
+  },
+  "views": {},
+  "loops": {
+    "staffCards": {
+      "name": "staffCards",
+      "pipeName": "listStaff",
+      "template": "<div style=\"border:1px solid #2a2a2a;padding:16px 20px;border-radius:4px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center\"><div><div style=\"font-size:15px;font-weight:bold;color:#fff;margin-bottom:3px\">{{name}}</div><div style=\"font-size:13px;color:#aaa;margin-bottom:2px\">{{role}}</div><div style=\"font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px\">{{department}}</div></div><div style=\"text-align:right\"><div style=\"font-size:12px;color:#666;margin-bottom:6px\">{{email}}</div><div style=\"font-size:10px;color:#333;font-family:monospace\">{{_index}} of {{_total}}</div></div></div>",
+      "targetId": "M10",
+      "description": "Render each staff record as a card into the staff_list container"
+    }
+  },
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] },
+    "M28": { "blocks": [] }, "M29": { "blocks": [] }, "M30": { "blocks": [] }
+  },
+  "dbCollections": [
+    {
+      "name": "staff",
+      "isArray": true,
+      "seed": [
+        { "name": "Adom Patchett",  "role": "Founder & Lead Engineer",  "department": "Engineering", "email": "adom@magiccat.io"   },
+        { "name": "Lena Torres",    "role": "Senior Designer",           "department": "Design",      "email": "lena@magiccat.io"   },
+        { "name": "Marcus Webb",    "role": "Product Manager",           "department": "Product",     "email": "marcus@magiccat.io" },
+        { "name": "Yuki Nakamura", "role": "Full-Stack Developer",      "department": "Engineering", "email": "yuki@magiccat.io"   }
+      ]
+    }
+  ],
+  "_nextId": 31
+}

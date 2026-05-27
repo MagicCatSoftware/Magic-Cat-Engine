@@ -1,0 +1,481 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "07 — Magic Cat Trivia Quiz" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M3","M4","M8","M14","M20","M26","M28","M30"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "600px", "position": "relative" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Magic Cat Trivia", "children": [],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "progress_text",
+      "attrs": {}, "text": "Question 1 of 3", "children": [],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "startQuiz",  "action": "show",    "actionArgs": "" },
+        { "eventName": "startQuiz",  "action": "setText", "actionArgs": "Question 1 of 3" },
+        { "eventName": "q1Correct",  "action": "setText", "actionArgs": "Question 2 of 3" },
+        { "eventName": "q1Wrong",    "action": "setText", "actionArgs": "Question 2 of 3" },
+        { "eventName": "q2Correct",  "action": "setText", "actionArgs": "Question 3 of 3" },
+        { "eventName": "q2Wrong",    "action": "setText", "actionArgs": "Question 3 of 3" },
+        { "eventName": "q3Correct",  "action": "setText", "actionArgs": "Complete! ✦" },
+        { "eventName": "q3Wrong",    "action": "setText", "actionArgs": "Complete!" },
+        { "eventName": "resetQuiz",  "action": "hide",    "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "letter-spacing": "2px", "text-transform": "uppercase", "margin-bottom": "24px", "margin-top": "8px", "display": "none" }
+    },
+
+    "M4": {
+      "id": "M4", "tag": "div", "name": "welcome_panel",
+      "attrs": {}, "text": "", "children": ["M5","M6","M7"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "startQuiz",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "show",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "fadeIn", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "40px", "border-radius": "4px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "h2", "name": "welcome_title",
+      "attrs": {}, "text": "Test Your Knowledge", "children": [],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "24px", "margin-bottom": "16px", "letter-spacing": "2px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "p", "name": "welcome_desc",
+      "attrs": {}, "text": "Three questions about the Magic Cat Engine. Every element in this quiz is a Machine. Wires connect answer buttons to show/hide events, progress updates, feedback toasts, and result badges — no code required. When you finish, save your result to the DB via the Pipe System.", "children": [],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "14px", "line-height": "1.8", "margin-bottom": "32px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "start_btn",
+      "attrs": { "onclick": "EventBus.emit('startQuiz',{})" },
+      "text": "✦ Start Quiz", "children": [],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "14px 36px", "font-size": "15px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px" }
+    },
+
+    "M8": {
+      "id": "M8", "tag": "div", "name": "q1_panel",
+      "attrs": {}, "text": "", "children": ["M9","M10","M11","M12","M13"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "startQuiz",  "action": "show",   "actionArgs": "" },
+        { "eventName": "startQuiz",  "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q1Correct",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "q1Wrong",    "action": "hide",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "32px", "border-radius": "4px", "display": "none", "opacity": "0" }
+    },
+    "M9": {
+      "id": "M9", "tag": "p", "name": "q1_label",
+      "attrs": {}, "text": "QUESTION 1 OF 3", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "letter-spacing": "2px", "margin-bottom": "20px", "text-transform": "uppercase" }
+    },
+    "M10": {
+      "id": "M10", "tag": "p", "name": "q1_question",
+      "attrs": {}, "text": "Who built the Magic Cat Engine?", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin-bottom": "28px", "line-height": "1.4", "font-weight": "bold" }
+    },
+    "M11": {
+      "id": "M11", "tag": "button", "name": "q1_btn_a",
+      "attrs": { "onclick": "EventBus.emit('q1Correct',{})" },
+      "text": "A)  Adom Patchett", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+    "M12": {
+      "id": "M12", "tag": "button", "name": "q1_btn_b",
+      "attrs": { "onclick": "EventBus.emit('q1Wrong',{})" },
+      "text": "B)  Elon Musk", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "button", "name": "q1_btn_c",
+      "attrs": { "onclick": "EventBus.emit('q1Wrong',{})" },
+      "text": "C)  Steve Jobs", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+
+    "M14": {
+      "id": "M14", "tag": "div", "name": "q2_panel",
+      "attrs": {}, "text": "", "children": ["M15","M16","M17","M18","M19"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "q1Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "q1Correct",  "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q1Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "q1Wrong",    "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q2Correct",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "q2Wrong",    "action": "hide",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "32px", "border-radius": "4px", "display": "none", "opacity": "0" }
+    },
+    "M15": {
+      "id": "M15", "tag": "p", "name": "q2_label",
+      "attrs": {}, "text": "QUESTION 2 OF 3", "children": [],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "letter-spacing": "2px", "margin-bottom": "20px", "text-transform": "uppercase" }
+    },
+    "M16": {
+      "id": "M16", "tag": "p", "name": "q2_question",
+      "attrs": {}, "text": "What is the core unit in the Magic Cat Engine architecture?", "children": [],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin-bottom": "28px", "line-height": "1.4", "font-weight": "bold" }
+    },
+    "M17": {
+      "id": "M17", "tag": "button", "name": "q2_btn_a",
+      "attrs": { "onclick": "EventBus.emit('q2Wrong',{})" },
+      "text": "A)  Component", "children": [],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+    "M18": {
+      "id": "M18", "tag": "button", "name": "q2_btn_b",
+      "attrs": { "onclick": "EventBus.emit('q2Correct',{})" },
+      "text": "B)  Machine", "children": [],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+    "M19": {
+      "id": "M19", "tag": "button", "name": "q2_btn_c",
+      "attrs": { "onclick": "EventBus.emit('q2Wrong',{})" },
+      "text": "C)  Widget", "children": [],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+
+    "M20": {
+      "id": "M20", "tag": "div", "name": "q3_panel",
+      "attrs": {}, "text": "", "children": ["M21","M22","M23","M24","M25"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "q2Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "q2Correct",  "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q2Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "q2Wrong",    "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q3Correct",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "q3Wrong",    "action": "hide",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "32px", "border-radius": "4px", "display": "none", "opacity": "0" }
+    },
+    "M21": {
+      "id": "M21", "tag": "p", "name": "q3_label",
+      "attrs": {}, "text": "QUESTION 3 OF 3", "children": [],
+      "parentId": "M20", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "letter-spacing": "2px", "margin-bottom": "20px", "text-transform": "uppercase" }
+    },
+    "M22": {
+      "id": "M22", "tag": "p", "name": "q3_question",
+      "attrs": {}, "text": "Which system connects machines to the in-memory database?", "children": [],
+      "parentId": "M20", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin-bottom": "28px", "line-height": "1.4", "font-weight": "bold" }
+    },
+    "M23": {
+      "id": "M23", "tag": "button", "name": "q3_btn_a",
+      "attrs": { "onclick": "EventBus.emit('q3Wrong',{})" },
+      "text": "A)  EventBus", "children": [],
+      "parentId": "M20", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+    "M24": {
+      "id": "M24", "tag": "button", "name": "q3_btn_b",
+      "attrs": { "onclick": "EventBus.emit('q3Wrong',{})" },
+      "text": "B)  ViewSystem", "children": [],
+      "parentId": "M20", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+    "M25": {
+      "id": "M25", "tag": "button", "name": "q3_btn_c",
+      "attrs": { "onclick": "EventBus.emit('q3Correct',{})" },
+      "text": "C)  Pipe System", "children": [],
+      "parentId": "M20", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "width": "100%", "background": "transparent", "color": "#fff", "border": "1px solid #444", "padding": "12px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "10px", "text-align": "left", "letter-spacing": "1px" }
+    },
+
+    "M26": {
+      "id": "M26", "tag": "div", "name": "feedback_correct",
+      "attrs": {}, "text": "", "children": ["M27"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "q1Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "q1Correct",  "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q2Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "q2Correct",  "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q3Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "q3Correct",  "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q1Wrong",    "action": "hide",   "actionArgs": "" },
+        { "eventName": "q2Wrong",    "action": "hide",   "actionArgs": "" },
+        { "eventName": "q3Wrong",    "action": "hide",   "actionArgs": "" },
+        { "eventName": "startQuiz",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "position": "fixed", "top": "32px", "right": "32px", "background": "#001a00", "border": "1px solid #00aa00", "padding": "16px 24px", "border-radius": "4px", "display": "none", "opacity": "0", "font-size": "16px", "color": "#00dd00", "font-weight": "bold", "letter-spacing": "1px", "min-width": "160px" }
+    },
+    "M27": {
+      "id": "M27", "tag": "p", "name": "feedback_correct_text",
+      "attrs": {}, "text": "✓  Correct!", "children": [],
+      "parentId": "M26", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "margin": "0" }
+    },
+
+    "M28": {
+      "id": "M28", "tag": "div", "name": "feedback_wrong",
+      "attrs": {}, "text": "", "children": ["M29"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "q1Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "q1Wrong",    "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q2Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "q2Wrong",    "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q3Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "q3Wrong",    "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q1Correct",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "q2Correct",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "q3Correct",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "startQuiz",  "action": "hide",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "position": "fixed", "top": "32px", "right": "32px", "background": "#1a0000", "border": "1px solid #aa0000", "padding": "16px 24px", "border-radius": "4px", "display": "none", "opacity": "0", "font-size": "16px", "color": "#ff4444", "font-weight": "bold", "letter-spacing": "1px", "min-width": "160px" }
+    },
+    "M29": {
+      "id": "M29", "tag": "p", "name": "feedback_wrong_text",
+      "attrs": {}, "text": "✗  Wrong answer", "children": [],
+      "parentId": "M28", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "margin": "0" }
+    },
+
+    "M30": {
+      "id": "M30", "tag": "div", "name": "results_panel",
+      "attrs": {}, "text": "", "children": ["M31","M32","M33","M37","M41","M45","M46","M47"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "q3Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "q3Correct",  "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "q3Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "q3Wrong",    "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "32px", "border-radius": "4px", "display": "none", "opacity": "0" }
+    },
+    "M31": {
+      "id": "M31", "tag": "h2", "name": "results_title",
+      "attrs": {}, "text": "Quiz Complete", "children": [],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "24px", "letter-spacing": "2px", "margin-bottom": "8px" }
+    },
+    "M32": {
+      "id": "M32", "tag": "p", "name": "results_desc",
+      "attrs": {}, "text": "Your results are shown below. Each badge was wired in advance — correct/wrong indicators pre-staged inside this hidden panel, revealed by event wires as you answered each question. Click Save to write this session to the DB via the Pipe System.", "children": [],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "13px", "margin-bottom": "28px", "line-height": "1.7" }
+    },
+
+    "M33": {
+      "id": "M33", "tag": "div", "name": "q1_result_row",
+      "attrs": {}, "text": "", "children": ["M34","M35","M36"],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "justify-content": "space-between", "padding": "14px 0", "border-bottom": "1px solid #222" }
+    },
+    "M34": {
+      "id": "M34", "tag": "p", "name": "q1_result_label",
+      "attrs": {}, "text": "Q1 — Who built the Magic Cat Engine?", "children": [],
+      "parentId": "M33", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#aaa", "margin": "0", "flex": "1" }
+    },
+    "M35": {
+      "id": "M35", "tag": "span", "name": "q1_correct_badge",
+      "attrs": {}, "text": "✓ Correct", "children": [],
+      "parentId": "M33",
+      "wires": [
+        { "eventName": "q1Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#00cc00", "font-weight": "bold", "display": "none" }
+    },
+    "M36": {
+      "id": "M36", "tag": "span", "name": "q1_wrong_badge",
+      "attrs": {}, "text": "✗ Wrong", "children": [],
+      "parentId": "M33",
+      "wires": [
+        { "eventName": "q1Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#cc0000", "font-weight": "bold", "display": "none" }
+    },
+
+    "M37": {
+      "id": "M37", "tag": "div", "name": "q2_result_row",
+      "attrs": {}, "text": "", "children": ["M38","M39","M40"],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "justify-content": "space-between", "padding": "14px 0", "border-bottom": "1px solid #222" }
+    },
+    "M38": {
+      "id": "M38", "tag": "p", "name": "q2_result_label",
+      "attrs": {}, "text": "Q2 — What is the core unit of the architecture?", "children": [],
+      "parentId": "M37", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#aaa", "margin": "0", "flex": "1" }
+    },
+    "M39": {
+      "id": "M39", "tag": "span", "name": "q2_correct_badge",
+      "attrs": {}, "text": "✓ Correct", "children": [],
+      "parentId": "M37",
+      "wires": [
+        { "eventName": "q2Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#00cc00", "font-weight": "bold", "display": "none" }
+    },
+    "M40": {
+      "id": "M40", "tag": "span", "name": "q2_wrong_badge",
+      "attrs": {}, "text": "✗ Wrong", "children": [],
+      "parentId": "M37",
+      "wires": [
+        { "eventName": "q2Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#cc0000", "font-weight": "bold", "display": "none" }
+    },
+
+    "M41": {
+      "id": "M41", "tag": "div", "name": "q3_result_row",
+      "attrs": {}, "text": "", "children": ["M42","M43","M44"],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "justify-content": "space-between", "padding": "14px 0", "border-bottom": "1px solid #222", "margin-bottom": "28px" }
+    },
+    "M42": {
+      "id": "M42", "tag": "p", "name": "q3_result_label",
+      "attrs": {}, "text": "Q3 — Which system connects machines to the DB?", "children": [],
+      "parentId": "M41", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#aaa", "margin": "0", "flex": "1" }
+    },
+    "M43": {
+      "id": "M43", "tag": "span", "name": "q3_correct_badge",
+      "attrs": {}, "text": "✓ Correct", "children": [],
+      "parentId": "M41",
+      "wires": [
+        { "eventName": "q3Correct",  "action": "show",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#00cc00", "font-weight": "bold", "display": "none" }
+    },
+    "M44": {
+      "id": "M44", "tag": "span", "name": "q3_wrong_badge",
+      "attrs": {}, "text": "✗ Wrong", "children": [],
+      "parentId": "M41",
+      "wires": [
+        { "eventName": "q3Wrong",    "action": "show",   "actionArgs": "" },
+        { "eventName": "resetQuiz",  "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#cc0000", "font-weight": "bold", "display": "none" }
+    },
+
+    "M45": {
+      "id": "M45", "tag": "button", "name": "save_btn",
+      "attrs": { "onclick": "PipeSystem.execute('saveResult',{timestamp:new Date().toLocaleString()});EventBus.emit('resultSaved',{})" },
+      "text": "✦ Save to DB", "children": [],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "12px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px", "margin-right": "12px" }
+    },
+    "M46": {
+      "id": "M46", "tag": "button", "name": "play_again_btn",
+      "attrs": { "onclick": "EventBus.emit('resetQuiz',{})" },
+      "text": "↺ Play Again", "children": [],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "12px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M47": {
+      "id": "M47", "tag": "p", "name": "saved_confirmation",
+      "attrs": {}, "text": "✦ Result saved to DB — open the DB panel to see your session entry.", "children": [],
+      "parentId": "M30",
+      "wires": [
+        { "eventName": "resultSaved", "action": "show",   "actionArgs": "" },
+        { "eventName": "resultSaved", "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "resetQuiz",   "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "12px", "color": "#888", "margin-top": "16px", "font-family": "monospace", "display": "none", "opacity": "0" }
+    }
+  },
+
+  "events": {
+    "startQuiz":   { "name": "startQuiz",   "payload": "{}" },
+    "q1Correct":   { "name": "q1Correct",   "payload": "{}" },
+    "q1Wrong":     { "name": "q1Wrong",     "payload": "{}" },
+    "q2Correct":   { "name": "q2Correct",   "payload": "{}" },
+    "q2Wrong":     { "name": "q2Wrong",     "payload": "{}" },
+    "q3Correct":   { "name": "q3Correct",   "payload": "{}" },
+    "q3Wrong":     { "name": "q3Wrong",     "payload": "{}" },
+    "resultSaved": { "name": "resultSaved", "payload": "{}" },
+    "resetQuiz":   { "name": "resetQuiz",   "payload": "{}" }
+  },
+
+  "pipes": {
+    "saveResult": {
+      "name": "saveResult",
+      "direction": "in",
+      "collection": "quizResults",
+      "schema": [
+        { "key": "timestamp", "type": "text" }
+      ],
+      "description": "Write a completed quiz session timestamp to the DB"
+    }
+  },
+
+  "views": {},
+
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] },
+    "M28": { "blocks": [] }, "M29": { "blocks": [] }, "M30": { "blocks": [] },
+    "M31": { "blocks": [] }, "M32": { "blocks": [] }, "M33": { "blocks": [] },
+    "M34": { "blocks": [] }, "M35": { "blocks": [] }, "M36": { "blocks": [] },
+    "M37": { "blocks": [] }, "M38": { "blocks": [] }, "M39": { "blocks": [] },
+    "M40": { "blocks": [] }, "M41": { "blocks": [] }, "M42": { "blocks": [] },
+    "M43": { "blocks": [] }, "M44": { "blocks": [] }, "M45": { "blocks": [] },
+    "M46": { "blocks": [] }, "M47": { "blocks": [] }
+  },
+
+  "dbCollections": [
+    { "name": "quizResults", "isArray": true }
+  ],
+
+  "_nextId": 48
+}

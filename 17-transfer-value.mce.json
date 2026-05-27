@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "17 — Transfer Value (Button → Source → Target)" },
+  "rootOrder": ["M5", "M6", "M7"],
+  "machines": {
+    "M5": {
+      "id": "M5", "tag": "button", "name": "button_Transfer",
+      "attrs": {}, "text": "Transfer", "children": [],
+      "parentId": null,
+      "wires": [],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "10px 24px", "background": "#fff", "color": "#000", "border": "none", "cursor": "pointer", "font-size": "14px", "border-radius": "3px", "font-weight": "bold" },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": { "fromId": "M6", "eventName": "Transfer" },
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "textarea", "name": "textarea_source",
+      "attrs": { "placeholder": "Type something here…" }, "text": "", "children": [],
+      "parentId": null,
+      "wires": [
+        { "eventName": "Transfer", "targetId": "M7", "action": "setValue", "actionArgs": "{{THIS.VALUE}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "300px", "height": "120px", "display": "block", "padding": "10px", "font-size": "14px", "background": "#111", "color": "#fff", "border": "1px solid #555", "border-radius": "3px", "resize": "vertical" },
+      "dbSource": null,
+      "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "textarea", "name": "textarea_target",
+      "attrs": { "placeholder": "Value arrives here on click…", "readonly": "" }, "text": "", "children": [],
+      "parentId": null,
+      "wires": [],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "300px", "height": "120px", "display": "block", "padding": "10px", "font-size": "14px", "background": "#0a0a0a", "color": "#aaa", "border": "1px solid #333", "border-radius": "3px", "resize": "vertical" },
+      "dbSource": null,
+      "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "Transfer": { "name": "Transfer", "payload": "{value}" }
+  },
+  "pipes": {}, "views": {}, "loops": {}, "vars": {},
+  "logic": {
+    "M5": { "blocks": [] },
+    "M6": { "blocks": [] },
+    "M7": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 8
+}

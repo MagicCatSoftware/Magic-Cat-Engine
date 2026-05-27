@@ -1,0 +1,175 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "21 — Event Chain Relay (emit wire · synchronous cascade)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2", "M3", "M4", "M5", "M15"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "680px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "✦ Event Chain Relay",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "28px", "letter-spacing": "3px", "margin": "0 0 12px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "description",
+      "attrs": {}, "text": "One button click starts a cascade. Machine A receives Step1 — sets its text, then re-emits Step2. Machine B receives Step2, updates itself, re-emits Step3. Machine C receives Step3 and completes the chain. The emit wire action makes this possible with no code.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "13px", "margin": "0 0 32px 0", "line-height": "1.7" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "button", "name": "btn_start",
+      "attrs": {}, "text": "▶  Start Chain",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "12px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px", "margin-right": "8px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "Step1",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "chain_display",
+      "attrs": {}, "text": "", "children": ["M6", "M9", "M12"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "16px", "margin-top": "32px", "margin-bottom": "24px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "div", "name": "node_A",
+      "attrs": {}, "text": "", "children": ["M7", "M8"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1", "border": "1px solid #333", "border-radius": "4px", "padding": "20px", "background": "#0a0a0a" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "p", "name": "label_A",
+      "attrs": {}, "text": "MACHINE A",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "margin": "0 0 12px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": {
+      "id": "M8", "tag": "p", "name": "status_A",
+      "attrs": {}, "text": "Waiting…",
+      "children": [], "parentId": "M6",
+      "wires": [
+        { "eventName": "Step1", "targetId": "", "action": "setText", "actionArgs": "✦ Step 1 received" },
+        { "eventName": "Step1", "targetId": "", "action": "emit",    "actionArgs": "Step2" },
+        { "eventName": "Reset", "targetId": "", "action": "setText", "actionArgs": "Waiting…" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#ccc", "margin": "0", "line-height": "1.6" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M9": {
+      "id": "M9", "tag": "div", "name": "node_B",
+      "attrs": {}, "text": "", "children": ["M10", "M11"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1", "border": "1px solid #333", "border-radius": "4px", "padding": "20px", "background": "#0a0a0a" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M10": {
+      "id": "M10", "tag": "p", "name": "label_B",
+      "attrs": {}, "text": "MACHINE B",
+      "children": [], "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "margin": "0 0 12px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M11": {
+      "id": "M11", "tag": "p", "name": "status_B",
+      "attrs": {}, "text": "Waiting…",
+      "children": [], "parentId": "M9",
+      "wires": [
+        { "eventName": "Step2", "targetId": "", "action": "setText", "actionArgs": "✦ Step 2 received" },
+        { "eventName": "Step2", "targetId": "", "action": "emit",    "actionArgs": "Step3" },
+        { "eventName": "Reset", "targetId": "", "action": "setText", "actionArgs": "Waiting…" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#ccc", "margin": "0", "line-height": "1.6" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M12": {
+      "id": "M12", "tag": "div", "name": "node_C",
+      "attrs": {}, "text": "", "children": ["M13", "M14"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1", "border": "1px solid #333", "border-radius": "4px", "padding": "20px", "background": "#0a0a0a" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M13": {
+      "id": "M13", "tag": "p", "name": "label_C",
+      "attrs": {}, "text": "MACHINE C",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "margin": "0 0 12px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M14": {
+      "id": "M14", "tag": "p", "name": "status_C",
+      "attrs": {}, "text": "Waiting…",
+      "children": [], "parentId": "M12",
+      "wires": [
+        { "eventName": "Step3", "targetId": "", "action": "setText", "actionArgs": "✦ Chain complete" },
+        { "eventName": "Reset", "targetId": "", "action": "setText", "actionArgs": "Waiting…" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#ccc", "margin": "0", "line-height": "1.6" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M15": {
+      "id": "M15", "tag": "button", "name": "btn_reset",
+      "attrs": {}, "text": "Reset",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#555", "border": "1px solid #333", "padding": "10px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "Reset",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "Step1": { "name": "Step1", "payload": "{}" },
+    "Step2": { "name": "Step2", "payload": "{}" },
+    "Step3": { "name": "Step3", "payload": "{}" },
+    "Reset": { "name": "Reset", "payload": "{}" }
+  },
+  "pipes": {}, "views": {}, "loops": {}, "vars": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 16
+}

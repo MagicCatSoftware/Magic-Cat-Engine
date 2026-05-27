@@ -1,0 +1,291 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "10 — URL Views (Multi-Page Routing)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M8","M12","M16","M25"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#0a0a0a", "min-height": "100vh", "font-family": "sans-serif", "color": "#fff" }
+    },
+
+    "M2": {
+      "id": "M2", "tag": "nav", "name": "navbar",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "justify-content": "space-between", "align-items": "center", "padding": "20px 48px", "border-bottom": "1px solid #222", "position": "sticky", "top": "0", "background": "#0a0a0a", "z-index": "10" }
+    },
+    "M3": {
+      "id": "M3", "tag": "span", "name": "logo",
+      "attrs": {}, "text": "✦ MCE Views", "children": [],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "16px", "font-weight": "bold", "letter-spacing": "2px", "color": "#a855f7", "cursor": "pointer" }
+    },
+    "M4": {
+      "id": "M4", "tag": "div", "name": "nav_links",
+      "attrs": {}, "text": "", "children": ["M5","M6","M7"],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "4px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "button", "name": "btn_home",
+      "attrs": { "onclick": "ViewSystem.navigate('home',{})" },
+      "text": "Home", "children": [],
+      "parentId": "M4",
+      "wires": [
+        { "eventName": "view:home",    "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "view:work",    "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:contact", "action": "removeClass", "actionArgs": "nav-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 18px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "btn_work",
+      "attrs": { "onclick": "ViewSystem.navigate('work',{})" },
+      "text": "Work", "children": [],
+      "parentId": "M4",
+      "wires": [
+        { "eventName": "view:work",    "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "view:home",    "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:contact", "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:work",    "action": "loopRender",  "actionArgs": "loadWork" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 18px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "btn_contact",
+      "attrs": { "onclick": "ViewSystem.navigate('contact',{})" },
+      "text": "Contact", "children": [],
+      "parentId": "M4",
+      "wires": [
+        { "eventName": "view:contact", "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "view:home",    "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:work",    "action": "removeClass", "actionArgs": "nav-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 18px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+
+    "M8": {
+      "id": "M8", "tag": "section", "name": "home_section",
+      "attrs": {}, "text": "", "children": ["M9","M10","M11"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "home",
+      "css": { "padding": "96px 48px", "max-width": "800px" }
+    },
+    "M9": {
+      "id": "M9", "tag": "h1", "name": "home_hero",
+      "attrs": {}, "text": "Hello. I build things for the web.", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "52px", "line-height": "1.1", "margin-bottom": "24px", "letter-spacing": "-1px" }
+    },
+    "M10": {
+      "id": "M10", "tag": "p", "name": "home_sub",
+      "attrs": {}, "text": "Designer & developer. Currently open to new projects.", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "color": "#888", "margin-bottom": "40px", "line-height": "1.6" }
+    },
+    "M11": {
+      "id": "M11", "tag": "button", "name": "home_cta",
+      "attrs": { "onclick": "EventBus.emit('goToWork',{})" },
+      "text": "See My Work →", "children": [],
+      "parentId": "M8",
+      "wires": [
+        { "eventName": "goToWork", "action": "navigate", "actionArgs": "work" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#a855f7", "color": "#fff", "border": "none", "padding": "14px 32px", "font-size": "15px", "cursor": "pointer", "border-radius": "4px", "font-weight": "bold", "letter-spacing": "1px" }
+    },
+
+    "M12": {
+      "id": "M12", "tag": "section", "name": "work_section",
+      "attrs": {}, "text": "", "children": ["M13","M14","M15"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "work",
+      "css": { "padding": "64px 48px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "h2", "name": "work_heading",
+      "attrs": {}, "text": "Selected Work", "children": [],
+      "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "margin-bottom": "8px", "letter-spacing": "1px" }
+    },
+    "M14": {
+      "id": "M14", "tag": "p", "name": "work_desc",
+      "attrs": {}, "text": "Projects are loaded via the loadWork pipe → workList loop.", "children": [],
+      "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#666", "font-size": "13px", "margin-bottom": "32px", "font-family": "monospace" }
+    },
+    "M15": {
+      "id": "M15", "tag": "div", "name": "work_list",
+      "attrs": {}, "text": "", "children": [],
+      "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "grid", "grid-template-columns": "repeat(auto-fill,minmax(280px,1fr))", "gap": "20px" }
+    },
+
+    "M16": {
+      "id": "M16", "tag": "section", "name": "contact_section",
+      "attrs": {}, "text": "", "children": ["M17","M18","M19","M20","M21","M22","M27"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "contact",
+      "css": { "padding": "64px 48px", "max-width": "600px" }
+    },
+    "M17": {
+      "id": "M17", "tag": "h2", "name": "contact_heading",
+      "attrs": {}, "text": "Get in Touch", "children": [],
+      "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "margin-bottom": "8px", "letter-spacing": "1px" }
+    },
+    "M18": {
+      "id": "M18", "tag": "p", "name": "contact_sub",
+      "attrs": {}, "text": "Messages are written to the messages collection via the sendMessage pipe.", "children": [],
+      "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#666", "font-size": "13px", "margin-bottom": "32px", "font-family": "monospace" }
+    },
+    "M19": {
+      "id": "M19", "tag": "label", "name": "name_label",
+      "attrs": {}, "text": "Your Name", "children": [],
+      "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#666", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M20": {
+      "id": "M20", "tag": "input", "name": "contact_name",
+      "attrs": { "type": "text", "placeholder": "Your name", "id": "c-name" },
+      "text": "", "children": [],
+      "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "18px", "border-radius": "3px", "display": "block" }
+    },
+    "M21": {
+      "id": "M21", "tag": "label", "name": "message_label",
+      "attrs": {}, "text": "Message", "children": [],
+      "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#666", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M22": {
+      "id": "M22", "tag": "textarea", "name": "contact_message",
+      "attrs": { "placeholder": "Your message...", "id": "c-msg", "rows": "4" },
+      "text": "", "children": [],
+      "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "24px", "border-radius": "3px", "display": "block", "resize": "vertical" }
+    },
+    "M27": {
+      "id": "M27", "tag": "div", "name": "contact_actions",
+      "attrs": {}, "text": "", "children": ["M23","M24"],
+      "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "12px", "align-items": "center" }
+    },
+    "M23": {
+      "id": "M23", "tag": "button", "name": "send_btn",
+      "attrs": {
+        "onclick": "PipeSystem.execute('sendMessage',{name:document.getElementById('c-name').value||'Anonymous',message:document.getElementById('c-msg').value||'',timestamp:new Date().toLocaleString()}).then(function(){EventBus.emit('messageSent',{});})"
+      },
+      "text": "✦ Send Message", "children": [],
+      "parentId": "M27", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#a855f7", "color": "#fff", "border": "none", "padding": "12px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    },
+    "M24": {
+      "id": "M24", "tag": "span", "name": "send_status",
+      "attrs": {}, "text": "", "children": [],
+      "parentId": "M27",
+      "wires": [
+        { "eventName": "messageSent", "action": "setText",  "actionArgs": "✓ Sent!" },
+        { "eventName": "messageSent", "action": "fadeIn",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#a855f7", "opacity": "0" }
+    },
+
+    "M25": {
+      "id": "M25", "tag": "div", "name": "url_info_bar",
+      "attrs": {}, "text": "", "children": ["M26"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "position": "fixed", "bottom": "0", "left": "0", "right": "0", "background": "#111", "border-top": "1px solid #222", "padding": "8px 48px", "display": "flex", "align-items": "center", "gap": "16px", "font-size": "11px", "color": "#555", "font-family": "monospace" }
+    },
+    "M26": {
+      "id": "M26", "tag": "span", "name": "url_display",
+      "attrs": {}, "text": "?view=home", "children": [],
+      "parentId": "M25",
+      "wires": [
+        { "eventName": "view:home",    "action": "setText", "actionArgs": "?view=home" },
+        { "eventName": "view:work",    "action": "setText", "actionArgs": "?view=work" },
+        { "eventName": "view:contact", "action": "setText", "actionArgs": "?view=contact" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#a855f7" }
+    }
+  },
+  "events": {
+    "goToWork":    { "name": "goToWork",    "payload": "{}" },
+    "messageSent": { "name": "messageSent", "payload": "{}" },
+    "view:home":    { "name": "view:home",    "payload": "{}" },
+    "view:work":    { "name": "view:work",    "payload": "{}" },
+    "view:contact": { "name": "view:contact", "payload": "{}" }
+  },
+  "pipes": {
+    "sendMessage": {
+      "name": "sendMessage",
+      "method": "POST",
+      "endpoint": "/api/messages",
+      "collection": "messages",
+      "delay": 300,
+      "schema": [
+        { "key": "name",      "type": "text" },
+        { "key": "message",   "type": "text" },
+        { "key": "timestamp", "type": "text" }
+      ],
+      "description": "Write a contact message to the DB"
+    },
+    "loadWork": {
+      "name": "loadWork",
+      "method": "GET",
+      "endpoint": "/api/work",
+      "collection": "work",
+      "delay": 200,
+      "schema": [],
+      "description": "Read all portfolio projects"
+    }
+  },
+  "views": {
+    "home":    { "name": "home",    "title": "home",    "description": "Landing / hero section", "params": [] },
+    "work":    { "name": "work",    "title": "work",    "description": "Portfolio grid — loads projects via loadWork pipe", "params": [] },
+    "contact": { "name": "contact", "title": "contact", "description": "Contact form — writes to messages collection", "params": [] }
+  },
+  "loops": {
+    "workList": {
+      "name": "workList",
+      "pipeName": "loadWork",
+      "targetId": "M15",
+      "description": "Renders work cards from the work collection",
+      "template": "<div style=\"border:1px solid #222;padding:24px;border-radius:4px;background:#111;transition:border-color .2s\" onmouseover=\"this.style.borderColor='#a855f7'\" onmouseout=\"this.style.borderColor='#222'\"><div style=\"font-size:11px;color:#a855f7;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px\">{{year}}</div><h3 style=\"font-size:18px;margin-bottom:8px;font-weight:600\">{{title}}</h3><p style=\"font-size:13px;color:#888;line-height:1.6;margin-bottom:12px\">{{desc}}</p><div style=\"font-size:11px;color:#555;font-family:monospace\">{{tags}}</div></div>"
+    }
+  },
+  "logic": {
+    "M1": { "blocks": [] }, "M2": { "blocks": [] }, "M3": { "blocks": [] },
+    "M4": { "blocks": [] }, "M5": { "blocks": [] }, "M6": { "blocks": [] },
+    "M7": { "blocks": [] }, "M8": { "blocks": [] }, "M9": { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] }
+  },
+  "dbCollections": [
+    {
+      "name": "work",
+      "isArray": true,
+      "seed": [
+        { "title": "E-Commerce Redesign",    "year": "2024", "tags": "UX, Web, Figma",        "desc": "Full checkout-flow redesign cutting drop-off by 34%." },
+        { "title": "Brand Identity System",  "year": "2023", "tags": "Branding, Print, Logo", "desc": "Complete visual identity for an early-stage fintech startup." },
+        { "title": "Mobile App Launch",      "year": "2023", "tags": "Product, iOS, Swift",   "desc": "0-to-1 native fitness tracking app shipped to the App Store." },
+        { "title": "Design System v2",       "year": "2022", "tags": "Systems, Tokens, CSS",  "desc": "Token-based system adopted across 12 product teams." }
+      ]
+    },
+    {
+      "name": "messages",
+      "isArray": true,
+      "seed": []
+    }
+  ],
+  "_nextId": 28
+}

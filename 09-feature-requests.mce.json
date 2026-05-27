@@ -1,0 +1,495 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "09 — Feature Request Tracker (Full Stack)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M5","M9","M12","M34","M38"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "740px" }
+    },
+
+    "M2": {
+      "id": "M2", "tag": "div", "name": "header",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "28px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Feature Request Tracker",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M4": {
+      "id": "M4", "tag": "p", "name": "subtitle",
+      "attrs": {},
+      "text": "Full-stack demo: 4 pipes (GET × 2, POST, PUT), 11 events, 45 wires, 1 loop, 2 seeded DB collections. Select a category and priority — every selector button reacts to every selection event. Fill the form and submit — the POST pipe writes to DB, PUT updates meta stats, and the GET pipe re-fetches so the loop renders the new entry.",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "color": "#888", "font-size": "14px", "line-height": "1.7" }
+    },
+
+    "M5": {
+      "id": "M5", "tag": "div", "name": "controls_bar",
+      "attrs": {}, "text": "", "children": ["M6","M7","M8"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "align-items": "center", "gap": "12px", "margin-bottom": "24px", "flex-wrap": "wrap" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "load_btn",
+      "attrs": { "onclick": "PipeSystem.fetch('loadRequests').then(r=>{if(r&&r.status===200)EventBus.emit('requestsLoaded',{})})" },
+      "text": "↓ Load Requests",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 22px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "stats_btn",
+      "attrs": { "onclick": "PipeSystem.fetch('loadMeta').then(r=>{if(r&&r.status===200)EventBus.emit('metaLoaded',{})})" },
+      "text": "↑ Load Stats",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M8": {
+      "id": "M8", "tag": "p", "name": "status_badge",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M5",
+      "wires": [
+        { "eventName": "requestsLoaded", "action": "show",    "actionArgs": "" },
+        { "eventName": "requestsLoaded", "action": "setText", "actionArgs": "✦  Requests loaded from /api/requests — requestCards loop rendered each entry" },
+        { "eventName": "metaLoaded",     "action": "show",    "actionArgs": "" },
+        { "eventName": "metaLoaded",     "action": "setText", "actionArgs": "✦  Meta stats loaded from /api/meta (single-doc collection)" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "12px", "color": "#888", "margin": "0", "font-family": "monospace", "display": "none" }
+    },
+
+    "M9": {
+      "id": "M9", "tag": "div", "name": "meta_panel",
+      "attrs": {}, "text": "", "children": ["M10","M11"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "metaLoaded", "action": "show",   "actionArgs": "" },
+        { "eventName": "metaLoaded", "action": "fadeIn", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "padding": "16px 20px", "border-radius": "4px", "margin-bottom": "24px", "display": "none", "opacity": "0" }
+    },
+    "M10": {
+      "id": "M10", "tag": "p", "name": "meta_heading",
+      "attrs": {}, "text": "Meta Collection — GET /api/meta (single-doc)  ·  pipe binding → textContent",
+      "children": [], "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "margin-bottom": "8px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M11": {
+      "id": "M11", "tag": "pre", "name": "meta_raw",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M9",
+      "wires": [],
+      "pipeBindings": [{ "pipeName": "loadMeta", "target": "textContent" }],
+      "viewBinding": null, "dbSource": null,
+      "css": { "background": "#0a0a0a", "padding": "12px 14px", "border-radius": "3px", "font-size": "12px", "color": "#666", "font-family": "monospace", "white-space": "pre-wrap", "margin": "0", "border": "1px solid #111" }
+    },
+
+    "M12": {
+      "id": "M12", "tag": "div", "name": "form_panel",
+      "attrs": {}, "text": "",
+      "children": ["M13","M14","M15","M20","M21","M22","M26","M27","M28","M29","M30","M31","M32","M33"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #fff", "padding": "28px", "border-radius": "4px", "margin-bottom": "24px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "h2", "name": "form_heading",
+      "attrs": {}, "text": "Submit a Request",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "20px", "margin-bottom": "22px", "letter-spacing": "1px" }
+    },
+    "M14": {
+      "id": "M14", "tag": "p", "name": "cat_section_label",
+      "attrs": {}, "text": "Category — click one:",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#888", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "10px" }
+    },
+    "M15": {
+      "id": "M15", "tag": "div", "name": "cat_btns",
+      "attrs": {}, "text": "", "children": ["M16","M17","M18","M19"],
+      "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "gap": "8px", "margin-bottom": "10px", "flex-wrap": "wrap" }
+    },
+    "M16": {
+      "id": "M16", "tag": "button", "name": "cat_bug_btn",
+      "attrs": { "onclick": "EventBus.emit('catBug',{})" },
+      "text": "Bug",
+      "children": [], "parentId": "M15",
+      "wires": [
+        { "eventName": "catBug",     "action": "setText", "actionArgs": "● Bug" },
+        { "eventName": "catFeature", "action": "setText", "actionArgs": "Bug" },
+        { "eventName": "catUX",      "action": "setText", "actionArgs": "Bug" },
+        { "eventName": "catPerf",    "action": "setText", "actionArgs": "Bug" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "6px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "20px", "min-width": "80px", "font-family": "monospace" }
+    },
+    "M17": {
+      "id": "M17", "tag": "button", "name": "cat_feat_btn",
+      "attrs": { "onclick": "EventBus.emit('catFeature',{})" },
+      "text": "Feature",
+      "children": [], "parentId": "M15",
+      "wires": [
+        { "eventName": "catBug",     "action": "setText", "actionArgs": "Feature" },
+        { "eventName": "catFeature", "action": "setText", "actionArgs": "● Feature" },
+        { "eventName": "catUX",      "action": "setText", "actionArgs": "Feature" },
+        { "eventName": "catPerf",    "action": "setText", "actionArgs": "Feature" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "6px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "20px", "min-width": "80px", "font-family": "monospace" }
+    },
+    "M18": {
+      "id": "M18", "tag": "button", "name": "cat_ux_btn",
+      "attrs": { "onclick": "EventBus.emit('catUX',{})" },
+      "text": "UX",
+      "children": [], "parentId": "M15",
+      "wires": [
+        { "eventName": "catBug",     "action": "setText", "actionArgs": "UX" },
+        { "eventName": "catFeature", "action": "setText", "actionArgs": "UX" },
+        { "eventName": "catUX",      "action": "setText", "actionArgs": "● UX" },
+        { "eventName": "catPerf",    "action": "setText", "actionArgs": "UX" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "6px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "20px", "min-width": "80px", "font-family": "monospace" }
+    },
+    "M19": {
+      "id": "M19", "tag": "button", "name": "cat_perf_btn",
+      "attrs": { "onclick": "EventBus.emit('catPerf',{})" },
+      "text": "Performance",
+      "children": [], "parentId": "M15",
+      "wires": [
+        { "eventName": "catBug",     "action": "setText", "actionArgs": "Performance" },
+        { "eventName": "catFeature", "action": "setText", "actionArgs": "Performance" },
+        { "eventName": "catUX",      "action": "setText", "actionArgs": "Performance" },
+        { "eventName": "catPerf",    "action": "setText", "actionArgs": "● Performance" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "6px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "20px", "min-width": "110px", "font-family": "monospace" }
+    },
+    "M20": {
+      "id": "M20", "tag": "p", "name": "cat_display",
+      "attrs": { "id": "rq-cat-display" },
+      "text": "— select —",
+      "children": [], "parentId": "M12",
+      "wires": [
+        { "eventName": "catBug",     "action": "setText", "actionArgs": "Bug" },
+        { "eventName": "catFeature", "action": "setText", "actionArgs": "Feature" },
+        { "eventName": "catUX",      "action": "setText", "actionArgs": "UX" },
+        { "eventName": "catPerf",    "action": "setText", "actionArgs": "Performance" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "margin-bottom": "18px", "margin-top": "2px" }
+    },
+
+    "M21": {
+      "id": "M21", "tag": "p", "name": "pri_section_label",
+      "attrs": {}, "text": "Priority — click one:",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#888", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "10px" }
+    },
+    "M22": {
+      "id": "M22", "tag": "div", "name": "pri_btns",
+      "attrs": {}, "text": "", "children": ["M23","M24","M25"],
+      "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "gap": "8px", "margin-bottom": "10px" }
+    },
+    "M23": {
+      "id": "M23", "tag": "button", "name": "pri_low_btn",
+      "attrs": { "onclick": "EventBus.emit('priLow',{})" },
+      "text": "Low",
+      "children": [], "parentId": "M22",
+      "wires": [
+        { "eventName": "priLow",  "action": "setText", "actionArgs": "● Low" },
+        { "eventName": "priMed",  "action": "setText", "actionArgs": "Low" },
+        { "eventName": "priHigh", "action": "setText", "actionArgs": "Low" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "6px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "20px", "min-width": "80px", "font-family": "monospace" }
+    },
+    "M24": {
+      "id": "M24", "tag": "button", "name": "pri_med_btn",
+      "attrs": { "onclick": "EventBus.emit('priMed',{})" },
+      "text": "Medium",
+      "children": [], "parentId": "M22",
+      "wires": [
+        { "eventName": "priLow",  "action": "setText", "actionArgs": "Medium" },
+        { "eventName": "priMed",  "action": "setText", "actionArgs": "● Medium" },
+        { "eventName": "priHigh", "action": "setText", "actionArgs": "Medium" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "6px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "20px", "min-width": "80px", "font-family": "monospace" }
+    },
+    "M25": {
+      "id": "M25", "tag": "button", "name": "pri_high_btn",
+      "attrs": { "onclick": "EventBus.emit('priHigh',{})" },
+      "text": "High",
+      "children": [], "parentId": "M22",
+      "wires": [
+        { "eventName": "priLow",  "action": "setText", "actionArgs": "High" },
+        { "eventName": "priMed",  "action": "setText", "actionArgs": "High" },
+        { "eventName": "priHigh", "action": "setText", "actionArgs": "● High" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #444", "padding": "6px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "20px", "min-width": "80px", "font-family": "monospace" }
+    },
+    "M26": {
+      "id": "M26", "tag": "p", "name": "pri_display",
+      "attrs": { "id": "rq-pri-display" },
+      "text": "— select —",
+      "children": [], "parentId": "M12",
+      "wires": [
+        { "eventName": "priLow",  "action": "setText", "actionArgs": "Low" },
+        { "eventName": "priMed",  "action": "setText", "actionArgs": "Medium" },
+        { "eventName": "priHigh", "action": "setText", "actionArgs": "High" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "margin-bottom": "20px", "margin-top": "2px" }
+    },
+
+    "M27": {
+      "id": "M27", "tag": "label", "name": "title_label",
+      "attrs": {}, "text": "Request Title",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M28": {
+      "id": "M28", "tag": "input", "name": "title_input",
+      "attrs": { "type": "text", "placeholder": "Brief title for the request", "id": "rq-title" },
+      "text": "", "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "16px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M29": {
+      "id": "M29", "tag": "label", "name": "desc_label",
+      "attrs": {}, "text": "Description",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M30": {
+      "id": "M30", "tag": "textarea", "name": "desc_textarea",
+      "attrs": { "placeholder": "Describe the request in detail...", "id": "rq-desc", "rows": "3" },
+      "text": "", "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "16px", "border-radius": "3px", "display": "block", "resize": "vertical", "box-sizing": "border-box" }
+    },
+    "M31": {
+      "id": "M31", "tag": "label", "name": "sub_label",
+      "attrs": {}, "text": "Your Name",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M32": {
+      "id": "M32", "tag": "input", "name": "sub_input",
+      "attrs": { "type": "text", "placeholder": "Anonymous", "id": "rq-sub" },
+      "text": "", "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "24px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M33": {
+      "id": "M33", "tag": "button", "name": "submit_btn",
+      "attrs": { "onclick": "PipeSystem.execute('submitRequest',{title:document.getElementById('rq-title').value||'Untitled',description:document.getElementById('rq-desc').value||'',category:document.getElementById('rq-cat-display').textContent.trim()||'General',priority:document.getElementById('rq-pri-display').textContent.trim()||'Medium',submitter:document.getElementById('rq-sub').value||'Anonymous',timestamp:new Date().toLocaleString()}).then(r=>{if(r&&r.status===200){PipeSystem.execute('updateMeta',{lastCategory:document.getElementById('rq-cat-display').textContent.trim(),lastSubmitted:new Date().toLocaleString()});EventBus.emit('requestSubmitted',{});PipeSystem.fetch('loadRequests').then(r2=>{if(r2&&r2.status===200)EventBus.emit('requestsLoaded',{})})}})" },
+      "text": "✦ Submit Request",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "12px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px" }
+    },
+
+    "M34": {
+      "id": "M34", "tag": "div", "name": "confirm_banner",
+      "attrs": {}, "text": "", "children": ["M35","M36","M37"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "requestSubmitted", "action": "show",   "actionArgs": "" },
+        { "eventName": "requestSubmitted", "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "confirmDismiss",   "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #fff", "padding": "20px 24px", "border-radius": "4px", "margin-bottom": "24px", "display": "none", "opacity": "0" }
+    },
+    "M35": {
+      "id": "M35", "tag": "p", "name": "confirm_msg",
+      "attrs": {}, "text": "✦  Request submitted via submitRequest (POST /api/requests). updateMeta (PUT /api/meta) updated the stats doc. The loadRequests GET pipe re-fetched automatically — the requestCards loop rendered the new entry below.",
+      "children": [], "parentId": "M34", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "14px", "margin-bottom": "10px", "line-height": "1.7", "color": "#fff" }
+    },
+    "M36": {
+      "id": "M36", "tag": "p", "name": "confirm_detail",
+      "attrs": {}, "text": "Pipes fired: submitRequest (POST) → updateMeta (PUT) → loadRequests (GET)  ·  Events: requestSubmitted → requestsLoaded  ·  Loop: requestCards",
+      "children": [], "parentId": "M34", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "margin-bottom": "14px" }
+    },
+    "M37": {
+      "id": "M37", "tag": "button", "name": "dismiss_btn",
+      "attrs": { "onclick": "EventBus.emit('confirmDismiss',{})" },
+      "text": "Dismiss",
+      "children": [], "parentId": "M34", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#666", "border": "1px solid #333", "padding": "6px 16px", "font-size": "12px", "cursor": "pointer", "border-radius": "3px" }
+    },
+
+    "M38": {
+      "id": "M38", "tag": "div", "name": "requests_section",
+      "attrs": {}, "text": "", "children": ["M39","M40","M41","M42","M43"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "requestsLoaded", "action": "show",   "actionArgs": "" },
+        { "eventName": "requestsLoaded", "action": "fadeIn", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "none", "opacity": "0" }
+    },
+    "M39": {
+      "id": "M39", "tag": "p", "name": "req_heading",
+      "attrs": {}, "text": "All Requests — requests collection",
+      "children": [], "parentId": "M38", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "text-transform": "uppercase", "letter-spacing": "2px", "margin-bottom": "6px" }
+    },
+    "M40": {
+      "id": "M40", "tag": "p", "name": "req_count_badge",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M38",
+      "wires": [
+        { "eventName": "requestsLoaded", "action": "show",    "actionArgs": "" },
+        { "eventName": "requestsLoaded", "action": "setText", "actionArgs": "✦  Rendered by requestCards loop — template interpolates {{title}}, {{category}}, {{priority}}, {{submitter}}, {{timestamp}}, {{_index}}, {{_total}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "12px", "color": "#555", "font-family": "monospace", "margin-bottom": "16px", "display": "none" }
+    },
+    "M41": {
+      "id": "M41", "tag": "div", "name": "requests_list",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M38", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "24px" }
+    },
+    "M42": {
+      "id": "M42", "tag": "p", "name": "raw_label",
+      "attrs": {}, "text": "Raw API Response — loadRequests GET /api/requests (pipe binding → textContent)",
+      "children": [], "parentId": "M38", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "margin-bottom": "8px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M43": {
+      "id": "M43", "tag": "pre", "name": "raw_output",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M38",
+      "wires": [],
+      "pipeBindings": [{ "pipeName": "loadRequests", "target": "textContent" }],
+      "viewBinding": null, "dbSource": null,
+      "css": { "background": "#0a0a0a", "border": "1px solid #1a1a1a", "padding": "14px", "border-radius": "3px", "font-size": "11px", "color": "#666", "font-family": "monospace", "overflow": "auto", "max-height": "220px", "white-space": "pre-wrap", "margin": "0" }
+    }
+  },
+
+  "events": {
+    "catBug":          { "name": "catBug",          "payload": "{}" },
+    "catFeature":      { "name": "catFeature",      "payload": "{}" },
+    "catUX":           { "name": "catUX",           "payload": "{}" },
+    "catPerf":         { "name": "catPerf",         "payload": "{}" },
+    "priLow":          { "name": "priLow",          "payload": "{}" },
+    "priMed":          { "name": "priMed",          "payload": "{}" },
+    "priHigh":         { "name": "priHigh",         "payload": "{}" },
+    "requestSubmitted":{ "name": "requestSubmitted","payload": "{}" },
+    "requestsLoaded":  { "name": "requestsLoaded",  "payload": "{}" },
+    "metaLoaded":      { "name": "metaLoaded",      "payload": "{}" },
+    "confirmDismiss":  { "name": "confirmDismiss",  "payload": "{}" }
+  },
+
+  "pipes": {
+    "submitRequest": {
+      "name": "submitRequest",
+      "method": "POST",
+      "endpoint": "/api/requests",
+      "collection": "requests",
+      "schema": [
+        { "key": "title",       "type": "text" },
+        { "key": "description", "type": "text" },
+        { "key": "category",    "type": "text" },
+        { "key": "priority",    "type": "text" },
+        { "key": "submitter",   "type": "text" },
+        { "key": "timestamp",   "type": "text" }
+      ],
+      "description": "Write a new feature request to the requests collection",
+      "delay": 300
+    },
+    "loadRequests": {
+      "name": "loadRequests",
+      "method": "GET",
+      "endpoint": "/api/requests",
+      "collection": "requests",
+      "schema": [],
+      "description": "Fetch all feature requests from the DB",
+      "delay": 400
+    },
+    "loadMeta": {
+      "name": "loadMeta",
+      "method": "GET",
+      "endpoint": "/api/meta",
+      "collection": "meta",
+      "schema": [],
+      "description": "Fetch the meta stats single-doc from the DB",
+      "delay": 200
+    },
+    "updateMeta": {
+      "name": "updateMeta",
+      "method": "PUT",
+      "endpoint": "/api/meta",
+      "collection": "meta",
+      "schema": [
+        { "key": "lastCategory",  "type": "text" },
+        { "key": "lastSubmitted", "type": "text" }
+      ],
+      "description": "Update the meta stats doc after each submission",
+      "delay": 150
+    }
+  },
+
+  "views": {},
+
+  "loops": {
+    "requestCards": {
+      "name": "requestCards",
+      "pipeName": "loadRequests",
+      "template": "<div style=\"border-left:3px solid #333;padding:14px 18px;margin-bottom:8px;background:#0a0a0a;border-radius:0 4px 4px 0\"><div style=\"display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px\"><span style=\"font-weight:bold;font-size:14px;color:#fff\">{{title}}</span><div style=\"display:flex;gap:5px\"><span style=\"font-size:10px;color:#888;border:1px solid #2a2a2a;padding:2px 8px;border-radius:10px;font-family:monospace\">{{category}}</span><span style=\"font-size:10px;color:#888;border:1px solid #2a2a2a;padding:2px 8px;border-radius:10px;font-family:monospace\">{{priority}}</span></div></div><div style=\"font-size:13px;color:#666;margin-bottom:8px;line-height:1.5\">{{description}}</div><div style=\"font-size:11px;color:#444;font-family:monospace\">{{submitter}} · {{timestamp}} · entry {{_index}} of {{_total}}</div></div>",
+      "targetId": "M41",
+      "description": "Render each request as a card into the requests_list container"
+    }
+  },
+
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] },
+    "M28": { "blocks": [] }, "M29": { "blocks": [] }, "M30": { "blocks": [] },
+    "M31": { "blocks": [] }, "M32": { "blocks": [] }, "M33": { "blocks": [] },
+    "M34": { "blocks": [] }, "M35": { "blocks": [] }, "M36": { "blocks": [] },
+    "M37": { "blocks": [] }, "M38": { "blocks": [] }, "M39": { "blocks": [] },
+    "M40": { "blocks": [] }, "M41": { "blocks": [] }, "M42": { "blocks": [] },
+    "M43": { "blocks": [] }
+  },
+
+  "dbCollections": [
+    {
+      "name": "requests",
+      "isArray": true,
+      "seed": [
+        { "title": "Dark mode toggle",      "description": "Add a dark/light mode switch to the settings panel. Many users request this.",                     "category": "UX",      "priority": "High",   "submitter": "Taylor",  "timestamp": "2026-01-15" },
+        { "title": "Export to CSV",          "description": "Allow any data collection to be downloaded as a CSV file for offline analysis.",                  "category": "Feature", "priority": "Medium", "submitter": "Jordan",  "timestamp": "2026-02-03" },
+        { "title": "Fix login session timeout", "description": "Sessions expire after 10 min on mobile even with activity. Should reset on interaction.", "category": "Bug",     "priority": "High",   "submitter": "Sam",     "timestamp": "2026-03-12" }
+      ]
+    },
+    {
+      "name": "meta",
+      "isArray": false,
+      "seed": [
+        { "totalCount": 3, "openCount": 3, "lastCategory": "Bug", "lastSubmitted": "2026-03-12" }
+      ]
+    }
+  ],
+
+  "_nextId": 44
+}

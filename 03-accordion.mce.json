@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "03 — Accordion" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M3","M6","M9"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "640px" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Accordion", "children": [],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "div", "name": "item_1",
+      "attrs": {}, "text": "", "children": ["M4","M5"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "margin-bottom": "-1px" }
+    },
+    "M4": {
+      "id": "M4", "tag": "div", "name": "header_1",
+      "attrs": { "onclick": "EventBus.emit('openAcc1',{})" },
+      "text": "▶  Section One — The Event Bus",
+      "children": [], "parentId": "M3", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "16px 20px", "font-size": "15px", "font-weight": "bold", "letter-spacing": "1px", "cursor": "pointer", "background": "#111" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "body_1",
+      "attrs": {},
+      "text": "The EventBus is a global publish/subscribe system. Any machine can emit a named event. Any other machine can listen for that event and execute an action — show, hide, toggle, fadeIn, setText, and more.",
+      "children": [], "parentId": "M3",
+      "wires": [
+        { "eventName": "openAcc1", "action": "toggle", "actionArgs": "" },
+        { "eventName": "openAcc2", "action": "hide",   "actionArgs": "" },
+        { "eventName": "openAcc3", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "20px", "font-size": "14px", "line-height": "1.8", "border-top": "1px solid #fff", "background": "#000" }
+    },
+    "M6": {
+      "id": "M6", "tag": "div", "name": "item_2",
+      "attrs": {}, "text": "", "children": ["M7","M8"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "margin-bottom": "-1px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "div", "name": "header_2",
+      "attrs": { "onclick": "EventBus.emit('openAcc2',{})" },
+      "text": "▶  Section Two — The Pipe System",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "16px 20px", "font-size": "15px", "font-weight": "bold", "letter-spacing": "1px", "cursor": "pointer", "background": "#111" }
+    },
+    "M8": {
+      "id": "M8", "tag": "div", "name": "body_2",
+      "attrs": {},
+      "text": "Pipes connect machines to the in-memory database. An IN pipe writes data to a collection. An OUT pipe reads data from a collection. Pipes have named schemas and can be bound to any machine's data target.",
+      "children": [], "parentId": "M6",
+      "wires": [
+        { "eventName": "openAcc1", "action": "hide",   "actionArgs": "" },
+        { "eventName": "openAcc2", "action": "toggle", "actionArgs": "" },
+        { "eventName": "openAcc3", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "20px", "font-size": "14px", "line-height": "1.8", "border-top": "1px solid #fff", "background": "#000", "display": "none" }
+    },
+    "M9": {
+      "id": "M9", "tag": "div", "name": "item_3",
+      "attrs": {}, "text": "", "children": ["M10","M11"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff" }
+    },
+    "M10": {
+      "id": "M10", "tag": "div", "name": "header_3",
+      "attrs": { "onclick": "EventBus.emit('openAcc3',{})" },
+      "text": "▶  Section Three — The View System",
+      "children": [], "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "16px 20px", "font-size": "15px", "font-weight": "bold", "letter-spacing": "1px", "cursor": "pointer", "background": "#111" }
+    },
+    "M11": {
+      "id": "M11", "tag": "div", "name": "body_3",
+      "attrs": {},
+      "text": "Views are named HTML templates with {{param}} interpolation. Call ViewSystem.navigate('viewName', params) to render a view. Views respond to URL hash changes: #home, #about, #contact.",
+      "children": [], "parentId": "M9",
+      "wires": [
+        { "eventName": "openAcc1", "action": "hide",   "actionArgs": "" },
+        { "eventName": "openAcc2", "action": "hide",   "actionArgs": "" },
+        { "eventName": "openAcc3", "action": "toggle", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "20px", "font-size": "14px", "line-height": "1.8", "border-top": "1px solid #fff", "background": "#000", "display": "none" }
+    }
+  },
+  "events": {
+    "openAcc1": { "name": "openAcc1", "payload": "{}" },
+    "openAcc2": { "name": "openAcc2", "payload": "{}" },
+    "openAcc3": { "name": "openAcc3", "payload": "{}" }
+  },
+  "pipes": {},
+  "views": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 12
+}

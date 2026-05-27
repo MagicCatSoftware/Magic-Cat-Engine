@@ -1,0 +1,311 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "25 - No-Code Mini Site" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M8","M12","M17","M23"],
+      "parentId": null,
+      "wires": [
+        { "eventName": "GoWelcome", "targetId": "", "action": "navigate", "actionArgs": "welcome" },
+        { "eventName": "GoCatalog", "targetId": "", "action": "navigate", "actionArgs": "catalog" },
+        { "eventName": "GoContact", "targetId": "", "action": "navigate", "actionArgs": "contact" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#050505", "min-height": "100vh", "font-family": "system-ui, -apple-system, sans-serif", "color": "#f5f5f5", "margin": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "header", "name": "top_bar",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "height": "68px", "display": "flex", "align-items": "center", "justify-content": "space-between", "padding": "0 42px", "border-bottom": "1px solid #1d1d1d", "position": "sticky", "top": "0", "background": "#050505", "z-index": "10" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "brand",
+      "attrs": {}, "text": "{{siteName}}",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "letter-spacing": "3px", "font-weight": "700", "margin": "0", "text-transform": "uppercase" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "nav", "name": "nav",
+      "attrs": {}, "text": "", "children": ["M5","M6","M7"],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "8px", "align-items": "center" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "button", "name": "nav_welcome",
+      "attrs": {}, "text": "Welcome",
+      "children": [], "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#f5f5f5", "color": "#050505", "border": "1px solid #f5f5f5", "padding": "10px 16px", "border-radius": "3px", "cursor": "pointer", "font-size": "12px", "font-weight": "700" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoWelcome",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "nav_catalog",
+      "attrs": {}, "text": "Catalog",
+      "children": [], "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#bdbdbd", "border": "1px solid #2a2a2a", "padding": "10px 16px", "border-radius": "3px", "cursor": "pointer", "font-size": "12px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoCatalog",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "nav_contact",
+      "attrs": {}, "text": "Contact",
+      "children": [], "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#bdbdbd", "border": "1px solid #2a2a2a", "padding": "10px 16px", "border-radius": "3px", "cursor": "pointer", "font-size": "12px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoContact",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": {
+      "id": "M8", "tag": "section", "name": "welcome_view",
+      "attrs": {}, "text": "", "children": ["M9","M10","M11"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "welcome",
+      "css": { "max-width": "920px", "margin": "0 auto", "padding": "86px 42px 70px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M9": {
+      "id": "M9", "tag": "p", "name": "eyebrow",
+      "attrs": {}, "text": "{{tagline}}",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "12px", "color": "#9ca3af", "letter-spacing": "2px", "text-transform": "uppercase", "margin": "0 0 18px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M10": {
+      "id": "M10", "tag": "h1", "name": "headline",
+      "attrs": {}, "text": "A tiny site built from JSON only.",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "56px", "line-height": "1.02", "letter-spacing": "0", "margin": "0 0 22px 0", "max-width": "720px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M11": {
+      "id": "M11", "tag": "p", "name": "intro_copy",
+      "attrs": {}, "text": "This example uses views, vars, events, pipes, loops, pipe bindings, and seed data without custom code blocks. Open Catalog to render seeded products from the mock DB.",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "17px", "color": "#c4c4c4", "line-height": "1.75", "max-width": "660px", "margin": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M12": {
+      "id": "M12", "tag": "section", "name": "catalog_view",
+      "attrs": {}, "text": "", "children": ["M13","M14","M15","M16"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "catalog",
+      "css": { "max-width": "920px", "margin": "0 auto", "padding": "58px 42px 70px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M13": {
+      "id": "M13", "tag": "h1", "name": "catalog_heading",
+      "attrs": {}, "text": "Catalog",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "42px", "margin": "0 0 12px 0", "letter-spacing": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M14": {
+      "id": "M14", "tag": "p", "name": "catalog_hint",
+      "attrs": {}, "text": "Click Load Items to fetch seed data through a GET pipe and render it with a loop template.",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#9ca3af", "margin": "0 0 24px 0", "line-height": "1.6" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M15": {
+      "id": "M15", "tag": "button", "name": "load_items_button",
+      "attrs": {}, "text": "Load Items",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#f5f5f5", "color": "#050505", "border": "none", "padding": "12px 22px", "border-radius": "3px", "cursor": "pointer", "font-size": "13px", "font-weight": "700", "margin-bottom": "22px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "LoadItems",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M16": {
+      "id": "M16", "tag": "div", "name": "item_list",
+      "attrs": {}, "text": "Items will appear here.",
+      "children": [], "parentId": "M12",
+      "wires": [
+        { "eventName": "GoCatalog", "targetId": "", "action": "loopRender", "actionArgs": "itemLoop" },
+        { "eventName": "LoadItems", "targetId": "", "action": "loopRender", "actionArgs": "itemLoop" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #252525", "border-radius": "4px", "min-height": "84px", "overflow": "hidden" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M17": {
+      "id": "M17", "tag": "section", "name": "contact_view",
+      "attrs": {}, "text": "", "children": ["M18","M19","M20","M21","M22"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "contact",
+      "css": { "max-width": "720px", "margin": "0 auto", "padding": "58px 42px 70px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M18": {
+      "id": "M18", "tag": "h1", "name": "contact_heading",
+      "attrs": {}, "text": "Contact",
+      "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "42px", "margin": "0 0 24px 0", "letter-spacing": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M19": {
+      "id": "M19", "tag": "input", "name": "note_input",
+      "attrs": { "type": "text", "placeholder": "Write a short note" },
+      "text": "", "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "color": "#fff", "border": "1px solid #333", "padding": "13px 14px", "border-radius": "3px", "font-size": "14px", "margin-bottom": "12px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "TRIM", "arg": "" }
+    },
+    "M20": {
+      "id": "M20", "tag": "button", "name": "submit_note_button",
+      "attrs": {}, "text": "Save Note",
+      "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#f5f5f5", "color": "#050505", "border": "none", "padding": "12px 22px", "border-radius": "3px", "cursor": "pointer", "font-size": "13px", "font-weight": "700", "margin-bottom": "20px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "M19", "eventName": "SubmitNote" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M21": {
+      "id": "M21", "tag": "p", "name": "note_status",
+      "attrs": {}, "text": "No note saved yet.",
+      "children": [], "parentId": "M17",
+      "wires": [
+        { "eventName": "SubmitNote", "targetId": "", "action": "setText", "actionArgs": "Saved note: {{THIS.VALUE}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#c4c4c4", "margin": "0 0 18px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M22": {
+      "id": "M22", "tag": "div", "name": "note_response",
+      "attrs": {}, "text": "Pipe response appears here after Save Note.",
+      "children": [], "parentId": "M17",
+      "wires": [
+        { "eventName": "SubmitNote", "targetId": "", "action": "pipeIn", "actionArgs": "addNote" }
+      ],
+      "pipeBindings": [
+        { "pipeName": "addNote", "target": "textContent" }
+      ],
+      "viewBinding": null,
+      "css": { "background": "#0d0d0d", "border": "1px solid #242424", "border-radius": "4px", "padding": "16px", "font-size": "12px", "color": "#a3a3a3", "white-space": "pre-wrap", "line-height": "1.55" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M23": {
+      "id": "M23", "tag": "footer", "name": "footer",
+      "attrs": {}, "text": "{{siteName}} - configured with JSON, events, pipes, loops, views, and vars.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border-top": "1px solid #1d1d1d", "padding": "28px 42px", "font-size": "12px", "color": "#737373", "text-align": "center" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "GoWelcome": { "name": "GoWelcome", "payload": "{}" },
+    "GoCatalog": { "name": "GoCatalog", "payload": "{}" },
+    "GoContact": { "name": "GoContact", "payload": "{}" },
+    "LoadItems": { "name": "LoadItems", "payload": "{}" },
+    "SubmitNote": { "name": "SubmitNote", "payload": "{value}" }
+  },
+  "pipes": {
+    "fetchItems": {
+      "name": "fetchItems",
+      "method": "GET",
+      "endpoint": "/api/items",
+      "collection": "items",
+      "direction": "out",
+      "delay": 150,
+      "schema": []
+    },
+    "addNote": {
+      "name": "addNote",
+      "method": "POST",
+      "endpoint": "/api/notes",
+      "collection": "notes",
+      "direction": "in",
+      "delay": 150,
+      "schema": [
+        { "key": "value", "type": "text" }
+      ]
+    }
+  },
+  "views": {
+    "welcome": { "name": "welcome", "description": "Landing view" },
+    "catalog": { "name": "catalog", "description": "Seeded DB catalog" },
+    "contact": { "name": "contact", "description": "No-code note capture" }
+  },
+  "loops": {
+    "itemLoop": {
+      "name": "itemLoop",
+      "pipeName": "fetchItems",
+      "targetId": "M16",
+      "template": "<div style=\"display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #202020\"><span style=\"font-size:11px;color:#737373;width:28px;font-family:monospace\">{{_index}}</span><span style=\"flex:1;color:#f5f5f5;font-size:15px\">{{name}}</span><span style=\"font-size:12px;color:#a3a3a3\">{{category|UPPER}}</span><span style=\"font-size:12px;color:#f5f5f5;font-weight:700;min-width:70px;text-align:right\">{{price|CURRENCY}}</span></div>",
+      "description": "Renders item seed data from the fetchItems GET pipe. Uses built-in filters only."
+    }
+  },
+  "vars": {
+    "siteName": "North Star Goods",
+    "tagline": "No-code JSON example"
+  },
+  "logic": {
+    "M1": { "blocks": [] }, "M2": { "blocks": [] }, "M3": { "blocks": [] },
+    "M4": { "blocks": [] }, "M5": { "blocks": [] }, "M6": { "blocks": [] },
+    "M7": { "blocks": [] }, "M8": { "blocks": [] }, "M9": { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }
+  },
+  "dbCollections": [
+    {
+      "name": "items",
+      "isArray": true,
+      "seed": [
+        { "name": "Canvas Field Tote", "category": "bags", "price": "48" },
+        { "name": "Desk Rail Lamp", "category": "lighting", "price": "96" },
+        { "name": "Pocket Planning Cards", "category": "stationery", "price": "18" },
+        { "name": "Matte Steel Bottle", "category": "travel", "price": "32" }
+      ]
+    },
+    {
+      "name": "notes",
+      "isArray": true,
+      "seed": []
+    }
+  ],
+  "_nextId": 24
+}

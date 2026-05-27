@@ -1,0 +1,194 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "06 — Guest Book (Pipe + DB)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M3","M4","M13","M17"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "640px" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Guest Book", "children": [],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "desc",
+      "attrs": {},
+      "text": "Fill in the form and click Sign. The Pipe system writes your entry to the in-memory DB. Open the DB panel (left) to see entries appear in real time. Click Load Entries to see them in the log.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "14px", "margin-bottom": "32px", "line-height": "1.7" }
+    },
+    "M4": {
+      "id": "M4", "tag": "div", "name": "form_section",
+      "attrs": {}, "text": "", "children": ["M5","M6","M7","M8","M9","M10","M11","M12"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "28px", "border-radius": "4px", "margin-bottom": "24px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "label", "name": "name_label",
+      "attrs": {}, "text": "Your Name", "children": [],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "input", "name": "name_input",
+      "attrs": { "type": "text", "placeholder": "Enter your name...", "id": "gb-name" },
+      "text": "", "children": [], "parentId": "M4",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "18px", "border-radius": "3px", "display": "block" }
+    },
+    "M7": {
+      "id": "M7", "tag": "label", "name": "message_label",
+      "attrs": {}, "text": "Message", "children": [],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M8": {
+      "id": "M8", "tag": "textarea", "name": "message_input",
+      "attrs": { "placeholder": "Leave a message...", "id": "gb-msg", "rows": "3" },
+      "text": "", "children": [], "parentId": "M4",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "18px", "border-radius": "3px", "display": "block", "resize": "vertical" }
+    },
+    "M9": {
+      "id": "M9", "tag": "label", "name": "location_label",
+      "attrs": {}, "text": "Location", "children": [],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M10": {
+      "id": "M10", "tag": "input", "name": "location_input",
+      "attrs": { "type": "text", "placeholder": "City, Country", "id": "gb-location" },
+      "text": "", "children": [], "parentId": "M4",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "24px", "border-radius": "3px", "display": "block" }
+    },
+    "M11": {
+      "id": "M11", "tag": "button", "name": "submit_btn",
+      "attrs": {
+        "onclick": "PipeSystem.execute('guestPost',{name:document.getElementById('gb-name').value||'Anonymous',message:document.getElementById('gb-msg').value||'',location:document.getElementById('gb-location').value||'',timestamp:new Date().toLocaleString()});EventBus.emit('guestPosted',{})"
+      },
+      "text": "✦ Sign Guest Book",
+      "children": [], "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "12px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px", "margin-right": "12px" }
+    },
+    "M12": {
+      "id": "M12", "tag": "button", "name": "load_btn",
+      "attrs": {
+        "onclick": "PipeSystem.fetch('readGuests')"
+      },
+      "text": "Load Entries → Log",
+      "children": [], "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "12px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "div", "name": "confirmation_banner",
+      "attrs": {}, "text": "", "children": ["M14","M15","M16"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "guestPosted",       "action": "show",   "actionArgs": "" },
+        { "eventName": "guestPosted",       "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "guestPosted_reset", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "24px 28px", "border-radius": "4px", "display": "none", "opacity": "0" }
+    },
+    "M14": {
+      "id": "M14", "tag": "p", "name": "confirm_text",
+      "attrs": {}, "text": "✦  Entry signed! Your message was written to the guestbook collection via the guestPost pipe. Open the DB panel to see your entry.",
+      "children": [], "parentId": "M13", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "15px", "margin-bottom": "16px", "line-height": "1.7", "color": "#fff" }
+    },
+    "M15": {
+      "id": "M15", "tag": "p", "name": "pipe_info",
+      "attrs": {}, "text": "Pipe: guestPost (IN) → collection: guestbook → schema: name, message, location, timestamp",
+      "children": [], "parentId": "M13", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "12px", "color": "#888", "margin-bottom": "12px", "font-family": "monospace" }
+    },
+    "M16": {
+      "id": "M16", "tag": "button", "name": "sign_again_btn",
+      "attrs": { "onclick": "EventBus.emit('guestPosted_reset',{})" },
+      "text": "Sign Again",
+      "children": [], "parentId": "M13",
+      "wires": [
+        { "eventName": "guestPosted_reset", "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "8px 18px", "font-size": "12px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M17": {
+      "id": "M17", "tag": "div", "name": "entries_section",
+      "attrs": {}, "text": "", "children": ["M18","M19"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #444", "border-radius": "4px", "overflow": "hidden" }
+    },
+    "M18": {
+      "id": "M18", "tag": "div", "name": "entries_title",
+      "attrs": {}, "text": "Guest Book Entries", "children": [],
+      "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "padding": "10px 20px", "font-size": "11px", "letter-spacing": "2px", "text-transform": "uppercase", "color": "#888", "border-bottom": "1px solid #333" }
+    },
+    "M19": {
+      "id": "M19", "tag": "div", "name": "entries_list",
+      "attrs": {}, "text": "", "children": [],
+      "parentId": "M17",
+      "wires": [
+        { "eventName": "guestPosted", "action": "loopRender", "actionArgs": "readGuests" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "60px" }
+    }
+  },
+  "events": {
+    "guestPosted":       { "name": "guestPosted",       "payload": "{}" },
+    "guestPosted_reset": { "name": "guestPosted_reset", "payload": "{}" }
+  },
+  "pipes": {
+    "guestPost": {
+      "name": "guestPost",
+      "direction": "in",
+      "collection": "guestbook",
+      "schema": [
+        { "key": "name",      "type": "text" },
+        { "key": "message",   "type": "text" },
+        { "key": "location",  "type": "text" },
+        { "key": "timestamp", "type": "text" }
+      ],
+      "description": "Write a guest book entry to the DB"
+    },
+    "readGuests": {
+      "name": "readGuests",
+      "direction": "out",
+      "collection": "guestbook",
+      "schema": [],
+      "description": "Read all guest book entries from the DB"
+    }
+  },
+  "views": {},
+  "loops": {
+    "readGuests": {
+      "name": "readGuests",
+      "pipeName": "readGuests",
+      "targetId": "M19",
+      "template": "<div style=\"padding:16px;border-bottom:1px solid #222\"><b style=\"color:#fff\">{{name}}</b> <span style=\"color:#888;font-size:12px\">— {{location}}</span><p style=\"color:#ccc;margin:8px 0 4px;font-size:14px\">{{message}}</p><span style=\"color:#555;font-size:11px\">{{timestamp}}</span></div>",
+      "description": "Render guest book entries"
+    }
+  },
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }
+  },
+  "dbCollections": [
+    { "name": "guestbook", "isArray": true }
+  ],
+  "_nextId": 20
+}

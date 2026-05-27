@@ -1,0 +1,139 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "18 — Visibility Actions (show · hide · toggle · fadeIn · fadeOut)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2", "M5", "M11"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "600px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "div", "name": "header",
+      "attrs": {}, "text": "", "children": ["M3", "M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border-bottom": "1px solid #333", "padding-bottom": "20px", "margin-bottom": "32px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "✦ Visibility Actions",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "28px", "letter-spacing": "3px", "margin": "0 0 10px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "p", "name": "description",
+      "attrs": {}, "text": "Five wire actions — no code. Each button emits an event. The panel below reacts with a different visibility behaviour.",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "13px", "margin": "0", "line-height": "1.7" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "button_row",
+      "attrs": {}, "text": "", "children": ["M6", "M7", "M8", "M9", "M10"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "8px", "flex-wrap": "wrap", "margin-bottom": "32px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "btn_show",
+      "attrs": {}, "text": "Show",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "Show",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "btn_hide",
+      "attrs": {}, "text": "Hide",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#fff", "border": "1px solid #555", "padding": "10px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "Hide",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": {
+      "id": "M8", "tag": "button", "name": "btn_toggle",
+      "attrs": {}, "text": "Toggle",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#fff", "border": "1px solid #555", "padding": "10px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "Toggle",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M9": {
+      "id": "M9", "tag": "button", "name": "btn_fadein",
+      "attrs": {}, "text": "Fade In",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#aaa", "border": "1px solid #444", "padding": "10px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "FadeIn",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M10": {
+      "id": "M10", "tag": "button", "name": "btn_fadeout",
+      "attrs": {}, "text": "Fade Out",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#aaa", "border": "1px solid #444", "padding": "10px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "FadeOut",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M11": {
+      "id": "M11", "tag": "div", "name": "panel",
+      "attrs": {}, "text": "", "children": ["M12"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "Show",    "targetId": "", "action": "show",    "actionArgs": "" },
+        { "eventName": "Hide",    "targetId": "", "action": "hide",    "actionArgs": "" },
+        { "eventName": "Toggle",  "targetId": "", "action": "toggle",  "actionArgs": "" },
+        { "eventName": "FadeIn",  "targetId": "", "action": "fadeIn",  "actionArgs": "" },
+        { "eventName": "FadeOut", "targetId": "", "action": "fadeOut", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "32px", "border-radius": "4px", "background": "#111", "transition": "opacity 0.4s" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M12": {
+      "id": "M12", "tag": "p", "name": "panel_text",
+      "attrs": {}, "text": "This panel responds to visibility events. Use the buttons above to show, hide, toggle, fade in, and fade out — all configured as wires, no code required.",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "15px", "color": "#ccc", "margin": "0", "line-height": "1.7" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "Show":    { "name": "Show",    "payload": "{}" },
+    "Hide":    { "name": "Hide",    "payload": "{}" },
+    "Toggle":  { "name": "Toggle",  "payload": "{}" },
+    "FadeIn":  { "name": "FadeIn",  "payload": "{}" },
+    "FadeOut": { "name": "FadeOut", "payload": "{}" }
+  },
+  "pipes": {}, "views": {}, "loops": {}, "vars": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 13
+}

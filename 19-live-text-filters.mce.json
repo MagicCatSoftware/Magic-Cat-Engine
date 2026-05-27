@@ -1,0 +1,273 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "19 — Live Text Filters (FilterSystem · inputTransform)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2", "M3", "M4", "M5"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "680px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "✦ Live Text Filters",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "28px", "letter-spacing": "3px", "margin": "0 0 12px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "description",
+      "attrs": {}, "text": "Type in the field below. Each output row applies a different FilterSystem transform via inputTransform — no code, just wire configuration.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "13px", "margin": "0 0 32px 0", "line-height": "1.7" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "input", "name": "source_input",
+      "attrs": { "type": "text", "placeholder": "Type anything here…" },
+      "text": "", "children": [], "parentId": "M1",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "12px 16px", "font-size": "16px", "border-radius": "3px", "margin-bottom": "24px", "display": "block", "box-sizing": "border-box" },
+      "dbSource": null, "emitOnInput": "Typed", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "filter_results",
+      "attrs": {}, "text": "", "children": ["M6", "M9", "M12", "M15", "M18", "M21", "M24"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #222", "border-radius": "4px", "overflow": "hidden" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "div", "name": "row_upper",
+      "attrs": {}, "text": "", "children": ["M7", "M8"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "padding": "12px 20px", "border-bottom": "1px solid #111", "gap": "16px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "span", "name": "label_upper",
+      "attrs": {}, "text": "UPPER",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "font-family": "monospace", "min-width": "80px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": {
+      "id": "M8", "tag": "span", "name": "out_upper",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M6",
+      "wires": [{ "eventName": "Typed", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#fff", "font-family": "monospace", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "UPPER", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M9": {
+      "id": "M9", "tag": "div", "name": "row_lower",
+      "attrs": {}, "text": "", "children": ["M10", "M11"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "padding": "12px 20px", "border-bottom": "1px solid #111", "gap": "16px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M10": {
+      "id": "M10", "tag": "span", "name": "label_lower",
+      "attrs": {}, "text": "LOWER",
+      "children": [], "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "font-family": "monospace", "min-width": "80px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M11": {
+      "id": "M11", "tag": "span", "name": "out_lower",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M9",
+      "wires": [{ "eventName": "Typed", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#aaa", "font-family": "monospace", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "LOWER", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M12": {
+      "id": "M12", "tag": "div", "name": "row_title",
+      "attrs": {}, "text": "", "children": ["M13", "M14"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "padding": "12px 20px", "border-bottom": "1px solid #111", "gap": "16px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M13": {
+      "id": "M13", "tag": "span", "name": "label_title",
+      "attrs": {}, "text": "TITLE",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "font-family": "monospace", "min-width": "80px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M14": {
+      "id": "M14", "tag": "span", "name": "out_title",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M12",
+      "wires": [{ "eventName": "Typed", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#ccc", "font-family": "monospace", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "TITLE", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M15": {
+      "id": "M15", "tag": "div", "name": "row_slug",
+      "attrs": {}, "text": "", "children": ["M16", "M17"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "padding": "12px 20px", "border-bottom": "1px solid #111", "gap": "16px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M16": {
+      "id": "M16", "tag": "span", "name": "label_slug",
+      "attrs": {}, "text": "SLUG",
+      "children": [], "parentId": "M15", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "font-family": "monospace", "min-width": "80px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M17": {
+      "id": "M17", "tag": "span", "name": "out_slug",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M15",
+      "wires": [{ "eventName": "Typed", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#8f8", "font-family": "monospace", "letter-spacing": "0px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "SLUG", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M18": {
+      "id": "M18", "tag": "div", "name": "row_initials",
+      "attrs": {}, "text": "", "children": ["M19", "M20"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "padding": "12px 20px", "border-bottom": "1px solid #111", "gap": "16px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M19": {
+      "id": "M19", "tag": "span", "name": "label_initials",
+      "attrs": {}, "text": "INITIALS",
+      "children": [], "parentId": "M18", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "font-family": "monospace", "min-width": "80px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M20": {
+      "id": "M20", "tag": "span", "name": "out_initials",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M18",
+      "wires": [{ "eventName": "Typed", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#fa0", "font-family": "monospace", "letter-spacing": "4px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "INITIALS", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M21": {
+      "id": "M21", "tag": "div", "name": "row_reverse",
+      "attrs": {}, "text": "", "children": ["M22", "M23"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "padding": "12px 20px", "border-bottom": "1px solid #111", "gap": "16px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M22": {
+      "id": "M22", "tag": "span", "name": "label_reverse",
+      "attrs": {}, "text": "REVERSE",
+      "children": [], "parentId": "M21", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "font-family": "monospace", "min-width": "80px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M23": {
+      "id": "M23", "tag": "span", "name": "out_reverse",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M21",
+      "wires": [{ "eventName": "Typed", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#a8f", "font-family": "monospace", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "REVERSE", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M24": {
+      "id": "M24", "tag": "div", "name": "row_truncate",
+      "attrs": {}, "text": "", "children": ["M25", "M26"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "center", "padding": "12px 20px", "gap": "16px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M25": {
+      "id": "M25", "tag": "span", "name": "label_truncate",
+      "attrs": {}, "text": "TRUNCATE:20",
+      "children": [], "parentId": "M24", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "font-family": "monospace", "min-width": "80px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M26": {
+      "id": "M26", "tag": "span", "name": "out_truncate",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M24",
+      "wires": [{ "eventName": "Typed", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#f88", "font-family": "monospace", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "TRUNCATE", "arg": "20" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "Typed": { "name": "Typed", "payload": "{value:''}" }
+  },
+  "pipes": {}, "views": {}, "loops": {}, "vars": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 27
+}

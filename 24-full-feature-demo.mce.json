@@ -1,0 +1,822 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "24 — Full Feature Demo (pipes · loops · vars · db · views · pipeBindings · dbPull)" },
+  "rootOrder": ["M1"],
+  "machines": {
+
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M14","M31","M45","M62"],
+      "parentId": null,
+      "wires": [
+        { "eventName": "GoHome",    "targetId": "", "action": "navigate", "actionArgs": "home"    },
+        { "eventName": "GoTasks",   "targetId": "", "action": "navigate", "actionArgs": "tasks"   },
+        { "eventName": "GoProfile", "targetId": "", "action": "navigate", "actionArgs": "profile" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "font-family": "system-ui, -apple-system, sans-serif", "color": "#fff", "margin": "0", "padding": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M2": {
+      "id": "M2", "tag": "header", "name": "header",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "justify-content": "space-between", "align-items": "center", "padding": "0 48px", "border-bottom": "1px solid #111", "background": "#000", "position": "sticky", "top": "0", "z-index": "100", "height": "64px", "box-sizing": "border-box" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M3": {
+      "id": "M3", "tag": "p", "name": "brand",
+      "attrs": {}, "text": "✦ TASKBOARD",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "12px", "letter-spacing": "4px", "font-weight": "bold", "color": "#fff" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M4": {
+      "id": "M4", "tag": "nav", "name": "nav_items",
+      "attrs": {}, "text": "", "children": ["M5","M8","M11"],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "align-items": "stretch", "height": "64px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M5": {
+      "id": "M5", "tag": "div", "name": "nav_item_home",
+      "attrs": {}, "text": "", "children": ["M6","M7"],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "flex-direction": "column", "position": "relative" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M6": {
+      "id": "M6", "tag": "button", "name": "btn_home",
+      "attrs": {}, "text": "Home",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#fff", "border": "none", "padding": "0 24px", "height": "64px", "font-size": "13px", "cursor": "pointer", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoHome",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M7": {
+      "id": "M7", "tag": "div", "name": "home_indicator",
+      "attrs": {}, "text": "", "children": [], "parentId": "M5",
+      "wires": [
+        { "eventName": "GoHome",    "targetId": "", "action": "show", "actionArgs": "" },
+        { "eventName": "GoTasks",   "targetId": "", "action": "hide", "actionArgs": "" },
+        { "eventName": "GoProfile", "targetId": "", "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "height": "2px", "background": "#fff", "width": "100%", "position": "absolute", "bottom": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M8": {
+      "id": "M8", "tag": "div", "name": "nav_item_tasks",
+      "attrs": {}, "text": "", "children": ["M9","M10"],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "flex-direction": "column", "position": "relative" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M9": {
+      "id": "M9", "tag": "button", "name": "btn_tasks",
+      "attrs": {}, "text": "Tasks",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#fff", "border": "none", "padding": "0 24px", "height": "64px", "font-size": "13px", "cursor": "pointer", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoTasks",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M10": {
+      "id": "M10", "tag": "div", "name": "tasks_indicator",
+      "attrs": {}, "text": "", "children": [], "parentId": "M8",
+      "wires": [
+        { "eventName": "GoHome",    "targetId": "", "action": "hide", "actionArgs": "" },
+        { "eventName": "GoTasks",   "targetId": "", "action": "show", "actionArgs": "" },
+        { "eventName": "GoProfile", "targetId": "", "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "height": "2px", "background": "#fff", "width": "100%", "position": "absolute", "bottom": "0", "display": "none" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M11": {
+      "id": "M11", "tag": "div", "name": "nav_item_profile",
+      "attrs": {}, "text": "", "children": ["M12","M13"],
+      "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "flex-direction": "column", "position": "relative" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M12": {
+      "id": "M12", "tag": "button", "name": "btn_profile",
+      "attrs": {}, "text": "Profile",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#fff", "border": "none", "padding": "0 24px", "height": "64px", "font-size": "13px", "cursor": "pointer", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoProfile",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M13": {
+      "id": "M13", "tag": "div", "name": "profile_indicator",
+      "attrs": {}, "text": "", "children": [], "parentId": "M11",
+      "wires": [
+        { "eventName": "GoHome",    "targetId": "", "action": "hide", "actionArgs": "" },
+        { "eventName": "GoTasks",   "targetId": "", "action": "hide", "actionArgs": "" },
+        { "eventName": "GoProfile", "targetId": "", "action": "show", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "height": "2px", "background": "#fff", "width": "100%", "position": "absolute", "bottom": "0", "display": "none" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M14": {
+      "id": "M14", "tag": "div", "name": "home_view",
+      "attrs": {}, "text": "", "children": ["M15","M16","M17","M18","M28"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "home",
+      "css": { "padding": "80px 48px", "max-width": "1000px", "margin": "0 auto", "box-sizing": "border-box" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M15": {
+      "id": "M15", "tag": "h1", "name": "welcome_heading",
+      "attrs": {}, "text": "{{username}}",
+      "children": [], "parentId": "M14",
+      "wires": [
+        { "eventName": "GoHome", "targetId": "", "action": "setText", "actionArgs": "{{username}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "64px", "letter-spacing": "-2px", "font-weight": "bold", "margin": "0 0 16px 0", "line-height": "1.0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M16": {
+      "id": "M16", "tag": "p", "name": "tagline",
+      "attrs": {}, "text": "{{tagline}}",
+      "children": [], "parentId": "M14",
+      "wires": [
+        { "eventName": "GoHome", "targetId": "", "action": "setText", "actionArgs": "{{tagline}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "18px", "color": "#555", "margin": "0 0 64px 0", "letter-spacing": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M17": {
+      "id": "M17", "tag": "p", "name": "home_desc",
+      "attrs": {}, "text": "This project uses pipes, loops, vars, DB collections, pipeBindings, and dbPull — with zero code blocks. Navigate to Tasks to load live data from the mock DB via a GET pipe and loop renderer. Navigate to Profile to pull fields directly from a DB collection and inspect active vars.",
+      "children": [], "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#444", "max-width": "560px", "line-height": "1.9", "margin": "0 0 64px 0", "border-left": "1px solid #1a1a1a", "padding-left": "20px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M18": {
+      "id": "M18", "tag": "div", "name": "stats_row",
+      "attrs": {}, "text": "", "children": ["M19","M22","M25"],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "1px", "margin-bottom": "48px", "border": "1px solid #111" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M19": {
+      "id": "M19", "tag": "div", "name": "stat_a",
+      "attrs": {}, "text": "", "children": ["M20","M21"],
+      "parentId": "M18", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1", "padding": "24px", "background": "#080808" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M20": {
+      "id": "M20", "tag": "p", "name": "stat_a_num",
+      "attrs": {}, "text": "4",
+      "children": [], "parentId": "M19", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "40px", "font-weight": "bold", "margin": "0 0 8px 0", "letter-spacing": "-1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M21": {
+      "id": "M21", "tag": "p", "name": "stat_a_label",
+      "attrs": {}, "text": "Tasks seeded",
+      "children": [], "parentId": "M19", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#444", "margin": "0", "letter-spacing": "2px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M22": {
+      "id": "M22", "tag": "div", "name": "stat_b",
+      "attrs": {}, "text": "", "children": ["M23","M24"],
+      "parentId": "M18", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1", "padding": "24px", "background": "#080808", "border-left": "1px solid #111" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M23": {
+      "id": "M23", "tag": "p", "name": "stat_b_num",
+      "attrs": {}, "text": "3",
+      "children": [], "parentId": "M22", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "40px", "font-weight": "bold", "margin": "0 0 8px 0", "letter-spacing": "-1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M24": {
+      "id": "M24", "tag": "p", "name": "stat_b_label",
+      "attrs": {}, "text": "Pipes registered",
+      "children": [], "parentId": "M22", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#444", "margin": "0", "letter-spacing": "2px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M25": {
+      "id": "M25", "tag": "div", "name": "stat_c",
+      "attrs": {}, "text": "", "children": ["M26","M27"],
+      "parentId": "M18", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1", "padding": "24px", "background": "#080808", "border-left": "1px solid #111" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M26": {
+      "id": "M26", "tag": "p", "name": "stat_c_num",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M25",
+      "wires": [
+        { "eventName": "GoHome", "targetId": "", "action": "dbPull", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "40px", "font-weight": "bold", "margin": "0 0 8px 0", "letter-spacing": "-1px" },
+      "dbSource": { "collection": "config", "field": "version" },
+      "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M27": {
+      "id": "M27", "tag": "p", "name": "stat_c_label",
+      "attrs": {}, "text": "App version (DB)",
+      "children": [], "parentId": "M25", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#444", "margin": "0", "letter-spacing": "2px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M28": {
+      "id": "M28", "tag": "div", "name": "home_cta_row",
+      "attrs": {}, "text": "", "children": ["M29","M30"],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "12px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M29": {
+      "id": "M29", "tag": "button", "name": "go_tasks_btn",
+      "attrs": {}, "text": "Open Tasks →",
+      "children": [], "parentId": "M28", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "14px 32px", "font-size": "13px", "cursor": "pointer", "border-radius": "2px", "font-weight": "bold", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoTasks",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M30": {
+      "id": "M30", "tag": "button", "name": "go_profile_btn",
+      "attrs": {}, "text": "View Profile",
+      "children": [], "parentId": "M28", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#555", "border": "1px solid #222", "padding": "14px 32px", "font-size": "13px", "cursor": "pointer", "border-radius": "2px", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoProfile",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M31": {
+      "id": "M31", "tag": "div", "name": "tasks_view",
+      "attrs": {}, "text": "", "children": ["M32","M33","M36","M41","M42"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "tasks",
+      "css": { "padding": "64px 48px", "max-width": "1000px", "margin": "0 auto", "box-sizing": "border-box" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M32": {
+      "id": "M32", "tag": "h1", "name": "tasks_heading",
+      "attrs": {}, "text": "Tasks",
+      "children": [], "parentId": "M31", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "48px", "letter-spacing": "-1px", "font-weight": "bold", "margin": "0 0 40px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M33": {
+      "id": "M33", "tag": "div", "name": "tasks_toolbar",
+      "attrs": {}, "text": "", "children": ["M34","M35"],
+      "parentId": "M31", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "10px", "margin-bottom": "32px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M34": {
+      "id": "M34", "tag": "button", "name": "add_task_btn",
+      "attrs": {}, "text": "+ Add Task",
+      "children": [], "parentId": "M33", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 24px", "font-size": "12px", "cursor": "pointer", "border-radius": "2px", "font-weight": "bold", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "ShowAddForm",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M35": {
+      "id": "M35", "tag": "button", "name": "load_tasks_btn",
+      "attrs": {}, "text": "↻ Reload from DB",
+      "children": [], "parentId": "M33", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#555", "border": "1px solid #222", "padding": "10px 24px", "font-size": "12px", "cursor": "pointer", "border-radius": "2px", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "LoadTasks",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M36": {
+      "id": "M36", "tag": "div", "name": "add_form",
+      "attrs": {}, "text": "", "children": ["M37","M38","M39","M40"],
+      "parentId": "M31",
+      "wires": [
+        { "eventName": "ShowAddForm", "targetId": "", "action": "show",  "actionArgs": "" },
+        { "eventName": "HideAddForm", "targetId": "", "action": "hide",  "actionArgs": "" },
+        { "eventName": "SubmitTask",  "targetId": "", "action": "hide",  "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "none", "background": "#080808", "border": "1px solid #1a1a1a", "padding": "24px", "border-radius": "2px", "margin-bottom": "32px", "max-width": "480px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M37": {
+      "id": "M37", "tag": "p", "name": "form_label",
+      "attrs": {}, "text": "TASK TITLE",
+      "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "letter-spacing": "2px", "color": "#444", "margin": "0 0 10px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M38": {
+      "id": "M38", "tag": "textarea", "name": "task_textarea",
+      "attrs": { "placeholder": "Describe the task…" }, "text": "",
+      "children": [], "parentId": "M36",
+      "wires": [
+        { "eventName": "SubmitTask", "targetId": "", "action": "setValue", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "height": "80px", "background": "#000", "border": "1px solid #222", "color": "#fff", "padding": "10px 12px", "font-size": "13px", "border-radius": "2px", "display": "block", "box-sizing": "border-box", "resize": "none", "margin-bottom": "16px", "line-height": "1.5" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M39": {
+      "id": "M39", "tag": "button", "name": "submit_btn",
+      "attrs": {}, "text": "Submit Task",
+      "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 24px", "font-size": "12px", "cursor": "pointer", "border-radius": "2px", "font-weight": "bold", "letter-spacing": "1px", "margin-right": "8px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "M38", "eventName": "SubmitTask" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M40": {
+      "id": "M40", "tag": "button", "name": "cancel_btn",
+      "attrs": {}, "text": "Cancel",
+      "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#444", "border": "1px solid #222", "padding": "10px 20px", "font-size": "12px", "cursor": "pointer", "border-radius": "2px", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "HideAddForm",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M41": {
+      "id": "M41", "tag": "div", "name": "task_list",
+      "attrs": {}, "text": "",
+      "children": [],
+      "parentId": "M31",
+      "wires": [
+        { "eventName": "GoTasks",   "targetId": "", "action": "loopRender", "actionArgs": "taskLoop" },
+        { "eventName": "LoadTasks", "targetId": "", "action": "loopRender", "actionArgs": "taskLoop" },
+        { "eventName": "SubmitTask","targetId": "", "action": "emit",       "actionArgs": "LoadTasks" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #111", "border-radius": "2px", "min-height": "48px", "margin-bottom": "24px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M42": {
+      "id": "M42", "tag": "div", "name": "last_insert_bar",
+      "attrs": {}, "text": "", "children": ["M43","M44"],
+      "parentId": "M31", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #0d0d0d", "padding": "16px", "border-radius": "2px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M43": {
+      "id": "M43", "tag": "p", "name": "last_insert_label",
+      "attrs": {}, "text": "LAST INSERT — pipeBinding: addTask → textContent",
+      "children": [], "parentId": "M42", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "letter-spacing": "2px", "color": "#333", "margin": "0 0 8px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M44": {
+      "id": "M44", "tag": "p", "name": "last_insert_display",
+      "attrs": {}, "text": "Submit a task to see the inserted DB record appear here.",
+      "children": [], "parentId": "M42",
+      "wires": [
+        { "eventName": "SubmitTask", "targetId": "", "action": "pipeIn", "actionArgs": "addTask" }
+      ],
+      "pipeBindings": [
+        { "pipeName": "addTask", "target": "textContent" }
+      ],
+      "viewBinding": null,
+      "css": { "font-size": "12px", "color": "#444", "margin": "0", "font-family": "monospace", "line-height": "1.6", "white-space": "pre-wrap" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M45": {
+      "id": "M45", "tag": "div", "name": "profile_view",
+      "attrs": {}, "text": "", "children": ["M46","M47","M53","M58"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "profile",
+      "css": { "padding": "64px 48px", "max-width": "1000px", "margin": "0 auto", "box-sizing": "border-box" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M46": {
+      "id": "M46", "tag": "h1", "name": "profile_heading",
+      "attrs": {}, "text": "Profile",
+      "children": [], "parentId": "M45", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "48px", "letter-spacing": "-1px", "font-weight": "bold", "margin": "0 0 48px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M47": {
+      "id": "M47", "tag": "div", "name": "db_card",
+      "attrs": {}, "text": "", "children": ["M48","M49","M50","M51","M52"],
+      "parentId": "M45", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #111", "padding": "28px", "border-radius": "2px", "margin-bottom": "20px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M48": {
+      "id": "M48", "tag": "p", "name": "db_card_heading",
+      "attrs": {}, "text": "FROM DATABASE — dbPull reads config collection on GoProfile",
+      "children": [], "parentId": "M47", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "letter-spacing": "2px", "color": "#333", "margin": "0 0 20px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M49": {
+      "id": "M49", "tag": "p", "name": "owner_label",
+      "attrs": {}, "text": "OWNER",
+      "children": [], "parentId": "M47", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#333", "letter-spacing": "2px", "margin": "0 0 4px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M50": {
+      "id": "M50", "tag": "p", "name": "owner_val",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M47",
+      "wires": [
+        { "eventName": "GoProfile", "targetId": "", "action": "dbPull", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin": "0 0 20px 0", "letter-spacing": "-0.3px" },
+      "dbSource": { "collection": "config", "field": "owner" },
+      "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M51": {
+      "id": "M51", "tag": "p", "name": "build_label",
+      "attrs": {}, "text": "BUILD",
+      "children": [], "parentId": "M47", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#333", "letter-spacing": "2px", "margin": "0 0 4px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M52": {
+      "id": "M52", "tag": "p", "name": "build_val",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M47",
+      "wires": [
+        { "eventName": "GoProfile", "targetId": "", "action": "dbPull", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin": "0", "letter-spacing": "-0.3px" },
+      "dbSource": { "collection": "config", "field": "build" },
+      "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M53": {
+      "id": "M53", "tag": "div", "name": "vars_card",
+      "attrs": {}, "text": "", "children": ["M54","M55","M56","M57"],
+      "parentId": "M45", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #111", "padding": "28px", "border-radius": "2px", "margin-bottom": "20px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M54": {
+      "id": "M54", "tag": "p", "name": "vars_card_heading",
+      "attrs": {}, "text": "FROM VARS — setText uses {{varName}} substitution at runtime",
+      "children": [], "parentId": "M53", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "letter-spacing": "2px", "color": "#333", "margin": "0 0 20px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M55": {
+      "id": "M55", "tag": "p", "name": "var_username",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M53",
+      "wires": [
+        { "eventName": "GoProfile", "targetId": "", "action": "setText", "actionArgs": "username → {{username}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#888", "margin": "0 0 10px 0", "font-family": "monospace" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M56": {
+      "id": "M56", "tag": "p", "name": "var_tagline",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M53",
+      "wires": [
+        { "eventName": "GoProfile", "targetId": "", "action": "setText", "actionArgs": "tagline → {{tagline}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#888", "margin": "0 0 10px 0", "font-family": "monospace" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M57": {
+      "id": "M57", "tag": "p", "name": "var_version",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M53",
+      "wires": [
+        { "eventName": "GoProfile", "targetId": "", "action": "setText", "actionArgs": "version → {{version}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "14px", "color": "#888", "margin": "0", "font-family": "monospace" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M58": {
+      "id": "M58", "tag": "div", "name": "pipe_card",
+      "attrs": {}, "text": "", "children": ["M59","M60","M61"],
+      "parentId": "M45", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #111", "padding": "28px", "border-radius": "2px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M59": {
+      "id": "M59", "tag": "p", "name": "pipe_card_heading",
+      "attrs": {}, "text": "LIVE CONFIG FEED — pipeBinding: fetchConfig → textContent",
+      "children": [], "parentId": "M58", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "letter-spacing": "2px", "color": "#333", "margin": "0 0 16px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M60": {
+      "id": "M60", "tag": "button", "name": "refresh_config_btn",
+      "attrs": {}, "text": "↻ Fetch Config",
+      "children": [], "parentId": "M58", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#555", "border": "1px solid #222", "padding": "8px 20px", "font-size": "12px", "cursor": "pointer", "border-radius": "2px", "letter-spacing": "1px", "margin-bottom": "16px", "display": "block" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "RefreshConfig",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M61": {
+      "id": "M61", "tag": "div", "name": "config_feed_display",
+      "attrs": {}, "text": "Press Fetch Config to load the raw DB response via GET pipe.",
+      "children": [], "parentId": "M58",
+      "wires": [
+        { "eventName": "RefreshConfig", "targetId": "", "action": "pipeOut", "actionArgs": "fetchConfig" }
+      ],
+      "pipeBindings": [
+        { "pipeName": "fetchConfig", "target": "textContent" }
+      ],
+      "viewBinding": null,
+      "css": { "font-size": "12px", "color": "#444", "font-family": "monospace", "line-height": "1.7", "white-space": "pre-wrap", "background": "#040404", "padding": "16px", "border-radius": "2px", "border": "1px solid #0d0d0d" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+
+    "M62": {
+      "id": "M62", "tag": "footer", "name": "footer",
+      "attrs": {}, "text": "✦ TaskBoard v{{version}} — pipes · loops · vars · db · views",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border-top": "1px solid #0d0d0d", "padding": "24px 48px", "font-size": "11px", "color": "#222", "letter-spacing": "2px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+
+  },
+
+  "events": {
+    "GoHome":      { "name": "GoHome",      "payload": "{}" },
+    "GoTasks":     { "name": "GoTasks",     "payload": "{}" },
+    "GoProfile":   { "name": "GoProfile",   "payload": "{}" },
+    "LoadTasks":   { "name": "LoadTasks",   "payload": "{}" },
+    "ShowAddForm": { "name": "ShowAddForm", "payload": "{}" },
+    "HideAddForm": { "name": "HideAddForm", "payload": "{}" },
+    "SubmitTask":  { "name": "SubmitTask",  "payload": "{value}" },
+    "RefreshConfig": { "name": "RefreshConfig", "payload": "{}" }
+  },
+
+  "pipes": {
+    "fetchTasks": {
+      "name": "fetchTasks",
+      "method": "GET",
+      "endpoint": "/api/tasks",
+      "collection": "tasks",
+      "direction": "out",
+      "delay": 200
+    },
+    "addTask": {
+      "name": "addTask",
+      "method": "POST",
+      "endpoint": "/api/tasks",
+      "collection": "tasks",
+      "direction": "in",
+      "delay": 150
+    },
+    "fetchConfig": {
+      "name": "fetchConfig",
+      "method": "GET",
+      "endpoint": "/api/config",
+      "collection": "config",
+      "direction": "out",
+      "delay": 100
+    }
+  },
+
+  "views": {
+    "home":    { "name": "home"    },
+    "tasks":   { "name": "tasks"   },
+    "profile": { "name": "profile" }
+  },
+
+  "loops": {
+    "taskLoop": {
+      "name": "taskLoop",
+      "pipeName": "fetchTasks",
+      "targetId": "M41",
+      "template": "<div style=\"display:flex;align-items:center;gap:16px;padding:14px 16px;border-bottom:1px solid #0d0d0d\"><span style=\"font-size:10px;color:#2a2a2a;min-width:20px;font-family:monospace\">{{_index}}</span><span style=\"font-size:14px;flex:1;color:#fff\">{{title}}{{value}}</span><span style=\"font-size:10px;letter-spacing:2px;color:#444\">{{status|UPPER}}</span><span style=\"font-size:10px;color:#2a2a2a;letter-spacing:1px;min-width:48px;text-align:right\">{{priority}}</span></div>",
+      "description": "Renders each task doc from fetchTasks GET pipe into M41. Uses {{title}}{{value}} (seeded tasks use title; user-added tasks use value), {{status|UPPER}} applies UPPER filter inline, {{_index}} shows row number."
+    }
+  },
+
+  "vars": {
+    "username": "Alex Chen",
+    "tagline":  "Build without code.",
+    "version":  "2.0",
+    "theme":    "dark"
+  },
+
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] },
+    "M28": { "blocks": [] }, "M29": { "blocks": [] }, "M30": { "blocks": [] },
+    "M31": { "blocks": [] }, "M32": { "blocks": [] }, "M33": { "blocks": [] },
+    "M34": { "blocks": [] }, "M35": { "blocks": [] }, "M36": { "blocks": [] },
+    "M37": { "blocks": [] }, "M38": { "blocks": [] }, "M39": { "blocks": [] },
+    "M40": { "blocks": [] }, "M41": { "blocks": [] }, "M42": { "blocks": [] },
+    "M43": { "blocks": [] }, "M44": { "blocks": [] }, "M45": { "blocks": [] },
+    "M46": { "blocks": [] }, "M47": { "blocks": [] }, "M48": { "blocks": [] },
+    "M49": { "blocks": [] }, "M50": { "blocks": [] }, "M51": { "blocks": [] },
+    "M52": { "blocks": [] }, "M53": { "blocks": [] }, "M54": { "blocks": [] },
+    "M55": { "blocks": [] }, "M56": { "blocks": [] }, "M57": { "blocks": [] },
+    "M58": { "blocks": [] }, "M59": { "blocks": [] }, "M60": { "blocks": [] },
+    "M61": { "blocks": [] }, "M62": { "blocks": [] }
+  },
+
+  "dbCollections": [
+    {
+      "name": "tasks",
+      "isArray": true,
+      "seed": [
+        { "title": "Design homepage layout",  "status": "done",        "priority": "high"   },
+        { "title": "Build API layer",          "status": "in-progress", "priority": "high"   },
+        { "title": "Write user docs",          "status": "todo",        "priority": "medium" },
+        { "title": "QA pass and sign-off",     "status": "todo",        "priority": "low"    }
+      ]
+    },
+    {
+      "name": "config",
+      "isArray": false,
+      "seed": [
+        { "app_name": "TaskBoard", "owner": "Alex Chen", "version": "2.0", "build": "2026-05" }
+      ]
+    }
+  ],
+
+  "_nextId": 63
+}

@@ -1,0 +1,214 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "29 - Codeless DB Loop Catalog" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M8","M14"],
+      "parentId": null,
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": { "background": "#050505", "min-height": "100vh", "color": "#fff", "font-family": "system-ui, -apple-system, sans-serif" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "header", "name": "top_bar",
+      "attrs": {}, "text": "", "children": ["M3","M4","M5","M6","M7"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "height": "62px", "display": "flex", "align-items": "center", "gap": "10px", "padding": "0 28px", "border-bottom": "1px solid #2a2a2a", "background": "#0b0b0b" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "brand",
+      "attrs": {}, "text": "DB Loop Catalog",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "letter-spacing": "2px", "text-transform": "uppercase", "font-weight": "700", "margin": "0 auto 0 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "button", "name": "load_button",
+      "attrs": {}, "text": "Load Catalog",
+      "children": [], "parentId": "M2",
+      "wires": [
+        { "eventName": "LoadCatalog", "targetId": "M12", "action": "loopRender", "actionArgs": "catalogLoop" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "0", "border-radius": "3px", "padding": "10px 14px", "font-size": "12px", "font-weight": "700", "cursor": "pointer" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "LoadCatalog",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "input", "name": "new_product",
+      "attrs": { "id": "new-product", "placeholder": "New product name" },
+      "text": "", "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#fff", "border": "1px solid #444", "border-radius": "3px", "padding": "10px", "font-size": "12px", "min-width": "190px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "add_button",
+      "attrs": {}, "text": "Add",
+      "children": [], "parentId": "M2",
+      "wires": [
+        { "eventName": "AddProduct", "targetId": "M13", "action": "pipeIn", "actionArgs": "addProduct" },
+        { "eventName": "AddProduct", "targetId": "M12", "action": "loopRender", "actionArgs": "catalogLoop" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#fff", "border": "1px solid #555", "border-radius": "3px", "padding": "10px 14px", "font-size": "12px", "cursor": "pointer" },
+      "dbSource": null, "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": { "fromId": "M5", "eventName": "AddProduct" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "export_json",
+      "attrs": {}, "text": "Fetch Raw",
+      "children": [], "parentId": "M2",
+      "wires": [
+        { "eventName": "FetchRaw", "targetId": "M13", "action": "pipeOut", "actionArgs": "fetchProducts" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#fff", "border": "1px solid #555", "border-radius": "3px", "padding": "10px 14px", "font-size": "12px", "cursor": "pointer" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "FetchRaw",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": {
+      "id": "M8", "tag": "main", "name": "content",
+      "attrs": {}, "text": "", "children": ["M9","M10","M11","M12","M13"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "max-width": "980px", "margin": "0 auto", "padding": "48px 28px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M9": {
+      "id": "M9", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Catalog from Seeded DB",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "46px", "line-height": "1", "margin": "0 0 14px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M10": {
+      "id": "M10", "tag": "p", "name": "intro",
+      "attrs": {}, "text": "GET and POST pipes talk to the in-memory DB. A loop renders each product record. No script machines and no custom handlers.",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "15px", "color": "#aaa", "line-height": "1.7", "max-width": "660px", "margin": "0 0 28px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M11": {
+      "id": "M11", "tag": "h2", "name": "list_heading",
+      "attrs": {}, "text": "Products",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "letter-spacing": "2px", "text-transform": "uppercase", "margin": "0 0 10px 0", "color": "#777" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M12": {
+      "id": "M12", "tag": "div", "name": "catalog_list",
+      "attrs": {}, "text": "Click Load Catalog.",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #222", "border-radius": "4px", "overflow": "hidden", "min-height": "72px", "margin-bottom": "22px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M13": {
+      "id": "M13", "tag": "div", "name": "raw_feed",
+      "attrs": {}, "text": "Raw pipe result appears here after Fetch Raw or Add.",
+      "children": [], "parentId": "M8",
+      "wires": [],
+      "pipeBindings": [
+        { "pipeName": "fetchProducts", "target": "textContent" },
+        { "pipeName": "addProduct", "target": "textContent" }
+      ],
+      "viewBinding": null,
+      "css": { "background": "#0b0b0b", "border": "1px solid #222", "border-radius": "4px", "padding": "14px", "font-family": "Consolas, monospace", "font-size": "12px", "color": "#aaa", "white-space": "pre-wrap", "line-height": "1.6" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M14": {
+      "id": "M14", "tag": "footer", "name": "footer",
+      "attrs": {}, "text": "Uses DB seed data, GET/POST pipes, transferOnClick, pipe bindings, and loop rendering.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border-top": "1px solid #222", "padding": "18px 28px", "font-size": "12px", "color": "#777" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "LoadCatalog": { "name": "LoadCatalog", "payload": "{}" },
+    "AddProduct": { "name": "AddProduct", "payload": "{value}" },
+    "FetchRaw": { "name": "FetchRaw", "payload": "{}" }
+  },
+  "pipes": {
+    "fetchProducts": {
+      "name": "fetchProducts",
+      "method": "GET",
+      "endpoint": "/api/products",
+      "collection": "products",
+      "direction": "out",
+      "delay": 100,
+      "schema": []
+    },
+    "addProduct": {
+      "name": "addProduct",
+      "method": "POST",
+      "endpoint": "/api/products",
+      "collection": "products",
+      "direction": "in",
+      "delay": 100,
+      "schema": [
+        { "key": "value", "type": "text" }
+      ]
+    }
+  },
+  "views": {},
+  "loops": {
+    "catalogLoop": {
+      "name": "catalogLoop",
+      "pipeName": "fetchProducts",
+      "targetId": "M12",
+      "template": "<div style=\"display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid #202020\"><span style=\"font-size:11px;color:#666;width:26px;font-family:monospace\">{{_index}}</span><span style=\"font-size:15px;color:#fff;flex:1\">{{name}}{{value}}</span><span style=\"font-size:11px;color:#888;letter-spacing:1px;text-transform:uppercase\">{{category}}</span><span style=\"font-size:13px;color:#fff;font-weight:700;min-width:64px;text-align:right\">{{price|CURRENCY}}</span></div>",
+      "description": "Renders product documents from fetchProducts. Seeded records use name/category/price; added records use value."
+    }
+  },
+  "vars": {},
+  "logic": {
+    "M1": { "blocks": [] }, "M2": { "blocks": [] }, "M3": { "blocks": [] },
+    "M4": { "blocks": [] }, "M5": { "blocks": [] }, "M6": { "blocks": [] },
+    "M7": { "blocks": [] }, "M8": { "blocks": [] }, "M9": { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }
+  },
+  "dbCollections": [
+    {
+      "name": "products",
+      "isArray": true,
+      "seed": [
+        { "name": "Signal Notebook", "category": "stationery", "price": "18" },
+        { "name": "Desk Rail Lamp", "category": "lighting", "price": "96" },
+        { "name": "Canvas Field Tote", "category": "bags", "price": "48" },
+        { "name": "Matte Steel Bottle", "category": "travel", "price": "32" }
+      ]
+    }
+  ],
+  "_nextId": 15
+}

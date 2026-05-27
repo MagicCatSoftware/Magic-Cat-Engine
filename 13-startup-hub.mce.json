@@ -1,0 +1,654 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "13 — Startup Hub (Events + Pipes + Views)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id":"M1","tag":"div","name":"page","attrs":{},"text":"","children":["M2","M10","M13","M30","M49","M59"],
+      "parentId":null,"wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#07070f","min-height":"100vh","font-family":"'Segoe UI',sans-serif","color":"#e0e0f0"}
+    },
+    "M2": {
+      "id":"M2","tag":"nav","name":"nav","attrs":{},"text":"","children":["M3","M4","M9"],
+      "parentId":"M1","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","align-items":"center","padding":"0 48px","height":"56px","border-bottom":"1px solid #1a1a2e","position":"sticky","top":"0","background":"rgba(7,7,15,0.95)","z-index":"9999","backdrop-filter":"blur(8px)","gap":"32px"}
+    },
+    "M3": {
+      "id":"M3","tag":"span","name":"nav_logo","attrs":{},"text":"⬡ Startup Hub","children":[],
+      "parentId":"M2","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"15px","font-weight":"800","color":"#7c6aff","letter-spacing":"1px","cursor":"default","white-space":"nowrap"}
+    },
+    "M4": {
+      "id":"M4","tag":"div","name":"nav_links","attrs":{},"text":"","children":["M5","M6","M7","M8"],
+      "parentId":"M2","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","gap":"4px","flex":"1"}
+    },
+    "M5": {
+      "id":"M5","tag":"button","name":"btn_feed","attrs":{"onclick":"ViewSystem.navigate('feed',{})"},
+      "text":"Feed","children":[],"parentId":"M4",
+      "wires":[
+        {"eventName":"view:feed",    "action":"addClass",    "actionArgs":"nav-active"},
+        {"eventName":"view:jobs",    "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:members", "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:settings","action":"removeClass", "actionArgs":"nav-active"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"background":"transparent","color":"#888","border":"1px solid #2a2a3e","padding":"6px 16px","font-size":"13px","cursor":"pointer","border-radius":"4px","font-weight":"500"}
+    },
+    "M6": {
+      "id":"M6","tag":"button","name":"btn_jobs","attrs":{"onclick":"ViewSystem.navigate('jobs',{})"},
+      "text":"Jobs","children":[],"parentId":"M4",
+      "wires":[
+        {"eventName":"view:jobs",    "action":"addClass",    "actionArgs":"nav-active"},
+        {"eventName":"view:feed",    "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:members", "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:settings","action":"removeClass", "actionArgs":"nav-active"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"background":"transparent","color":"#888","border":"1px solid #2a2a3e","padding":"6px 16px","font-size":"13px","cursor":"pointer","border-radius":"4px","font-weight":"500"}
+    },
+    "M7": {
+      "id":"M7","tag":"button","name":"btn_members","attrs":{"onclick":"ViewSystem.navigate('members',{})"},
+      "text":"Members","children":[],"parentId":"M4",
+      "wires":[
+        {"eventName":"view:members", "action":"addClass",    "actionArgs":"nav-active"},
+        {"eventName":"view:feed",    "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:jobs",    "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:settings","action":"removeClass", "actionArgs":"nav-active"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"background":"transparent","color":"#888","border":"1px solid #2a2a3e","padding":"6px 16px","font-size":"13px","cursor":"pointer","border-radius":"4px","font-weight":"500"}
+    },
+    "M8": {
+      "id":"M8","tag":"button","name":"btn_settings","attrs":{"onclick":"ViewSystem.navigate('settings',{})"},
+      "text":"Settings","children":[],"parentId":"M4",
+      "wires":[
+        {"eventName":"view:settings","action":"addClass",    "actionArgs":"nav-active"},
+        {"eventName":"view:feed",    "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:jobs",    "action":"removeClass", "actionArgs":"nav-active"},
+        {"eventName":"view:members", "action":"removeClass", "actionArgs":"nav-active"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"background":"transparent","color":"#888","border":"1px solid #2a2a3e","padding":"6px 16px","font-size":"13px","cursor":"pointer","border-radius":"4px","font-weight":"500"}
+    },
+    "M9": {
+      "id":"M9","tag":"span","name":"nav_view_label","attrs":{},"text":"feed","children":[],
+      "parentId":"M2",
+      "wires":[
+        {"eventName":"view:feed",    "action":"setText","actionArgs":"/ feed"},
+        {"eventName":"view:jobs",    "action":"setText","actionArgs":"/ jobs"},
+        {"eventName":"view:members", "action":"setText","actionArgs":"/ members"},
+        {"eventName":"view:settings","action":"setText","actionArgs":"/ settings"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"11px","color":"#2a2a4a","font-family":"monospace","white-space":"nowrap"}
+    },
+
+    "M10": {
+      "id":"M10","tag":"div","name":"toast","attrs":{},"text":"","children":["M11","M12"],
+      "parentId":"M1",
+      "wires":[
+        {"eventName":"updatePosted", "action":"fadeIn","actionArgs":""},
+        {"eventName":"jobPosted",    "action":"fadeIn","actionArgs":""},
+        {"eventName":"settingsSaved","action":"fadeIn","actionArgs":""}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"position":"fixed","bottom":"24px","right":"24px","background":"#0d0d1a","border":"1px solid #7c6aff","border-radius":"8px","padding":"12px 20px","display":"flex","align-items":"center","gap":"10px","font-size":"13px","z-index":"99999","box-shadow":"0 8px 32px rgba(124,106,255,0.25)","opacity":"0","pointer-events":"none"}
+    },
+    "M11": {
+      "id":"M11","tag":"span","name":"toast_icon","attrs":{},"text":"✓","children":[],
+      "parentId":"M10","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"color":"#7c6aff","font-weight":"700","font-size":"16px"}
+    },
+    "M12": {
+      "id":"M12","tag":"span","name":"toast_text","attrs":{},"text":"","children":[],
+      "parentId":"M10",
+      "wires":[
+        {"eventName":"updatePosted", "action":"setText","actionArgs":"Post published to the feed"},
+        {"eventName":"jobPosted",    "action":"setText","actionArgs":"Job listing posted"},
+        {"eventName":"settingsSaved","action":"setText","actionArgs":"Settings saved"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"color":"#c0c0e0","font-size":"13px"}
+    },
+
+    "M13": {
+      "id":"M13","tag":"section","name":"feed_section","attrs":{},"text":"","children":["M14","M18","M26","M29"],
+      "parentId":"M1","wires":[],"pipeBindings":[],"viewBinding":"feed",
+      "css":{"padding":"40px 48px","max-width":"720px","margin":"0 auto"}
+    },
+    "M14": {
+      "id":"M14","tag":"div","name":"feed_top","attrs":{},"text":"","children":["M15","M16","M17"],
+      "parentId":"M13","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","align-items":"baseline","gap":"16px","margin-bottom":"28px","flex-wrap":"wrap"}
+    },
+    "M15": {
+      "id":"M15","tag":"h2","name":"feed_title","attrs":{},"text":"Community Feed","children":[],
+      "parentId":"M14","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"26px","font-weight":"800","margin":"0","letter-spacing":"-0.5px"}
+    },
+    "M16": {
+      "id":"M16","tag":"p","name":"feed_sub","attrs":{},"text":"Share updates with the community","children":[],
+      "parentId":"M14","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"13px","color":"#555","margin":"0","flex":"1"}
+    },
+    "M17": {
+      "id":"M17","tag":"button","name":"refresh_btn","attrs":{"onclick":"EventBus.emit('refreshFeed',{})"},
+      "text":"↺ Refresh","children":[],"parentId":"M14",
+      "wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"transparent","color":"#7c6aff","border":"1px solid #7c6aff","padding":"6px 14px","font-size":"12px","cursor":"pointer","border-radius":"4px","white-space":"nowrap"}
+    },
+    "M18": {
+      "id":"M18","tag":"div","name":"post_form","attrs":{},"text":"","children":["M19","M22","M23"],
+      "parentId":"M13","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#0d0d1a","border":"1px solid #1e1e3a","border-radius":"10px","padding":"20px","margin-bottom":"28px"}
+    },
+    "M19": {
+      "id":"M19","tag":"div","name":"post_inputs","attrs":{},"text":"","children":["M20","M21"],
+      "parentId":"M18","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","gap":"10px","margin-bottom":"10px"}
+    },
+    "M20": {
+      "id":"M20","tag":"input","name":"post_author",
+      "attrs":{"type":"text","placeholder":"Your name","id":"fi-name"},
+      "text":"","children":[],"parentId":"M19","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"8px 12px","font-size":"13px","border-radius":"5px","flex":"1","outline":"none"}
+    },
+    "M21": {
+      "id":"M21","tag":"input","name":"post_tag",
+      "attrs":{"type":"text","placeholder":"#tag","id":"fi-tag"},
+      "text":"","children":[],"parentId":"M19","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"8px 12px","font-size":"13px","border-radius":"5px","width":"110px","outline":"none"}
+    },
+    "M22": {
+      "id":"M22","tag":"textarea","name":"post_message",
+      "attrs":{"placeholder":"Share an update with the community...","id":"fi-msg","rows":"3"},
+      "text":"","children":[],"parentId":"M18","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"10px 12px","font-size":"14px","border-radius":"5px","width":"100%","display":"block","resize":"vertical","outline":"none","margin-bottom":"10px","box-sizing":"border-box","font-family":"inherit","line-height":"1.5"}
+    },
+    "M23": {
+      "id":"M23","tag":"div","name":"post_actions","attrs":{},"text":"","children":["M24","M25"],
+      "parentId":"M18","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","align-items":"center","gap":"12px"}
+    },
+    "M24": {
+      "id":"M24","tag":"button","name":"post_btn",
+      "attrs":{"onclick":"var a=document.getElementById('fi-name').value,t=document.getElementById('fi-tag').value,m=document.getElementById('fi-msg').value;if(a&&m){PipeSystem.execute('postUpdate',{author:a,tag:t||'#general',message:m,time:'Just now'}).then(function(r){if(r&&r.status===200){EventBus.emit('updatePosted',{});document.getElementById('fi-msg').value='';}})}"},
+      "text":"Publish Post","children":[],"parentId":"M23","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#7c6aff","color":"#fff","border":"none","padding":"8px 20px","font-size":"13px","font-weight":"700","cursor":"pointer","border-radius":"5px"}
+    },
+    "M25": {
+      "id":"M25","tag":"span","name":"post_status","attrs":{},"text":"","children":[],
+      "parentId":"M23",
+      "wires":[
+        {"eventName":"updatePosted","action":"setText","actionArgs":"✓ Published"},
+        {"eventName":"updatePosted","action":"fadeIn", "actionArgs":""}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"12px","color":"#7c6aff","opacity":"0"}
+    },
+    "M26": {
+      "id":"M26","tag":"div","name":"feed_bar","attrs":{},"text":"","children":["M27","M28"],
+      "parentId":"M13","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","align-items":"center","justify-content":"space-between","margin-bottom":"14px"}
+    },
+    "M27": {
+      "id":"M27","tag":"span","name":"feed_bar_label","attrs":{},"text":"Latest Posts","children":[],
+      "parentId":"M26",
+      "wires":[
+        {"eventName":"updatePosted","action":"setText","actionArgs":"Feed updated"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"11px","color":"#555","text-transform":"uppercase","letter-spacing":"1.5px","font-weight":"700"}
+    },
+    "M28": {
+      "id":"M28","tag":"span","name":"feed_live_badge","attrs":{},"text":"● LIVE","children":[],
+      "parentId":"M26",
+      "wires":[
+        {"eventName":"refreshFeed",  "action":"setText","actionArgs":"↺ refreshing..."},
+        {"eventName":"updatePosted", "action":"setText","actionArgs":"● LIVE"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"10px","color":"#4caf85","font-family":"monospace","letter-spacing":"1px"}
+    },
+    "M29": {
+      "id":"M29","tag":"div","name":"feed_list","attrs":{},"text":"","children":[],
+      "parentId":"M13",
+      "wires":[
+        {"eventName":"view:feed",   "action":"loopRender","actionArgs":"loadFeed"},
+        {"eventName":"refreshFeed", "action":"loopRender","actionArgs":"loadFeed"},
+        {"eventName":"updatePosted","action":"loopRender","actionArgs":"loadFeed"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{}
+    },
+
+    "M30": {
+      "id":"M30","tag":"section","name":"jobs_section","attrs":{},"text":"","children":["M31","M35","M46","M48"],
+      "parentId":"M1","wires":[],"pipeBindings":[],"viewBinding":"jobs",
+      "css":{"padding":"40px 48px","max-width":"720px","margin":"0 auto"}
+    },
+    "M31": {
+      "id":"M31","tag":"div","name":"jobs_top","attrs":{},"text":"","children":["M32","M33","M34"],
+      "parentId":"M30","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","align-items":"baseline","gap":"16px","margin-bottom":"24px","flex-wrap":"wrap"}
+    },
+    "M32": {
+      "id":"M32","tag":"h2","name":"jobs_title","attrs":{},"text":"Job Board","children":[],
+      "parentId":"M31","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"26px","font-weight":"800","margin":"0","letter-spacing":"-0.5px"}
+    },
+    "M33": {
+      "id":"M33","tag":"p","name":"jobs_sub","attrs":{},"text":"Open positions in the community","children":[],
+      "parentId":"M31","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"13px","color":"#555","margin":"0","flex":"1"}
+    },
+    "M34": {
+      "id":"M34","tag":"button","name":"post_job_btn","attrs":{"onclick":"EventBus.emit('toggleJobForm',{})"},
+      "text":"+ Post a Job","children":[],"parentId":"M31",
+      "wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#7c6aff","color":"#fff","border":"none","padding":"7px 16px","font-size":"12px","font-weight":"700","cursor":"pointer","border-radius":"5px","white-space":"nowrap"}
+    },
+    "M35": {
+      "id":"M35","tag":"div","name":"job_form","attrs":{"style":"display:none"},"text":"","children":["M36","M39","M42","M43"],
+      "parentId":"M30",
+      "wires":[
+        {"eventName":"toggleJobForm","action":"toggle","actionArgs":""}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#0d0d1a","border":"1px solid #1e1e3a","border-radius":"10px","padding":"20px","margin-bottom":"24px"}
+    },
+    "M36": {
+      "id":"M36","tag":"div","name":"job_row1","attrs":{},"text":"","children":["M37","M38"],
+      "parentId":"M35","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","gap":"10px","margin-bottom":"10px"}
+    },
+    "M37": {
+      "id":"M37","tag":"input","name":"job_title_input",
+      "attrs":{"type":"text","placeholder":"Job title","id":"jt-title"},
+      "text":"","children":[],"parentId":"M36","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"8px 12px","font-size":"13px","border-radius":"5px","flex":"1","outline":"none"}
+    },
+    "M38": {
+      "id":"M38","tag":"input","name":"job_company_input",
+      "attrs":{"type":"text","placeholder":"Company","id":"jt-company"},
+      "text":"","children":[],"parentId":"M36","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"8px 12px","font-size":"13px","border-radius":"5px","flex":"1","outline":"none"}
+    },
+    "M39": {
+      "id":"M39","tag":"div","name":"job_row2","attrs":{},"text":"","children":["M40","M41"],
+      "parentId":"M35","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","gap":"10px","margin-bottom":"10px"}
+    },
+    "M40": {
+      "id":"M40","tag":"input","name":"job_type_input",
+      "attrs":{"type":"text","placeholder":"Full-time / Contract","id":"jt-type"},
+      "text":"","children":[],"parentId":"M39","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"8px 12px","font-size":"13px","border-radius":"5px","flex":"1","outline":"none"}
+    },
+    "M41": {
+      "id":"M41","tag":"input","name":"job_location_input",
+      "attrs":{"type":"text","placeholder":"Location / Remote","id":"jt-location"},
+      "text":"","children":[],"parentId":"M39","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"8px 12px","font-size":"13px","border-radius":"5px","flex":"1","outline":"none"}
+    },
+    "M42": {
+      "id":"M42","tag":"textarea","name":"job_desc_input",
+      "attrs":{"placeholder":"Brief job description...","id":"jt-desc","rows":"2"},
+      "text":"","children":[],"parentId":"M35","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"10px 12px","font-size":"13px","border-radius":"5px","width":"100%","display":"block","resize":"none","outline":"none","margin-bottom":"10px","box-sizing":"border-box","font-family":"inherit"}
+    },
+    "M43": {
+      "id":"M43","tag":"div","name":"job_actions","attrs":{},"text":"","children":["M44","M45"],
+      "parentId":"M35","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","gap":"8px"}
+    },
+    "M44": {
+      "id":"M44","tag":"button","name":"submit_job_btn",
+      "attrs":{"onclick":"var t=document.getElementById('jt-title').value,c=document.getElementById('jt-company').value,tp=document.getElementById('jt-type').value,l=document.getElementById('jt-location').value,d=document.getElementById('jt-desc').value;if(t&&c){PipeSystem.execute('postJob',{title:t,company:c,type:tp||'Full-time',location:l||'Remote',description:d||'',posted:'Just now'}).then(function(r){if(r&&r.status===200){EventBus.emit('jobPosted',{});EventBus.emit('toggleJobForm',{});document.getElementById('jt-title').value='';document.getElementById('jt-company').value='';document.getElementById('jt-type').value='';document.getElementById('jt-location').value='';document.getElementById('jt-desc').value='';}});}"},
+      "text":"Post Listing","children":[],"parentId":"M43","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#7c6aff","color":"#fff","border":"none","padding":"8px 20px","font-size":"13px","font-weight":"700","cursor":"pointer","border-radius":"5px"}
+    },
+    "M45": {
+      "id":"M45","tag":"button","name":"cancel_job_btn","attrs":{"onclick":"EventBus.emit('toggleJobForm',{})"},
+      "text":"Cancel","children":[],"parentId":"M43","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"transparent","color":"#555","border":"1px solid #2a2a3e","padding":"8px 16px","font-size":"13px","cursor":"pointer","border-radius":"5px"}
+    },
+    "M46": {
+      "id":"M46","tag":"div","name":"jobs_bar","attrs":{},"text":"","children":["M47"],
+      "parentId":"M30","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"margin-bottom":"14px"}
+    },
+    "M47": {
+      "id":"M47","tag":"span","name":"jobs_bar_label","attrs":{},"text":"Open Positions","children":[],
+      "parentId":"M46",
+      "wires":[
+        {"eventName":"jobPosted","action":"setText","actionArgs":"Positions updated"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"11px","color":"#555","text-transform":"uppercase","letter-spacing":"1.5px","font-weight":"700"}
+    },
+    "M48": {
+      "id":"M48","tag":"div","name":"job_list","attrs":{},"text":"","children":[],
+      "parentId":"M30",
+      "wires":[
+        {"eventName":"view:jobs","action":"loopRender","actionArgs":"loadJobs"},
+        {"eventName":"jobPosted","action":"loopRender","actionArgs":"loadJobs"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{}
+    },
+
+    "M49": {
+      "id":"M49","tag":"section","name":"members_section","attrs":{},"text":"","children":["M50","M53","M56","M58"],
+      "parentId":"M1","wires":[],"pipeBindings":[],"viewBinding":"members",
+      "css":{"padding":"40px 48px","max-width":"900px","margin":"0 auto"}
+    },
+    "M50": {
+      "id":"M50","tag":"div","name":"members_top","attrs":{},"text":"","children":["M51","M52"],
+      "parentId":"M49","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"margin-bottom":"28px"}
+    },
+    "M51": {
+      "id":"M51","tag":"h2","name":"members_title","attrs":{},"text":"Members","children":[],
+      "parentId":"M50","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"26px","font-weight":"800","margin":"0 0 6px","letter-spacing":"-0.5px"}
+    },
+    "M52": {
+      "id":"M52","tag":"p","name":"members_sub","attrs":{},"text":"People building great products","children":[],
+      "parentId":"M50","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"13px","color":"#555","margin":"0"}
+    },
+    "M53": {
+      "id":"M53","tag":"div","name":"search_row","attrs":{},"text":"","children":["M54","M55"],
+      "parentId":"M49","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","gap":"8px","margin-bottom":"24px"}
+    },
+    "M54": {
+      "id":"M54","tag":"input","name":"search_input",
+      "attrs":{"type":"text","placeholder":"Search members by name or role...","id":"ms-q"},
+      "text":"","children":[],"parentId":"M53","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#0d0d1a","border":"1px solid #1e1e3a","color":"#e0e0f0","padding":"9px 14px","font-size":"13px","border-radius":"5px","flex":"1","outline":"none"}
+    },
+    "M55": {
+      "id":"M55","tag":"button","name":"search_btn",
+      "attrs":{"onclick":"EventBus.emit('memberSearch',{q:document.getElementById('ms-q').value})"},
+      "text":"Search","children":[],"parentId":"M53","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#1e1e3a","color":"#a0a0c0","border":"1px solid #2a2a3e","padding":"9px 20px","font-size":"13px","cursor":"pointer","border-radius":"5px","font-weight":"600"}
+    },
+    "M56": {
+      "id":"M56","tag":"div","name":"members_bar","attrs":{},"text":"","children":["M57"],
+      "parentId":"M49","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"margin-bottom":"16px"}
+    },
+    "M57": {
+      "id":"M57","tag":"span","name":"members_bar_label","attrs":{},"text":"Active Members","children":[],
+      "parentId":"M56",
+      "wires":[
+        {"eventName":"memberSearch","action":"setText","actionArgs":"Search results"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"11px","color":"#555","text-transform":"uppercase","letter-spacing":"1.5px","font-weight":"700"}
+    },
+    "M58": {
+      "id":"M58","tag":"div","name":"member_grid","attrs":{},"text":"","children":[],
+      "parentId":"M49",
+      "wires":[
+        {"eventName":"view:members","action":"loopRender","actionArgs":"loadMembers"},
+        {"eventName":"memberSearch","action":"loopRender","actionArgs":"loadMembers"}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"display":"grid","grid-template-columns":"repeat(auto-fill,minmax(200px,1fr))","gap":"16px"}
+    },
+
+    "M59": {
+      "id":"M59","tag":"section","name":"settings_section","attrs":{},"text":"","children":["M60","M63","M76"],
+      "parentId":"M1","wires":[],"pipeBindings":[],"viewBinding":"settings",
+      "css":{"padding":"40px 48px","max-width":"600px","margin":"0 auto"}
+    },
+    "M60": {
+      "id":"M60","tag":"div","name":"settings_top","attrs":{},"text":"","children":["M61","M62"],
+      "parentId":"M59","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"margin-bottom":"32px"}
+    },
+    "M61": {
+      "id":"M61","tag":"h2","name":"settings_title","attrs":{},"text":"Settings","children":[],
+      "parentId":"M60","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"26px","font-weight":"800","margin":"0 0 6px","letter-spacing":"-0.5px"}
+    },
+    "M62": {
+      "id":"M62","tag":"p","name":"settings_sub","attrs":{},"text":"Manage your hub preferences","children":[],
+      "parentId":"M60","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"13px","color":"#555","margin":"0"}
+    },
+    "M63": {
+      "id":"M63","tag":"div","name":"settings_form","attrs":{},"text":"","children":["M64","M67","M70","M73"],
+      "parentId":"M59","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#0d0d1a","border":"1px solid #1e1e3a","border-radius":"10px","padding":"24px","margin-bottom":"20px"}
+    },
+    "M64": {
+      "id":"M64","tag":"div","name":"set_row1","attrs":{},"text":"","children":["M65","M66"],
+      "parentId":"M63","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"margin-bottom":"18px"}
+    },
+    "M65": {
+      "id":"M65","tag":"label","name":"set_label1","attrs":{},"text":"App Name","children":[],
+      "parentId":"M64","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"block","font-size":"11px","color":"#555","text-transform":"uppercase","letter-spacing":"1px","margin-bottom":"6px","font-weight":"700"}
+    },
+    "M66": {
+      "id":"M66","tag":"input","name":"set_input1",
+      "attrs":{"type":"text","placeholder":"Startup Hub","id":"s-name","value":"Startup Hub"},
+      "text":"","children":[],"parentId":"M64","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"9px 12px","font-size":"14px","border-radius":"5px","width":"100%","display":"block","box-sizing":"border-box","outline":"none"}
+    },
+    "M67": {
+      "id":"M67","tag":"div","name":"set_row2","attrs":{},"text":"","children":["M68","M69"],
+      "parentId":"M63","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"margin-bottom":"18px"}
+    },
+    "M68": {
+      "id":"M68","tag":"label","name":"set_label2","attrs":{},"text":"Theme","children":[],
+      "parentId":"M67","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"block","font-size":"11px","color":"#555","text-transform":"uppercase","letter-spacing":"1px","margin-bottom":"6px","font-weight":"700"}
+    },
+    "M69": {
+      "id":"M69","tag":"input","name":"set_input2",
+      "attrs":{"type":"text","placeholder":"dark / light","id":"s-theme","value":"dark"},
+      "text":"","children":[],"parentId":"M67","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"9px 12px","font-size":"14px","border-radius":"5px","width":"100%","display":"block","box-sizing":"border-box","outline":"none"}
+    },
+    "M70": {
+      "id":"M70","tag":"div","name":"set_row3","attrs":{},"text":"","children":["M71","M72"],
+      "parentId":"M63","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"margin-bottom":"18px"}
+    },
+    "M71": {
+      "id":"M71","tag":"label","name":"set_label3","attrs":{},"text":"Language","children":[],
+      "parentId":"M70","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"block","font-size":"11px","color":"#555","text-transform":"uppercase","letter-spacing":"1px","margin-bottom":"6px","font-weight":"700"}
+    },
+    "M72": {
+      "id":"M72","tag":"input","name":"set_input3",
+      "attrs":{"type":"text","placeholder":"English","id":"s-lang","value":"English"},
+      "text":"","children":[],"parentId":"M70","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"9px 12px","font-size":"14px","border-radius":"5px","width":"100%","display":"block","box-sizing":"border-box","outline":"none"}
+    },
+    "M73": {
+      "id":"M73","tag":"div","name":"set_row4","attrs":{},"text":"","children":["M74","M75"],
+      "parentId":"M63","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{}
+    },
+    "M74": {
+      "id":"M74","tag":"label","name":"set_label4","attrs":{},"text":"Email Notifications","children":[],
+      "parentId":"M73","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"block","font-size":"11px","color":"#555","text-transform":"uppercase","letter-spacing":"1px","margin-bottom":"6px","font-weight":"700"}
+    },
+    "M75": {
+      "id":"M75","tag":"input","name":"set_input4",
+      "attrs":{"type":"text","placeholder":"on / off","id":"s-notif","value":"on"},
+      "text":"","children":[],"parentId":"M73","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#111122","border":"1px solid #2a2a3e","color":"#e0e0f0","padding":"9px 12px","font-size":"14px","border-radius":"5px","width":"100%","display":"block","box-sizing":"border-box","outline":"none"}
+    },
+    "M76": {
+      "id":"M76","tag":"div","name":"settings_actions","attrs":{},"text":"","children":["M77","M78"],
+      "parentId":"M59","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"display":"flex","align-items":"center","gap":"16px"}
+    },
+    "M77": {
+      "id":"M77","tag":"button","name":"save_btn",
+      "attrs":{"onclick":"var n=document.getElementById('s-name').value,t=document.getElementById('s-theme').value,l=document.getElementById('s-lang').value,no=document.getElementById('s-notif').value;PipeSystem.execute('saveSettings',{app_name:n||'Startup Hub',theme:t||'dark',language:l||'English',notifications:no||'on'}).then(function(r){if(r&&r.status===200){EventBus.emit('settingsSaved',{});}});"},
+      "text":"Save Settings","children":[],"parentId":"M76","wires":[],"pipeBindings":[],"viewBinding":null,
+      "css":{"background":"#7c6aff","color":"#fff","border":"none","padding":"10px 24px","font-size":"14px","font-weight":"700","cursor":"pointer","border-radius":"5px"}
+    },
+    "M78": {
+      "id":"M78","tag":"span","name":"settings_status","attrs":{},"text":"","children":[],
+      "parentId":"M76",
+      "wires":[
+        {"eventName":"settingsSaved","action":"setText","actionArgs":"✓ Settings saved"},
+        {"eventName":"settingsSaved","action":"fadeIn", "actionArgs":""}
+      ],
+      "pipeBindings":[],"viewBinding":null,
+      "css":{"font-size":"13px","color":"#7c6aff","opacity":"0"}
+    }
+  },
+
+  "events": {
+    "view:feed":     {"name":"view:feed",     "payload":"{}"},
+    "view:jobs":     {"name":"view:jobs",     "payload":"{}"},
+    "view:members":  {"name":"view:members",  "payload":"{}"},
+    "view:settings": {"name":"view:settings", "payload":"{}"},
+    "updatePosted":  {"name":"updatePosted",  "payload":"{}"},
+    "jobPosted":     {"name":"jobPosted",     "payload":"{}"},
+    "settingsSaved": {"name":"settingsSaved", "payload":"{}"},
+    "refreshFeed":   {"name":"refreshFeed",   "payload":"{}"},
+    "toggleJobForm": {"name":"toggleJobForm", "payload":"{}"},
+    "memberSearch":  {"name":"memberSearch",  "payload":"{q:''}"}
+  },
+
+  "pipes": {
+    "loadFeed": {
+      "name":"loadFeed","method":"GET","endpoint":"/api/feed","collection":"feed",
+      "delay":200,"schema":[],"description":"Fetch all community feed posts"
+    },
+    "postUpdate": {
+      "name":"postUpdate","method":"POST","endpoint":"/api/feed","collection":"feed",
+      "delay":300,
+      "schema":[
+        {"key":"author","type":"text"},{"key":"tag","type":"text"},
+        {"key":"message","type":"text"},{"key":"time","type":"text"}
+      ],
+      "description":"Post a community update to the feed"
+    },
+    "loadJobs": {
+      "name":"loadJobs","method":"GET","endpoint":"/api/jobs","collection":"jobs",
+      "delay":200,"schema":[],"description":"Fetch all open job listings"
+    },
+    "postJob": {
+      "name":"postJob","method":"POST","endpoint":"/api/jobs","collection":"jobs",
+      "delay":300,
+      "schema":[
+        {"key":"title","type":"text"},{"key":"company","type":"text"},
+        {"key":"type","type":"text"},{"key":"location","type":"text"},
+        {"key":"description","type":"text"},{"key":"posted","type":"text"}
+      ],
+      "description":"Post a new job listing"
+    },
+    "loadMembers": {
+      "name":"loadMembers","method":"GET","endpoint":"/api/members","collection":"members",
+      "delay":200,"schema":[],"description":"Fetch all community members"
+    },
+    "saveSettings": {
+      "name":"saveSettings","method":"PUT","endpoint":"/api/settings","collection":"settings",
+      "delay":300,
+      "schema":[
+        {"key":"app_name","type":"text"},{"key":"theme","type":"text"},
+        {"key":"language","type":"text"},{"key":"notifications","type":"text"}
+      ],
+      "description":"Save app settings"
+    }
+  },
+
+  "views": {
+    "feed":     {"name":"feed",     "title":"Community Feed","description":"Latest posts from the community","params":[]},
+    "jobs":     {"name":"jobs",     "title":"Job Board",     "description":"Open positions posted by members","params":[]},
+    "members":  {"name":"members",  "title":"Members",       "description":"Community member directory","params":[]},
+    "settings": {"name":"settings", "title":"Settings",      "description":"App preferences and configuration","params":[]}
+  },
+
+  "loops": {
+    "feedList": {
+      "name":"feedList","pipeName":"loadFeed","targetId":"M29",
+      "description":"Renders community posts in the feed",
+      "template":"<div style=\"background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:20px 24px;margin-bottom:12px;transition:border-color .2s\" onmouseover=\"this.style.borderColor='#7c6aff'\" onmouseout=\"this.style.borderColor='#1e1e3a'\"><div style=\"display:flex;align-items:center;gap:10px;margin-bottom:12px\"><div style=\"width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#7c6aff,#ff6b9d);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0\">{{author | INITIALS}}</div><span style=\"font-weight:700;font-size:14px;color:#e0e0f0\">{{author}}</span><span style=\"font-size:11px;color:#7c6aff;background:rgba(124,106,255,0.15);padding:2px 10px;border-radius:50px;font-weight:600\">{{tag}}</span><span style=\"margin-left:auto;font-size:11px;color:#3a3a5a\">{{time}}</span></div><p style=\"font-size:14px;color:#a0a0c0;line-height:1.65;margin:0\">{{message}}</p></div>"
+    },
+    "jobList": {
+      "name":"jobList","pipeName":"loadJobs","targetId":"M48",
+      "description":"Renders job listings",
+      "template":"<div style=\"background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:20px 24px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start;transition:border-color .2s\" onmouseover=\"this.style.borderColor='#7c6aff'\" onmouseout=\"this.style.borderColor='#1e1e3a'\"><div><h3 style=\"font-size:15px;font-weight:700;color:#e0e0f0;margin:0 0 4px\">{{title}}</h3><div style=\"font-size:13px;color:#6060a0;margin-bottom:8px\">{{company}} · {{location}}</div><span style=\"font-size:11px;color:#7c6aff;background:rgba(124,106,255,0.15);padding:2px 10px;border-radius:50px;font-weight:600\">{{type}}</span></div><span style=\"font-size:11px;color:#3a3a5a;white-space:nowrap;margin-top:2px\">{{posted}}</span></div>"
+    },
+    "memberList": {
+      "name":"memberList","pipeName":"loadMembers","targetId":"M58",
+      "description":"Renders member cards in a grid",
+      "template":"<div style=\"background:#0d0d1a;border:1px solid #1e1e3a;border-radius:10px;padding:24px 20px;text-align:center;transition:border-color .2s\" onmouseover=\"this.style.borderColor='#7c6aff'\" onmouseout=\"this.style.borderColor='#1e1e3a'\"><div style=\"width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#7c6aff,#ff6b9d);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;margin:0 auto 12px\">{{name | INITIALS}}</div><div style=\"font-size:14px;font-weight:700;color:#e0e0f0;margin-bottom:3px\">{{name}}</div><div style=\"font-size:12px;color:#6060a0;margin-bottom:4px\">{{role | TITLE}}</div><div style=\"font-size:11px;color:#3a3a5a\">{{company}}</div></div>"
+    }
+  },
+
+  "logic": {
+    "M1":{"blocks":[]},"M2":{"blocks":[]},"M3":{"blocks":[]},"M4":{"blocks":[]},
+    "M5":{"blocks":[]},"M6":{"blocks":[]},"M7":{"blocks":[]},"M8":{"blocks":[]},
+    "M9":{"blocks":[]},"M10":{"blocks":[]},"M11":{"blocks":[]},"M12":{"blocks":[]},
+    "M13":{"blocks":[]},"M14":{"blocks":[]},"M15":{"blocks":[]},"M16":{"blocks":[]},
+    "M17":{"blocks":[]},"M18":{"blocks":[]},"M19":{"blocks":[]},"M20":{"blocks":[]},
+    "M21":{"blocks":[]},"M22":{"blocks":[]},"M23":{"blocks":[]},"M24":{"blocks":[]},
+    "M25":{"blocks":[]},"M26":{"blocks":[]},"M27":{"blocks":[]},"M28":{"blocks":[]},
+    "M29":{"blocks":[]},"M30":{"blocks":[]},"M31":{"blocks":[]},"M32":{"blocks":[]},
+    "M33":{"blocks":[]},"M34":{"blocks":[]},"M35":{"blocks":[]},"M36":{"blocks":[]},
+    "M37":{"blocks":[]},"M38":{"blocks":[]},"M39":{"blocks":[]},"M40":{"blocks":[]},
+    "M41":{"blocks":[]},"M42":{"blocks":[]},"M43":{"blocks":[]},"M44":{"blocks":[]},
+    "M45":{"blocks":[]},"M46":{"blocks":[]},"M47":{"blocks":[]},"M48":{"blocks":[]},
+    "M49":{"blocks":[]},"M50":{"blocks":[]},"M51":{"blocks":[]},"M52":{"blocks":[]},
+    "M53":{"blocks":[]},"M54":{"blocks":[]},"M55":{"blocks":[]},"M56":{"blocks":[]},
+    "M57":{"blocks":[]},"M58":{"blocks":[]},"M59":{"blocks":[]},"M60":{"blocks":[]},
+    "M61":{"blocks":[]},"M62":{"blocks":[]},"M63":{"blocks":[]},"M64":{"blocks":[]},
+    "M65":{"blocks":[]},"M66":{"blocks":[]},"M67":{"blocks":[]},"M68":{"blocks":[]},
+    "M69":{"blocks":[]},"M70":{"blocks":[]},"M71":{"blocks":[]},"M72":{"blocks":[]},
+    "M73":{"blocks":[]},"M74":{"blocks":[]},"M75":{"blocks":[]},"M76":{"blocks":[]},
+    "M77":{"blocks":[]},"M78":{"blocks":[]}
+  },
+
+  "dbCollections": [
+    {
+      "name":"feed","isArray":true,
+      "seed":[
+        {"author":"Alex Chen","tag":"#announce","message":"Welcome to the Startup Hub! So excited to have everyone here. Let's build something great together.","time":"2 hours ago"},
+        {"author":"Jordan Lee","tag":"#question","message":"Anyone have experience scaling Node.js to 10k concurrent users? Looking for advice on the architecture.","time":"5 hours ago"},
+        {"author":"Sam Rivera","tag":"#hiring","message":"We're looking for a senior React engineer. Remote-first, great comp. DM me if interested!","time":"1 day ago"},
+        {"author":"Pat Morgan","tag":"#resource","message":"Just published a deep-dive on zero-downtime deployments with Kubernetes. Check the link in my bio.","time":"2 days ago"}
+      ]
+    },
+    {
+      "name":"jobs","isArray":true,
+      "seed":[
+        {"title":"Senior Frontend Engineer","company":"TechCorp","type":"Full-time","location":"Remote","description":"Build and ship product features at scale.","posted":"Today"},
+        {"title":"DevOps Lead","company":"ScaleUp","type":"Contract","location":"New York","description":"Own the infrastructure and deployment pipelines.","posted":"2 days ago"},
+        {"title":"Product Designer","company":"DesignCo","type":"Full-time","location":"London","description":"Shape product direction from design leadership.","posted":"3 days ago"},
+        {"title":"Backend Engineer","company":"DataFlow","type":"Full-time","location":"Remote","description":"Build high-performance data pipelines in Go.","posted":"1 week ago"}
+      ]
+    },
+    {
+      "name":"members","isArray":true,
+      "seed":[
+        {"name":"Alex Chen","role":"Founder","company":"ChainLink","joined":"Jan 2024"},
+        {"name":"Jordan Lee","role":"Engineer","company":"TechCorp","joined":"Feb 2024"},
+        {"name":"Sam Rivera","role":"Designer","company":"DesignCo","joined":"Mar 2024"},
+        {"name":"Pat Morgan","role":"Investor","company":"Venture Labs","joined":"Apr 2024"}
+      ]
+    },
+    {
+      "name":"settings","isArray":false,
+      "seed":{"app_name":"Startup Hub","theme":"dark","notifications":"on","language":"English"}
+    }
+  ],
+  "_nextId": 79
+}

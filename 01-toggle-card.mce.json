@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "01 — Toggle Card" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M3","M4","M5"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Toggle Card", "children": [],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "subtitle",
+      "attrs": {}, "text": "Fire the toggleCard event from the Events panel, or click the button below to toggle the card visibility. No code — pure event wiring.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "14px", "margin-bottom": "32px", "line-height": "1.7" }
+    },
+    "M4": {
+      "id": "M4", "tag": "button", "name": "toggle_btn",
+      "attrs": { "onclick": "EventBus.emit('toggleCard',{})" },
+      "text": "Toggle Card",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "2px solid #fff", "padding": "12px 28px", "font-size": "15px", "cursor": "pointer", "border-radius": "3px", "margin-bottom": "32px", "display": "block", "letter-spacing": "1px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "card",
+      "attrs": {},
+      "text": "✦  This machine listens for the toggleCard event and toggles its own visibility. The wire: ON toggleCard → toggle.",
+      "children": [], "parentId": "M1",
+      "wires": [
+        { "eventName": "toggleCard", "action": "toggle", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "border": "1px solid #fff", "padding": "28px", "border-radius": "4px", "font-size": "15px", "line-height": "1.8", "max-width": "520px" }
+    }
+  },
+  "events": {
+    "toggleCard": { "name": "toggleCard", "payload": "{}" }
+  },
+  "pipes": {},
+  "views": {},
+  "logic": {
+    "M1": { "blocks": [] }, "M2": { "blocks": [] }, "M3": { "blocks": [] },
+    "M4": { "blocks": [] }, "M5": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 6
+}

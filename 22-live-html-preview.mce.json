@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "22 — Live HTML Preview (emitOnInput · setHTML · {{THIS.VALUE}})" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2", "M3", "M4", "M5", "M6", "M7", "M8"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "720px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "✦ Live HTML Preview",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "28px", "letter-spacing": "3px", "margin": "0 0 12px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "description",
+      "attrs": {}, "text": "Type HTML markup in the editor below. It renders live in the preview pane via a single wire: emitOnInput → setHTML → {{THIS.VALUE}}. No code.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "13px", "margin": "0 0 32px 0", "line-height": "1.7" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "p", "name": "editor_label",
+      "attrs": {}, "text": "HTML EDITOR",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "margin": "0 0 8px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "textarea", "name": "html_editor",
+      "attrs": { "placeholder": "<h2 style=\"color:#fff\">Hello</h2>\n<p style=\"color:#aaa\">Start typing HTML…</p>" },
+      "text": "", "children": [], "parentId": "M1",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "height": "160px", "background": "#0d0d0d", "border": "1px solid #333", "color": "#8f8", "padding": "16px", "font-size": "13px", "font-family": "monospace", "border-radius": "3px", "display": "block", "box-sizing": "border-box", "resize": "vertical", "margin-bottom": "24px", "line-height": "1.6" },
+      "dbSource": null, "emitOnInput": "HTMLTyped", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "p", "name": "preview_label",
+      "attrs": {}, "text": "LIVE PREVIEW",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "10px", "color": "#555", "letter-spacing": "2px", "margin": "0 0 8px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "div", "name": "preview_pane",
+      "attrs": {}, "text": "",
+      "children": [], "parentId": "M1",
+      "wires": [
+        { "eventName": "HTMLTyped", "targetId": "", "action": "setHTML", "actionArgs": "{{THIS.VALUE}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "min-height": "120px", "border": "1px solid #333", "border-radius": "3px", "padding": "20px", "background": "#0a0a0a", "margin-bottom": "24px", "line-height": "1.7" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": {
+      "id": "M8", "tag": "p", "name": "note",
+      "attrs": {}, "text": "Wire: HTMLTyped → setHTML → {{THIS.VALUE}}. The payload.value from emitOnInput is expanded into actionArgs before setHTML runs. The result is injected as raw innerHTML into the preview pane.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#444", "font-family": "monospace", "line-height": "1.7", "margin": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "HTMLTyped": { "name": "HTMLTyped", "payload": "{value:''}" }
+  },
+  "pipes": {}, "views": {}, "loops": {}, "vars": {},
+  "logic": {
+    "M1": { "blocks": [] }, "M2": { "blocks": [] }, "M3": { "blocks": [] },
+    "M4": { "blocks": [] }, "M5": { "blocks": [] }, "M6": { "blocks": [] },
+    "M7": { "blocks": [] }, "M8": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 9
+}

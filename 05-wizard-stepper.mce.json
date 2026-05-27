@@ -1,0 +1,215 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "05 — Wizard Stepper" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M3","M10","M17","M22","M30"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "display": "flex", "flex-direction": "column", "align-items": "center" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Wizard Stepper", "children": [],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px", "width": "560px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "step_indicator",
+      "attrs": {}, "text": "Step 1 of 3", "children": [],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "goStep1", "action": "setText", "actionArgs": "Step 1 of 3" },
+        { "eventName": "goStep2", "action": "setText", "actionArgs": "Step 2 of 3" },
+        { "eventName": "goStep3", "action": "setText", "actionArgs": "Step 3 of 3" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "12px", "color": "#888", "letter-spacing": "2px", "text-transform": "uppercase", "margin-bottom": "24px", "margin-top": "8px", "width": "560px" }
+    },
+    "M10": {
+      "id": "M10", "tag": "div", "name": "step_1_panel",
+      "attrs": {}, "text": "", "children": ["M11","M12","M13","M14"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "goStep1", "action": "show", "actionArgs": "" },
+        { "eventName": "goStep2", "action": "hide", "actionArgs": "" },
+        { "eventName": "goStep3", "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "560px", "border": "1px solid #fff", "padding": "32px", "border-radius": "4px" }
+    },
+    "M11": {
+      "id": "M11", "tag": "h2", "name": "step1_title",
+      "attrs": {}, "text": "Step 1 — Your Details", "children": [],
+      "parentId": "M10", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin-bottom": "20px", "color": "#fff", "letter-spacing": "1px" }
+    },
+    "M12": {
+      "id": "M12", "tag": "input", "name": "name_input",
+      "attrs": { "type": "text", "placeholder": "Your full name", "id": "wiz-name" },
+      "text": "", "children": [], "parentId": "M10",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "14px", "border-radius": "3px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "input", "name": "email_input",
+      "attrs": { "type": "email", "placeholder": "your@email.com", "id": "wiz-email" },
+      "text": "", "children": [], "parentId": "M10",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "20px", "border-radius": "3px" }
+    },
+    "M14": {
+      "id": "M14", "tag": "button", "name": "next_1_btn",
+      "attrs": { "onclick": "EventBus.emit('goStep2',{})" },
+      "text": "Next →",
+      "children": [], "parentId": "M10", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "display": "block", "margin-left": "auto", "margin-top": "16px" }
+    },
+    "M17": {
+      "id": "M17", "tag": "div", "name": "step_2_panel",
+      "attrs": {}, "text": "", "children": ["M18","M19","M20","M21"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "goStep2", "action": "show", "actionArgs": "" },
+        { "eventName": "goStep1", "action": "hide", "actionArgs": "" },
+        { "eventName": "goStep3", "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "560px", "border": "1px solid #fff", "padding": "32px", "border-radius": "4px", "display": "none" }
+    },
+    "M18": {
+      "id": "M18", "tag": "h2", "name": "step2_title",
+      "attrs": {}, "text": "Step 2 — Preferences", "children": [],
+      "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin-bottom": "20px", "color": "#fff", "letter-spacing": "1px" }
+    },
+    "M19": {
+      "id": "M19", "tag": "p", "name": "step2_desc",
+      "attrs": {},
+      "text": "How did you hear about the Magic Cat Engine?",
+      "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "margin-bottom": "16px", "font-size": "14px" }
+    },
+    "M20": {
+      "id": "M20", "tag": "select", "name": "source_select",
+      "attrs": { "id": "wiz-source" },
+      "text": "<option value=''>-- Select one --</option><option>Word of mouth</option><option>Social media</option><option>Search engine</option><option>Event or conference</option><option>Other</option>",
+      "children": [], "parentId": "M17",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "20px", "border-radius": "3px" }
+    },
+    "M21": {
+      "id": "M21", "tag": "div", "name": "step2_nav",
+      "attrs": {}, "text": "", "children": ["M23","M24"],
+      "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "justify-content": "space-between" }
+    },
+    "M22": {
+      "id": "M22", "tag": "div", "name": "step_3_panel",
+      "attrs": {}, "text": "", "children": ["M25","M26","M27","M28","M29"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "goStep3", "action": "show",   "actionArgs": "" },
+        { "eventName": "goStep1", "action": "hide",   "actionArgs": "" },
+        { "eventName": "goStep2", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "560px", "border": "1px solid #fff", "padding": "32px", "border-radius": "4px", "display": "none" }
+    },
+    "M23": {
+      "id": "M23", "tag": "button", "name": "back_2_btn",
+      "attrs": { "onclick": "EventBus.emit('goStep1',{})" },
+      "text": "← Back",
+      "children": [], "parentId": "M21", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M24": {
+      "id": "M24", "tag": "button", "name": "next_2_btn",
+      "attrs": { "onclick": "EventBus.emit('goStep3',{})" },
+      "text": "Next →",
+      "children": [], "parentId": "M21", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M25": {
+      "id": "M25", "tag": "h2", "name": "step3_title",
+      "attrs": {}, "text": "Step 3 — Confirm", "children": [],
+      "parentId": "M22", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "20px", "margin-bottom": "20px", "color": "#fff", "letter-spacing": "1px" }
+    },
+    "M26": {
+      "id": "M26", "tag": "p", "name": "step3_desc",
+      "attrs": {}, "text": "Review your information and click Finish to complete the wizard. In a real app, a Pipe IN would write this to the database.",
+      "children": [], "parentId": "M22", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "margin-bottom": "24px", "font-size": "14px", "line-height": "1.7" }
+    },
+    "M27": {
+      "id": "M27", "tag": "button", "name": "back_3_btn",
+      "attrs": { "onclick": "EventBus.emit('goStep2',{})" },
+      "text": "← Back",
+      "children": [], "parentId": "M22", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "margin-right": "12px" }
+    },
+    "M28": {
+      "id": "M28", "tag": "button", "name": "finish_btn",
+      "attrs": { "onclick": "var n=document.getElementById('wiz-name').value||'—';var e=document.getElementById('wiz-email').value||'—';var s=document.getElementById('wiz-source').value||'—';var el=document.getElementById('wiz-log');if(el){el.innerHTML='<b>Name:</b> '+n+'<br><b>Email:</b> '+e+'<br><b>Source:</b> '+s;}EventBus.emit('wizardDone',{});" },
+      "text": "✦ Finish",
+      "children": [], "parentId": "M22", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    },
+    "M29": {
+      "id": "M29", "tag": "div", "name": "done_banner",
+      "attrs": {}, "text": "✦  Complete! Your submission has been logged below.",
+      "children": [], "parentId": "M22",
+      "wires": [
+        { "eventName": "wizardDone", "action": "show",   "actionArgs": "" },
+        { "eventName": "wizardDone", "action": "fadeIn", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "margin-top": "20px", "padding": "16px", "border": "1px solid #fff", "background": "#111", "font-size": "15px", "border-radius": "3px", "display": "none", "opacity": "0" }
+    },
+    "M30": {
+      "id": "M30", "tag": "div", "name": "log_section",
+      "attrs": {}, "text": "", "children": ["M31","M32"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "wizardDone", "action": "show",   "actionArgs": "" },
+        { "eventName": "wizardDone", "action": "fadeIn", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "560px", "margin-top": "32px", "border": "1px solid #444", "border-radius": "4px", "overflow": "hidden", "display": "none", "opacity": "0" }
+    },
+    "M31": {
+      "id": "M31", "tag": "div", "name": "log_header",
+      "attrs": {}, "text": "Submission Log", "children": [],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "padding": "10px 20px", "font-size": "11px", "letter-spacing": "2px", "text-transform": "uppercase", "color": "#888", "border-bottom": "1px solid #333" }
+    },
+    "M32": {
+      "id": "M32", "tag": "div", "name": "log_output",
+      "attrs": { "id": "wiz-log" }, "text": "Waiting for submission…", "children": [],
+      "parentId": "M30", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "20px", "font-size": "14px", "color": "#ccc", "line-height": "2", "background": "#000" }
+    }
+  },
+  "events": {
+    "goStep1":    { "name": "goStep1",    "payload": "{}" },
+    "goStep2":    { "name": "goStep2",    "payload": "{}" },
+    "goStep3":    { "name": "goStep3",    "payload": "{}" },
+    "wizardDone": { "name": "wizardDone", "payload": "{}" }
+  },
+  "pipes": {},
+  "views": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M17": { "blocks": [] },
+    "M18": { "blocks": [] }, "M19": { "blocks": [] }, "M20": { "blocks": [] },
+    "M21": { "blocks": [] }, "M22": { "blocks": [] }, "M23": { "blocks": [] },
+    "M24": { "blocks": [] }, "M25": { "blocks": [] }, "M26": { "blocks": [] },
+    "M27": { "blocks": [] }, "M28": { "blocks": [] }, "M29": { "blocks": [] },
+    "M30": { "blocks": [] }, "M31": { "blocks": [] }, "M32": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 33
+}

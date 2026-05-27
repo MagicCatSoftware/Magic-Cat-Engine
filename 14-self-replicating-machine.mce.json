@@ -1,0 +1,239 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "14 — Self-Replicating Machine" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M5","M6","M9","M12","M17","M25"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "680px" }
+    },
+    "M2": {
+      "id": "M2", "tag": "div", "name": "header",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "justify-content": "space-between", "align-items": "flex-end", "border-bottom": "1px solid #fff", "padding-bottom": "12px", "margin-bottom": "16px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "✦ Self-Replicating Machine", "children": [],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "28px", "letter-spacing": "3px", "margin": "0" }
+    },
+    "M4": {
+      "id": "M4", "tag": "span", "name": "version_tag",
+      "attrs": {}, "text": "MCE Export · v1.0", "children": [],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "font-family": "monospace", "letter-spacing": "1px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "p", "name": "tagline",
+      "attrs": {},
+      "text": "Every MCE export embeds a complete runtime — EventBus, PipeSystem, LoopSystem, FilterSystem, ViewSystem. This machine exercises all five and replicates itself: click Replicate to produce a functional HTML copy that can also replicate.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "14px", "line-height": "1.8", "margin-bottom": "32px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "div", "name": "action_bar",
+      "attrs": {}, "text": "", "children": ["M7","M8"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "12px", "margin-bottom": "24px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "replicate_btn",
+      "attrs": {
+        "onclick": "(function(){var h='<!DOCTYPE html>'+document.documentElement.outerHTML;var a=document.createElement('a');try{var b=new Blob([h],{type:'text/html'});a.href=URL.createObjectURL(b);}catch(e){a.href='data:text/html;charset=utf-8,'+encodeURIComponent(h);}a.download='mce-replica.html';document.body.appendChild(a);a.click();a.remove();PipeSystem.execute('logRep',{when:new Date().toLocaleString()});EventBus.emit('replicated',{});})();"
+      },
+      "text": "✦ Replicate",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "12px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px" }
+    },
+    "M8": {
+      "id": "M8", "tag": "button", "name": "inspect_btn",
+      "attrs": {
+        "onclick": "(function(){var el=document.getElementById('src-out');if(el){var src='<!DOCTYPE html>'+document.documentElement.outerHTML;el.textContent=src.length>9000?src.substring(0,9000)+'... ['+src.length+' chars total — download full copy via Replicate]':src;}EventBus.emit('showSource',{});})();"
+      },
+      "text": "Inspect Source",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "12px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M9": {
+      "id": "M9", "tag": "div", "name": "status_section",
+      "attrs": {}, "text": "", "children": ["M10","M11"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "replicated", "action": "show",   "actionArgs": "" },
+        { "eventName": "replicated", "action": "fadeIn", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "20px 24px", "border-radius": "4px", "margin-bottom": "24px", "display": "none", "opacity": "0" }
+    },
+    "M10": {
+      "id": "M10", "tag": "p", "name": "status_text",
+      "attrs": {}, "text": "✦  Replication complete. A functional HTML copy has been written to disk. That copy embeds the same runtime and can also replicate itself.",
+      "children": [], "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "15px", "margin-bottom": "10px", "line-height": "1.7", "color": "#fff" }
+    },
+    "M11": {
+      "id": "M11", "tag": "p", "name": "status_note",
+      "attrs": {}, "text": "Embedded: EventBus · PipeSystem · LoopSystem · FilterSystem · ViewSystem",
+      "children": [], "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "12px", "color": "#888", "font-family": "monospace", "margin": "0" }
+    },
+    "M12": {
+      "id": "M12", "tag": "div", "name": "source_panel",
+      "attrs": {}, "text": "", "children": ["M13","M16"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "showSource", "action": "show", "actionArgs": "" },
+        { "eventName": "hideSource", "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #333", "border-radius": "4px", "margin-bottom": "24px", "overflow": "hidden", "display": "none" }
+    },
+    "M13": {
+      "id": "M13", "tag": "div", "name": "source_header",
+      "attrs": {}, "text": "", "children": ["M14","M15"],
+      "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "padding": "10px 16px", "display": "flex", "justify-content": "space-between", "align-items": "center", "border-bottom": "1px solid #222" }
+    },
+    "M14": {
+      "id": "M14", "tag": "span", "name": "source_label",
+      "attrs": {}, "text": "SOURCE — document.documentElement.outerHTML",
+      "children": [], "parentId": "M13", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "font-family": "monospace", "letter-spacing": "1px" }
+    },
+    "M15": {
+      "id": "M15", "tag": "button", "name": "close_source_btn",
+      "attrs": { "onclick": "EventBus.emit('hideSource',{})" },
+      "text": "Close ✕",
+      "children": [], "parentId": "M13", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #333", "padding": "4px 10px", "font-size": "11px", "cursor": "pointer", "border-radius": "2px" }
+    },
+    "M16": {
+      "id": "M16", "tag": "pre", "name": "source_output",
+      "attrs": { "id": "src-out" }, "text": "",
+      "children": [], "parentId": "M12", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#ccc", "font-size": "11px", "font-family": "monospace", "overflow": "auto", "max-height": "320px", "padding": "16px", "margin": "0", "background": "#000", "line-height": "1.6" }
+    },
+    "M17": {
+      "id": "M17", "tag": "div", "name": "systems_section",
+      "attrs": {}, "text": "", "children": ["M18","M19"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "margin-bottom": "32px" }
+    },
+    "M18": {
+      "id": "M18", "tag": "p", "name": "systems_title",
+      "attrs": {}, "text": "EMBEDDED RUNTIME SYSTEMS",
+      "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "letter-spacing": "2px", "margin-bottom": "12px" }
+    },
+    "M19": {
+      "id": "M19", "tag": "div", "name": "systems_row",
+      "attrs": {}, "text": "", "children": ["M20","M21","M22","M23","M24"],
+      "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "flex-wrap": "wrap", "gap": "8px" }
+    },
+    "M20": {
+      "id": "M20", "tag": "span", "name": "badge_eventbus",
+      "attrs": {}, "text": "EventBus",
+      "children": [], "parentId": "M19", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "border": "1px solid #333", "color": "#ccc", "padding": "6px 14px", "font-size": "12px", "border-radius": "3px", "font-family": "monospace" }
+    },
+    "M21": {
+      "id": "M21", "tag": "span", "name": "badge_pipesystem",
+      "attrs": {}, "text": "PipeSystem",
+      "children": [], "parentId": "M19", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "border": "1px solid #333", "color": "#ccc", "padding": "6px 14px", "font-size": "12px", "border-radius": "3px", "font-family": "monospace" }
+    },
+    "M22": {
+      "id": "M22", "tag": "span", "name": "badge_loopsystem",
+      "attrs": {}, "text": "LoopSystem",
+      "children": [], "parentId": "M19", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "border": "1px solid #333", "color": "#ccc", "padding": "6px 14px", "font-size": "12px", "border-radius": "3px", "font-family": "monospace" }
+    },
+    "M23": {
+      "id": "M23", "tag": "span", "name": "badge_filtersystem",
+      "attrs": {}, "text": "FilterSystem",
+      "children": [], "parentId": "M19", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "border": "1px solid #333", "color": "#ccc", "padding": "6px 14px", "font-size": "12px", "border-radius": "3px", "font-family": "monospace" }
+    },
+    "M24": {
+      "id": "M24", "tag": "span", "name": "badge_viewsystem",
+      "attrs": {}, "text": "ViewSystem",
+      "children": [], "parentId": "M19", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "border": "1px solid #333", "color": "#ccc", "padding": "6px 14px", "font-size": "12px", "border-radius": "3px", "font-family": "monospace" }
+    },
+    "M25": {
+      "id": "M25", "tag": "div", "name": "history_section",
+      "attrs": {}, "text": "", "children": ["M26","M27"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #333", "border-radius": "4px", "overflow": "hidden" }
+    },
+    "M26": {
+      "id": "M26", "tag": "div", "name": "history_header",
+      "attrs": {}, "text": "Replication Log",
+      "children": [], "parentId": "M25", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "padding": "10px 20px", "font-size": "11px", "letter-spacing": "2px", "text-transform": "uppercase", "color": "#888", "border-bottom": "1px solid #222" }
+    },
+    "M27": {
+      "id": "M27", "tag": "div", "name": "history_list",
+      "attrs": {}, "text": "", "children": [],
+      "parentId": "M25",
+      "wires": [
+        { "eventName": "replicated", "action": "loopRender", "actionArgs": "getRep" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "56px" }
+    }
+  },
+  "events": {
+    "replicated":  { "name": "replicated",  "payload": "{}" },
+    "showSource":  { "name": "showSource",  "payload": "{}" },
+    "hideSource":  { "name": "hideSource",  "payload": "{}" }
+  },
+  "pipes": {
+    "logRep": {
+      "name": "logRep",
+      "method": "POST",
+      "collection": "replications",
+      "schema": [
+        { "key": "when", "type": "text" }
+      ],
+      "description": "Log a replication event to the DB"
+    },
+    "getRep": {
+      "name": "getRep",
+      "method": "GET",
+      "collection": "replications",
+      "schema": [],
+      "description": "Fetch all replication events"
+    }
+  },
+  "views": {},
+  "loops": {
+    "repHistory": {
+      "name": "repHistory",
+      "pipeName": "getRep",
+      "targetId": "M27",
+      "template": "<div style=\"padding:12px 20px;border-bottom:1px solid #111;display:flex;justify-content:space-between;align-items:center\"><span style=\"color:#ccc;font-size:13px\">✦ Replication event</span><span style=\"color:#555;font-size:11px;font-family:monospace\">{{when}}</span></div>",
+      "description": "Render replication history entries"
+    }
+  },
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] }
+  },
+  "dbCollections": [
+    { "name": "replications", "isArray": true }
+  ],
+  "_nextId": 28
+}

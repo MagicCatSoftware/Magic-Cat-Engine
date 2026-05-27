@@ -1,0 +1,307 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "15 — Machine Builder" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M5","M6"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "40px 48px", "font-family": "sans-serif", "color": "#fff" }
+    },
+    "M2": {
+      "id": "M2", "tag": "div", "name": "header_bar",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "justify-content": "space-between", "align-items": "flex-end", "border-bottom": "1px solid #fff", "padding-bottom": "12px", "margin-bottom": "16px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "h1", "name": "brand",
+      "attrs": {}, "text": "✦ Machine Builder", "children": [],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "28px", "letter-spacing": "3px", "margin": "0" }
+    },
+    "M4": {
+      "id": "M4", "tag": "span", "name": "edition_badge",
+      "attrs": {}, "text": "MCE Export Edition", "children": [],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "color": "#888", "font-family": "monospace", "letter-spacing": "1px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "p", "name": "desc",
+      "attrs": {},
+      "text": "Add machines using the form. Each machine becomes a real HTML element on the live canvas. Export as a standalone HTML page — or as an MCE JSON you can re-import and keep building.",
+      "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "14px", "line-height": "1.8", "margin-bottom": "32px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "div", "name": "workspace",
+      "attrs": {}, "text": "", "children": ["M7","M29"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "32px", "align-items": "flex-start" }
+    },
+    "M7": {
+      "id": "M7", "tag": "div", "name": "left_col",
+      "attrs": {}, "text": "", "children": ["M8","M26"],
+      "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "320px", "flex-shrink": "0" }
+    },
+    "M8": {
+      "id": "M8", "tag": "div", "name": "form_section",
+      "attrs": {}, "text": "", "children": ["M9","M10","M17","M18","M19","M20","M21","M24"],
+      "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #fff", "padding": "24px", "border-radius": "4px", "margin-bottom": "20px" }
+    },
+    "M9": {
+      "id": "M9", "tag": "p", "name": "form_hdr",
+      "attrs": {}, "text": "DEFINE A MACHINE", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "letter-spacing": "2px", "color": "#888", "margin-bottom": "18px" }
+    },
+    "M10": {
+      "id": "M10", "tag": "div", "name": "row_tagname",
+      "attrs": {}, "text": "", "children": ["M11","M14"],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "12px", "margin-bottom": "14px" }
+    },
+    "M11": {
+      "id": "M11", "tag": "div", "name": "field_tag",
+      "attrs": {}, "text": "", "children": ["M12","M13"],
+      "parentId": "M10", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "0 0 auto" }
+    },
+    "M12": {
+      "id": "M12", "tag": "label", "name": "tag_lbl",
+      "attrs": {}, "text": "TAG", "children": [],
+      "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "select", "name": "tag_sel",
+      "attrs": { "id": "mb-tag" },
+      "text": "<option value='div'>div</option><option value='p'>p</option><option value='h1'>h1</option><option value='h2'>h2</option><option value='h3'>h3</option><option value='h4'>h4</option><option value='span'>span</option><option value='button'>button</option><option value='pre'>pre</option><option value='blockquote'>blockquote</option>",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "8px 10px", "font-size": "14px", "border-radius": "3px", "cursor": "pointer" }
+    },
+    "M14": {
+      "id": "M14", "tag": "div", "name": "field_name",
+      "attrs": {}, "text": "", "children": ["M15","M16"],
+      "parentId": "M10", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1" }
+    },
+    "M15": {
+      "id": "M15", "tag": "label", "name": "name_lbl",
+      "attrs": {}, "text": "NAME", "children": [],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M16": {
+      "id": "M16", "tag": "input", "name": "name_inp",
+      "attrs": { "type": "text", "id": "mb-name", "placeholder": "my_element" },
+      "text": "", "children": [], "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "8px 10px", "font-size": "14px", "border-radius": "3px" }
+    },
+    "M17": {
+      "id": "M17", "tag": "label", "name": "text_lbl",
+      "attrs": {}, "text": "TEXT CONTENT", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M18": {
+      "id": "M18", "tag": "input", "name": "text_inp",
+      "attrs": { "type": "text", "id": "mb-text", "placeholder": "Hello, World" },
+      "text": "", "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "8px 10px", "font-size": "14px", "border-radius": "3px", "display": "block", "margin-bottom": "14px" }
+    },
+    "M19": {
+      "id": "M19", "tag": "label", "name": "css_lbl",
+      "attrs": {}, "text": "CSS", "children": [],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "margin-bottom": "6px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M20": {
+      "id": "M20", "tag": "textarea", "name": "css_inp",
+      "attrs": { "id": "mb-css", "rows": "2", "placeholder": "font-size:32px;color:#e00;font-weight:bold" },
+      "text": "", "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #fff", "color": "#fff", "padding": "8px 10px", "font-size": "13px", "border-radius": "3px", "display": "block", "margin-bottom": "18px", "font-family": "monospace", "resize": "vertical" }
+    },
+    "M21": {
+      "id": "M21", "tag": "div", "name": "btn_row",
+      "attrs": {}, "text": "", "children": ["M22","M23"],
+      "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "8px" }
+    },
+    "M22": {
+      "id": "M22", "tag": "button", "name": "add_btn",
+      "attrs": {
+        "onclick": "(function(){var t=document.getElementById('mb-tag').value||'div';var n=document.getElementById('mb-name').value||('el_'+Date.now().toString().slice(-4));var x=document.getElementById('mb-text').value||'';var c=document.getElementById('mb-css').value||'';PipeSystem.execute('addMachine',{tag:t,name:n,text:x,css:c});document.getElementById('mb-name').value='';document.getElementById('mb-text').value='';document.getElementById('mb-css').value='';EventBus.emit('machineAdded',{});})();"
+      },
+      "text": "✦ Add Machine",
+      "children": [], "parentId": "M21", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "flex": "1" }
+    },
+    "M23": {
+      "id": "M23", "tag": "button", "name": "clear_btn",
+      "attrs": { "onclick": "PipeSystem.execute('clearMachines',{});EventBus.emit('cleared',{});" },
+      "text": "Clear",
+      "children": [], "parentId": "M21", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "10px 16px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M24": {
+      "id": "M24", "tag": "div", "name": "added_banner",
+      "attrs": {}, "text": "", "children": ["M25"],
+      "parentId": "M8",
+      "wires": [
+        { "eventName": "machineAdded", "action": "show",   "actionArgs": "" },
+        { "eventName": "machineAdded", "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "cleared",      "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "margin-top": "14px", "padding": "10px 14px", "border": "1px solid #fff", "border-radius": "3px", "display": "none", "opacity": "0" }
+    },
+    "M25": {
+      "id": "M25", "tag": "p", "name": "added_msg",
+      "attrs": {}, "text": "✦ Machine added to canvas →",
+      "children": [], "parentId": "M24", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#fff", "margin": "0" }
+    },
+    "M26": {
+      "id": "M26", "tag": "div", "name": "stack_section",
+      "attrs": {}, "text": "", "children": ["M27","M28"],
+      "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "border": "1px solid #333", "border-radius": "4px", "overflow": "hidden" }
+    },
+    "M27": {
+      "id": "M27", "tag": "div", "name": "stack_hdr",
+      "attrs": {}, "text": "Machine Stack",
+      "children": [], "parentId": "M26", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "padding": "10px 16px", "font-size": "11px", "letter-spacing": "2px", "text-transform": "uppercase", "color": "#888", "border-bottom": "1px solid #222" }
+    },
+    "M28": {
+      "id": "M28", "tag": "div", "name": "machine_stack",
+      "attrs": {}, "text": "", "children": [],
+      "parentId": "M26", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "48px" }
+    },
+    "M29": {
+      "id": "M29", "tag": "div", "name": "right_col",
+      "attrs": {}, "text": "", "children": ["M30","M31","M32","M33"],
+      "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "flex": "1" }
+    },
+    "M30": {
+      "id": "M30", "tag": "p", "name": "canvas_title",
+      "attrs": {}, "text": "LIVE CANVAS",
+      "children": [], "parentId": "M29", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "11px", "letter-spacing": "2px", "color": "#888", "margin-bottom": "8px" }
+    },
+    "M31": {
+      "id": "M31", "tag": "p", "name": "canvas_note",
+      "attrs": {}, "text": "Machines render here as real HTML. What you see is what exports.",
+      "children": [], "parentId": "M29", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "color": "#555", "margin-bottom": "16px", "font-style": "italic" }
+    },
+    "M32": {
+      "id": "M32", "tag": "div", "name": "canvas_box",
+      "attrs": { "id": "mb-canvas" }, "text": "", "children": [],
+      "parentId": "M29",
+      "wires": [
+        { "eventName": "machineAdded", "action": "loopRender", "actionArgs": "getMachines" },
+        { "eventName": "cleared",      "action": "loopRender", "actionArgs": "getMachines" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "padding": "32px", "border-radius": "4px", "min-height": "160px" }
+    },
+    "M33": {
+      "id": "M33", "tag": "div", "name": "export_row",
+      "attrs": {}, "text": "", "children": ["M34","M35"],
+      "parentId": "M29", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "8px", "margin-top": "16px" }
+    },
+    "M34": {
+      "id": "M34", "tag": "button", "name": "export_html_btn",
+      "attrs": {
+        "onclick": "var el=document.getElementById('mb-canvas');var inner=el?el.innerHTML:'';var html='<!DOCTYPE html><html><head><meta charset=UTF-8><style>*{box-sizing:border-box}body{margin:0;font-family:sans-serif;padding:32px}</style></head><body>'+inner+'</body></html>';var a=document.createElement('a');try{var b=new Blob([html],{type:'text/html'});a.href=URL.createObjectURL(b);}catch(e){a.href='data:text/html;charset=utf-8,'+encodeURIComponent(html);}a.download='built.html';document.body.appendChild(a);a.click();a.remove();"
+      },
+      "text": "Export → HTML",
+      "children": [], "parentId": "M33", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#fff", "border": "1px solid #fff", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M35": {
+      "id": "M35", "tag": "button", "name": "export_json_btn",
+      "attrs": {
+        "onclick": "PipeSystem.fetch('getMachines').then(function(r){var ms={};var ro=[];(r.data||[]).forEach(function(d,i){var id='M'+(i+1);ro.push(id);var co={};String(d.css||'').split(';').forEach(function(p){var k=p.indexOf(':');if(k>-1)co[p.slice(0,k).trim()]=p.slice(k+1).trim();});ms[id]={id:id,tag:d.tag||'div',name:d.name||('el'+(i+1)),attrs:{},text:d.text||'',children:[],parentId:null,wires:[],pipeBindings:[],viewBinding:null,css:co};});var n=ro.length+1;var data={version:'1.0.0',project:{name:'MCE Build'},rootOrder:ro,machines:ms,events:{},pipes:{},views:{},loops:{},logic:{},dbCollections:[],_nextId:n};var json=JSON.stringify(data,null,2);var a=document.createElement('a');try{var b=new Blob([json],{type:'application/json'});a.href=URL.createObjectURL(b);}catch(e){a.href='data:application/json;charset=utf-8,'+encodeURIComponent(json);}a.download='built.mce.json';document.body.appendChild(a);a.click();a.remove();});"
+      },
+      "text": "Export → MCE JSON",
+      "children": [], "parentId": "M33", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "none", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    }
+  },
+  "events": {
+    "machineAdded": { "name": "machineAdded", "payload": "{}" },
+    "cleared":      { "name": "cleared",      "payload": "{}" }
+  },
+  "pipes": {
+    "addMachine": {
+      "name": "addMachine",
+      "method": "POST",
+      "collection": "machines",
+      "schema": [
+        { "key": "tag",  "type": "text" },
+        { "key": "name", "type": "text" },
+        { "key": "text", "type": "text" },
+        { "key": "css",  "type": "text" }
+      ],
+      "description": "Add a new machine definition to the build stack"
+    },
+    "getMachines": {
+      "name": "getMachines",
+      "method": "GET",
+      "collection": "machines",
+      "schema": [],
+      "description": "Fetch all machine definitions in the stack"
+    },
+    "clearMachines": {
+      "name": "clearMachines",
+      "method": "DELETE",
+      "collection": "machines",
+      "schema": [],
+      "description": "Clear the entire machine stack"
+    }
+  },
+  "views": {},
+  "loops": {
+    "machineStack": {
+      "name": "machineStack",
+      "pipeName": "getMachines",
+      "targetId": "M28",
+      "template": "<div style=\"display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid #1a1a1a\"><span style=\"font-family:monospace;font-size:11px;color:#555;width:56px\">&lt;{{tag}}&gt;</span><span style=\"flex:1;font-size:13px;color:#ccc;padding:0 8px\">{{name}}</span><span style=\"font-size:11px;color:#444;font-family:monospace\">{{css | TRUNCATE:26}}</span></div>",
+      "description": "List of added machines in the left panel"
+    },
+    "machineCanvas": {
+      "name": "machineCanvas",
+      "pipeName": "getMachines",
+      "targetId": "M32",
+      "template": "<{{tag}} style=\"{{css}}\">{{text}}</{{tag}}>",
+      "description": "Live canvas: renders each machine as actual HTML"
+    }
+  },
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] },
+    "M28": { "blocks": [] }, "M29": { "blocks": [] }, "M30": { "blocks": [] },
+    "M31": { "blocks": [] }, "M32": { "blocks": [] }, "M33": { "blocks": [] },
+    "M34": { "blocks": [] }, "M35": { "blocks": [] }
+  },
+  "dbCollections": [
+    { "name": "machines", "isArray": true }
+  ],
+  "_nextId": 36
+}

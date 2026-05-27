@@ -1,0 +1,160 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "20 — Multi-View Navigation (ViewSystem · viewBinding · navigate)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2", "M3", "M4", "M5"],
+      "parentId": null,
+      "wires": [
+        { "eventName": "GoHome",  "targetId": "", "action": "navigate", "actionArgs": "home"  },
+        { "eventName": "GoAbout", "targetId": "", "action": "navigate", "actionArgs": "about" },
+        { "eventName": "GoWork",  "targetId": "", "action": "navigate", "actionArgs": "work"  }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "font-family": "sans-serif", "color": "#fff" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "nav", "name": "nav_bar",
+      "attrs": {}, "text": "", "children": ["M6", "M7", "M8"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "gap": "0", "border-bottom": "1px solid #222", "background": "#0a0a0a" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "btn_home",
+      "attrs": {}, "text": "Home",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#fff", "border": "none", "border-right": "1px solid #222", "padding": "16px 28px", "font-size": "13px", "cursor": "pointer", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoHome",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "btn_about",
+      "attrs": {}, "text": "About",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#fff", "border": "none", "border-right": "1px solid #222", "padding": "16px 28px", "font-size": "13px", "cursor": "pointer", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoAbout",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": {
+      "id": "M8", "tag": "button", "name": "btn_work",
+      "attrs": {}, "text": "Work",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#fff", "border": "none", "padding": "16px 28px", "font-size": "13px", "cursor": "pointer", "letter-spacing": "1px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "GoWork",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "div", "name": "home_view",
+      "attrs": {}, "text": "", "children": ["M9", "M10"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "home",
+      "css": { "padding": "64px 48px", "max-width": "640px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M9": {
+      "id": "M9", "tag": "h1", "name": "home_heading",
+      "attrs": {}, "text": "Home",
+      "children": [], "parentId": "M3", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "48px", "letter-spacing": "4px", "margin": "0 0 20px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M10": {
+      "id": "M10", "tag": "p", "name": "home_body",
+      "attrs": {}, "text": "Welcome. This is the Home view. Navigate using the bar above — each button emits an event wired to a navigate action on the page machine. viewBinding on each section controls visibility.",
+      "children": [], "parentId": "M3", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "15px", "line-height": "1.8", "margin": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "div", "name": "about_view",
+      "attrs": {}, "text": "", "children": ["M11", "M12"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "about",
+      "css": { "padding": "64px 48px", "max-width": "640px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M11": {
+      "id": "M11", "tag": "h1", "name": "about_heading",
+      "attrs": {}, "text": "About",
+      "children": [], "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "48px", "letter-spacing": "4px", "margin": "0 0 20px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M12": {
+      "id": "M12", "tag": "p", "name": "about_body",
+      "attrs": {}, "text": "This is the About view. Its container has viewBinding set to 'about' — the ViewSystem hides it whenever any other view is active. In exported pages the active view is driven by the ?view= URL parameter.",
+      "children": [], "parentId": "M4", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "15px", "line-height": "1.8", "margin": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "work_view",
+      "attrs": {}, "text": "", "children": ["M13", "M14"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "work",
+      "css": { "padding": "64px 48px", "max-width": "640px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M13": {
+      "id": "M13", "tag": "h1", "name": "work_heading",
+      "attrs": {}, "text": "Work",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "48px", "letter-spacing": "4px", "margin": "0 0 20px 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M14": {
+      "id": "M14", "tag": "p", "name": "work_body",
+      "attrs": {}, "text": "Work view. viewBinding can be a comma-separated list — e.g. 'work,portfolio' — to show a machine in multiple views. Machines with viewBinding: null are always visible regardless of the active view.",
+      "children": [], "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "15px", "line-height": "1.8", "margin": "0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    }
+  },
+  "events": {
+    "GoHome":  { "name": "GoHome",  "payload": "{}" },
+    "GoAbout": { "name": "GoAbout", "payload": "{}" },
+    "GoWork":  { "name": "GoWork",  "payload": "{}" }
+  },
+  "pipes": {},
+  "views": {
+    "home":  { "name": "home"  },
+    "about": { "name": "about" },
+    "work":  { "name": "work"  }
+  },
+  "loops": {}, "vars": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 15
+}

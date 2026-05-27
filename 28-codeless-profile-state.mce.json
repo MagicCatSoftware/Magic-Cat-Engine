@@ -1,0 +1,123 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "28 - Codeless Profile State" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M6","M22"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#060606", "min-height": "100vh", "color": "#fff", "font-family": "system-ui, -apple-system, sans-serif", "display": "flex", "flex-direction": "column" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M2": {
+      "id": "M2", "tag": "header", "name": "top_bar",
+      "attrs": {}, "text": "", "children": ["M3","M4","M5"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "height": "58px", "display": "flex", "align-items": "center", "gap": "10px", "padding": "0 22px", "border-bottom": "1px solid #2a2a2a", "background": "#0c0c0c" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M3": {
+      "id": "M3", "tag": "p", "name": "brand",
+      "attrs": {}, "text": "Profile State",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "13px", "letter-spacing": "2px", "text-transform": "uppercase", "font-weight": "700", "margin": "0 auto 0 0" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M4": {
+      "id": "M4", "tag": "button", "name": "sync_button",
+      "attrs": {}, "text": "Sync JSON",
+      "children": [], "parentId": "M2",
+      "wires": [
+        { "eventName": "SyncProfile", "targetId": "M16", "action": "syncJSONFromFields", "actionArgs": "{\"target\":\"profile-json\",\"fields\":{\"name\":\"profile-name\",\"role\":\"profile-role\",\"bio\":\"profile-bio\",\"html\":\"profile-template\",\"css\":\"profile-css\"},\"projectName\":\"Profile State\",\"log\":\"profile-log\"}" },
+        { "eventName": "SyncProfile", "targetId": "M20", "action": "renderPreview", "actionArgs": "{\"html\":\"profile-template\",\"css\":\"profile-css\",\"targets\":[\"profile-preview\"],\"log\":\"profile-log\"}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "0", "padding": "9px 14px", "border-radius": "3px", "font-size": "12px", "font-weight": "700", "cursor": "pointer" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "SyncProfile",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M5": {
+      "id": "M5", "tag": "button", "name": "import_button",
+      "attrs": {}, "text": "Import JSON",
+      "children": [], "parentId": "M2",
+      "wires": [
+        { "eventName": "ImportProfile", "targetId": "M16", "action": "importJSONToFields", "actionArgs": "{\"source\":\"profile-json\",\"fields\":{\"name\":\"profile-name\",\"role\":\"profile-role\",\"bio\":\"profile-bio\",\"html\":\"profile-template\",\"css\":\"profile-css\"},\"log\":\"profile-log\",\"render\":{\"html\":\"profile-template\",\"css\":\"profile-css\",\"targets\":[\"profile-preview\"],\"log\":\"profile-log\"}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#111", "color": "#fff", "border": "1px solid #555", "padding": "9px 14px", "border-radius": "3px", "font-size": "12px", "cursor": "pointer" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "ImportProfile",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M6": {
+      "id": "M6", "tag": "main", "name": "workspace",
+      "attrs": {}, "text": "", "children": ["M7","M17"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "grid", "grid-template-columns": "380px 1fr", "gap": "20px", "padding": "22px", "flex": "1" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M7": {
+      "id": "M7", "tag": "section", "name": "form_panel",
+      "attrs": {}, "text": "", "children": ["M8","M9","M10","M11","M12","M13","M14","M15","M16"],
+      "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "flex-direction": "column", "gap": "8px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M8": { "id": "M8", "tag": "label", "name": "name_label", "attrs": {}, "text": "Name", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "font-size": "11px", "color": "#888", "letter-spacing": "1px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M9": { "id": "M9", "tag": "input", "name": "name_input", "attrs": { "id": "profile-name", "placeholder": "Mira Sol" }, "text": "", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "background": "#111", "color": "#fff", "border": "1px solid #444", "border-radius": "3px", "padding": "10px", "font-size": "14px", "margin-bottom": "8px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M10": { "id": "M10", "tag": "label", "name": "role_label", "attrs": {}, "text": "Role", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "font-size": "11px", "color": "#888", "letter-spacing": "1px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M11": { "id": "M11", "tag": "input", "name": "role_input", "attrs": { "id": "profile-role", "placeholder": "Creative Systems Lead" }, "text": "", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "background": "#111", "color": "#fff", "border": "1px solid #444", "border-radius": "3px", "padding": "10px", "font-size": "14px", "margin-bottom": "8px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M12": { "id": "M12", "tag": "label", "name": "bio_label", "attrs": {}, "text": "Bio", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "font-size": "11px", "color": "#888", "letter-spacing": "1px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M13": { "id": "M13", "tag": "textarea", "name": "bio_input", "attrs": { "id": "profile-bio", "rows": "4", "placeholder": "Short profile bio" }, "text": "", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "background": "#111", "color": "#fff", "border": "1px solid #444", "border-radius": "3px", "padding": "10px", "font-size": "14px", "resize": "vertical", "margin-bottom": "8px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M14": { "id": "M14", "tag": "textarea", "name": "template", "attrs": { "id": "profile-template", "rows": "7", "spellcheck": "false" }, "text": "<article class=\"profile\"><p class=\"label\">Saved Profile</p><h1>Profile Preview</h1><p>Use Sync JSON to save field values, then edit the template or import JSON back into the fields.</p></article>", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "background": "#111", "color": "#fff", "border": "1px solid #444", "border-radius": "3px", "padding": "10px", "font-family": "Consolas, monospace", "font-size": "12px", "resize": "vertical", "margin-bottom": "8px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M15": { "id": "M15", "tag": "textarea", "name": "css", "attrs": { "id": "profile-css", "rows": "5", "spellcheck": "false" }, "text": ".profile{padding:42px;background:#fff;color:#111;font-family:system-ui,sans-serif}.label{letter-spacing:3px;text-transform:uppercase;color:#777;font-size:12px}.profile h1{font-size:42px;margin:8px 0 14px}", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "background": "#111", "color": "#fff", "border": "1px solid #444", "border-radius": "3px", "padding": "10px", "font-family": "Consolas, monospace", "font-size": "12px", "resize": "vertical" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M16": { "id": "M16", "tag": "textarea", "name": "json_state", "attrs": { "id": "profile-json", "rows": "9", "spellcheck": "false" }, "text": "{}", "children": [], "parentId": "M7", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "background": "#080808", "color": "#9ca3af", "border": "1px solid #333", "border-radius": "3px", "padding": "10px", "font-family": "Consolas, monospace", "font-size": "12px", "resize": "vertical", "margin-top": "10px" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M17": {
+      "id": "M17", "tag": "section", "name": "preview_panel",
+      "attrs": {}, "text": "", "children": ["M18","M19","M20","M21"],
+      "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "flex-direction": "column", "gap": "12px" },
+      "dbSource": null, "emitOnInput": "", "emitOnClick": "",
+      "transferOnClick": { "fromId": "", "eventName": "" },
+      "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" }
+    },
+    "M18": { "id": "M18", "tag": "h2", "name": "preview_heading", "attrs": {}, "text": "Preview", "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "font-size": "13px", "letter-spacing": "2px", "text-transform": "uppercase", "margin": "0", "color": "#aaa" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M19": { "id": "M19", "tag": "button", "name": "run_preview", "attrs": {}, "text": "Render Template", "children": [], "parentId": "M17", "wires": [ { "eventName": "RenderProfile", "targetId": "M20", "action": "renderPreview", "actionArgs": "{\"html\":\"profile-template\",\"css\":\"profile-css\",\"targets\":[\"profile-preview\"],\"log\":\"profile-log\"}" } ], "pipeBindings": [], "viewBinding": null, "css": { "background": "#fff", "color": "#000", "border": "0", "padding": "10px 14px", "border-radius": "3px", "cursor": "pointer", "font-weight": "700", "width": "max-content" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "RenderProfile", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M20": { "id": "M20", "tag": "div", "name": "preview", "attrs": { "id": "profile-preview" }, "text": "Click Render Template.", "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "background": "#fff", "color": "#111", "border": "1px solid #444", "border-radius": "4px", "min-height": "420px", "overflow": "auto" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M21": { "id": "M21", "tag": "p", "name": "log", "attrs": { "id": "profile-log" }, "text": "Ready.", "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "font-size": "12px", "line-height": "1.6", "color": "#aaa", "border": "1px solid #333", "padding": "10px", "border-radius": "4px", "margin": "0" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } },
+    "M22": { "id": "M22", "tag": "footer", "name": "footer", "attrs": {}, "text": "No script, no custom handlers. JSON state is produced and consumed by built-in actions.", "children": [], "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "css": { "border-top": "1px solid #2a2a2a", "padding": "14px 22px", "font-size": "12px", "color": "#777" }, "dbSource": null, "emitOnInput": "", "emitOnClick": "", "transferOnClick": { "fromId": "", "eventName": "" }, "inputTransform": { "filter": "", "arg": "" }, "outputTransform": { "filter": "", "arg": "" } }
+  },
+  "events": {
+    "SyncProfile": { "name": "SyncProfile", "payload": "{}" },
+    "ImportProfile": { "name": "ImportProfile", "payload": "{}" },
+    "RenderProfile": { "name": "RenderProfile", "payload": "{}" }
+  },
+  "pipes": {},
+  "views": {},
+  "loops": {},
+  "vars": {},
+  "logic": {
+    "M1": { "blocks": [] }, "M2": { "blocks": [] }, "M3": { "blocks": [] },
+    "M4": { "blocks": [] }, "M5": { "blocks": [] }, "M6": { "blocks": [] },
+    "M7": { "blocks": [] }, "M8": { "blocks": [] }, "M9": { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 23
+}

@@ -1,0 +1,284 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "16 — No-Code Data Flow" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M5"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "max-width": "960px" }
+    },
+    "M2": {
+      "id": "M2", "tag": "div", "name": "header",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "border-bottom": "1px solid #333", "padding-bottom": "20px", "margin-bottom": "40px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "✦ No-Code Data Flow",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "28px", "letter-spacing": "3px", "margin": "0 0 10px 0" }
+    },
+    "M4": {
+      "id": "M4", "tag": "p", "name": "subtitle",
+      "attrs": {}, "text": "Type into the left panel. The right panel mirrors every keystroke — configured entirely through the MCE interface. No code written.",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "color": "#888", "font-size": "13px", "margin": "0", "line-height": "1.8" }
+    },
+    "M5": {
+      "id": "M5", "tag": "div", "name": "content",
+      "attrs": {}, "text": "", "children": ["M6","M14"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "display": "flex", "gap": "40px", "align-items": "flex-start" }
+    },
+    "M6": {
+      "id": "M6", "tag": "div", "name": "form_panel",
+      "attrs": {}, "text": "", "children": ["M7","M8","M9","M10","M11","M12","M13","M29"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "flex": "1", "border": "1px solid #333", "border-radius": "4px", "padding": "28px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "h3", "name": "form_heading",
+      "attrs": {}, "text": "EDIT PROFILE",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "11px", "color": "#888", "letter-spacing": "2px", "margin": "0 0 24px 0" }
+    },
+    "M8": {
+      "id": "M8", "tag": "label", "name": "name_label",
+      "attrs": {}, "text": "Full Name",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "6px" }
+    },
+    "M9": {
+      "id": "M9", "tag": "input", "name": "name_input",
+      "attrs": { "type": "text", "placeholder": "Jane Doe", "id": "pf-name" },
+      "emitOnInput": "nameTyped",
+      "text": "", "children": [], "parentId": "M6",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "border-radius": "3px", "margin-bottom": "20px", "display": "block" }
+    },
+    "M10": {
+      "id": "M10", "tag": "label", "name": "title_label",
+      "attrs": {}, "text": "Job Title",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "6px" }
+    },
+    "M11": {
+      "id": "M11", "tag": "input", "name": "title_input",
+      "attrs": { "type": "text", "placeholder": "Software Engineer", "id": "pf-title" },
+      "emitOnInput": "titleTyped",
+      "text": "", "children": [], "parentId": "M6",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "border-radius": "3px", "margin-bottom": "20px", "display": "block" }
+    },
+    "M12": {
+      "id": "M12", "tag": "label", "name": "bio_label",
+      "attrs": {}, "text": "Bio",
+      "children": [], "parentId": "M6", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "display": "block", "font-size": "11px", "color": "#888", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "6px" }
+    },
+    "M13": {
+      "id": "M13", "tag": "textarea", "name": "bio_input",
+      "attrs": { "placeholder": "A short bio…", "id": "pf-bio", "rows": "4" },
+      "emitOnInput": "bioTyped",
+      "text": "", "children": [], "parentId": "M6",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #555", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "border-radius": "3px", "resize": "vertical", "display": "block" }
+    },
+    "M14": {
+      "id": "M14", "tag": "div", "name": "preview_panel",
+      "attrs": {}, "text": "", "children": ["M15","M16","M23"],
+      "parentId": "M5", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "flex": "1" }
+    },
+    "M15": {
+      "id": "M15", "tag": "h3", "name": "preview_heading",
+      "attrs": {}, "text": "LIVE PREVIEW",
+      "children": [], "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "11px", "color": "#888", "letter-spacing": "2px", "margin": "0 0 20px 0" }
+    },
+    "M16": {
+      "id": "M16", "tag": "div", "name": "card",
+      "attrs": {}, "text": "", "children": ["M17","M18","M19","M20","M21","M22"],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "border": "1px solid #fff", "border-radius": "4px", "padding": "28px", "margin-bottom": "24px" }
+    },
+    "M17": {
+      "id": "M17", "tag": "p", "name": "card_name_label",
+      "attrs": {}, "text": "NAME",
+      "children": [], "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "10px", "color": "#888", "letter-spacing": "2px", "margin": "0 0 4px 0" }
+    },
+    "M18": {
+      "id": "M18", "tag": "p", "name": "card_name",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M16",
+      "wires": [
+        { "eventName": "nameTyped", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "TITLE", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "24px", "font-weight": "bold", "margin": "0 0 24px 0", "color": "#fff", "letter-spacing": "1px" }
+    },
+    "M19": {
+      "id": "M19", "tag": "p", "name": "card_title_label",
+      "attrs": {}, "text": "JOB TITLE",
+      "children": [], "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "10px", "color": "#888", "letter-spacing": "2px", "margin": "0 0 4px 0" }
+    },
+    "M20": {
+      "id": "M20", "tag": "p", "name": "card_job_title",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M16",
+      "wires": [
+        { "eventName": "titleTyped", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "TITLE", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "15px", "color": "#aaa", "margin": "0 0 24px 0" }
+    },
+    "M21": {
+      "id": "M21", "tag": "p", "name": "card_bio_label",
+      "attrs": {}, "text": "BIO",
+      "children": [], "parentId": "M16", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "10px", "color": "#888", "letter-spacing": "2px", "margin": "0 0 4px 0" }
+    },
+    "M22": {
+      "id": "M22", "tag": "p", "name": "card_bio",
+      "attrs": {}, "text": "—",
+      "children": [], "parentId": "M16",
+      "wires": [
+        { "eventName": "bioTyped", "targetId": "", "action": "setText", "actionArgs": "{{THIS.VALUE}}" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "14px", "color": "#ccc", "margin": "0", "line-height": "1.7" }
+    },
+    "M23": {
+      "id": "M23", "tag": "div", "name": "how_it_works",
+      "attrs": {}, "text": "", "children": ["M24","M25","M26","M27","M28"],
+      "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "border": "1px solid #222", "border-radius": "4px", "padding": "20px", "background": "#0a0a0a" }
+    },
+    "M24": {
+      "id": "M24", "tag": "p", "name": "how_label",
+      "attrs": {}, "text": "HOW THIS WORKS — NO CODE",
+      "children": [], "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "10px", "color": "#888", "letter-spacing": "2px", "margin": "0 0 12px 0" }
+    },
+    "M25": {
+      "id": "M25", "tag": "p", "name": "step1",
+      "attrs": {}, "text": "① Events tab — create nameTyped, titleTyped, bioTyped",
+      "children": [], "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "12px", "color": "#777", "margin": "0 0 8px 0", "line-height": "1.6" }
+    },
+    "M26": {
+      "id": "M26", "tag": "p", "name": "step2",
+      "attrs": {}, "text": "② Source input → Wire tab → Emit Value on Input → pick event",
+      "children": [], "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "12px", "color": "#777", "margin": "0 0 8px 0", "line-height": "1.6" }
+    },
+    "M27": {
+      "id": "M27", "tag": "p", "name": "step3",
+      "attrs": {}, "text": "③ Target element → Add Wire → ON event → setValue → THIS.VALUE",
+      "children": [], "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "12px", "color": "#777", "margin": "0 0 8px 0", "line-height": "1.6" }
+    },
+    "M28": {
+      "id": "M28", "tag": "p", "name": "step4",
+      "attrs": {}, "text": "④ card_name has Input Transform: TITLE — names are auto title-cased as they arrive.",
+      "children": [], "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "font-size": "12px", "color": "#555", "margin": "0", "line-height": "1.6" }
+    }
+    },
+    "M29": {
+      "id": "M29", "tag": "button", "name": "sync_btn",
+      "attrs": {}, "text": "↑ Sync Name to Preview",
+      "children": [], "parentId": "M6",
+      "wires": [], "pipeBindings": [], "viewBinding": null,
+      "emitOnInput": "",
+      "transferOnClick": { "fromId": "M9", "eventName": "nameTyped" },
+      "inputTransform": { "filter": "", "arg": "" },
+      "outputTransform": { "filter": "", "arg": "" },
+      "css": { "margin-top": "20px", "background": "#fff", "color": "#000", "border": "none", "padding": "10px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold", "letter-spacing": "1px", "width": "100%" }
+    }
+  },
+  "events": {
+    "nameTyped":  { "name": "nameTyped",  "payload": "{value:''}" },
+    "titleTyped": { "name": "titleTyped", "payload": "{value:''}" },
+    "bioTyped":   { "name": "bioTyped",   "payload": "{value:''}" }
+  },
+  "pipes": {},
+  "views": {},
+  "loops": {},
+  "vars": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }, "M14": { "blocks": [] }, "M15": { "blocks": [] },
+    "M16": { "blocks": [] }, "M17": { "blocks": [] }, "M18": { "blocks": [] },
+    "M19": { "blocks": [] }, "M20": { "blocks": [] }, "M21": { "blocks": [] },
+    "M22": { "blocks": [] }, "M23": { "blocks": [] }, "M24": { "blocks": [] },
+    "M25": { "blocks": [] }, "M26": { "blocks": [] }, "M27": { "blocks": [] },
+    "M28": { "blocks": [] }, "M29": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 30
+}

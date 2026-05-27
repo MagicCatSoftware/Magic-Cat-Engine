@@ -1,0 +1,1619 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "26 - Self-Hosting Mini IDE"
+  },
+  "rootOrder": [
+    "M1"
+  ],
+  "machines": {
+    "M1": {
+      "id": "M1",
+      "tag": "div",
+      "name": "ide_shell",
+      "attrs": {},
+      "text": "",
+      "children": [
+        "M2",
+        "M7",
+        "M35"
+      ],
+      "parentId": null,
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#000",
+        "color": "#fff",
+        "min-height": "100vh",
+        "font-family": "JetBrains Mono, Consolas, monospace",
+        "display": "flex",
+        "flex-direction": "column",
+        "margin": "0"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M2": {
+      "id": "M2",
+      "tag": "header",
+      "name": "top_bar",
+      "attrs": {},
+      "text": "",
+      "children": [
+        "M3",
+        "M4"
+      ],
+      "parentId": "M1",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "height": "50px",
+        "display": "flex",
+        "align-items": "center",
+        "gap": "14px",
+        "padding": "0 16px",
+        "background": "#080808",
+        "border-bottom": "1px solid #fff",
+        "flex-shrink": "0"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M3": {
+      "id": "M3",
+      "tag": "p",
+      "name": "logo_text",
+      "attrs": {},
+      "text": "MCE CHILD IDE",
+      "children": [],
+      "parentId": "M2",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "13px",
+        "letter-spacing": "3px",
+        "font-weight": "700",
+        "margin": "0",
+        "white-space": "nowrap"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M4": {
+      "id": "M4",
+      "tag": "div",
+      "name": "toolbar",
+      "attrs": {},
+      "text": "",
+      "children": [
+        "M5",
+        "M6",
+        "M31",
+        "M32",
+        "M33",
+        "M34"
+      ],
+      "parentId": "M2",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "flex",
+        "align-items": "center",
+        "gap": "8px",
+        "margin-left": "auto",
+        "flex-wrap": "wrap"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M5": {
+      "id": "M5",
+      "tag": "button",
+      "name": "run_button",
+      "attrs": {},
+      "text": "Run Preview",
+      "children": [],
+      "parentId": "M4",
+      "wires": [
+        {
+          "eventName": "RunPreview",
+          "targetId": "M27",
+          "action": "renderPreview",
+          "actionArgs": "{\"html\":\"child-html\",\"css\":\"child-css\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#fff",
+        "color": "#000",
+        "border": "1px solid #fff",
+        "padding": "7px 12px",
+        "border-radius": "3px",
+        "font-size": "11px",
+        "cursor": "pointer",
+        "font-weight": "700"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "RunPreview",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M6": {
+      "id": "M6",
+      "tag": "button",
+      "name": "export_html_button",
+      "attrs": {},
+      "text": "Export HTML",
+      "children": [],
+      "parentId": "M4",
+      "wires": [
+        {
+          "eventName": "ExportChildHTML",
+          "targetId": "M27",
+          "action": "exportHTMLFromFields",
+          "actionArgs": "{\"html\":\"child-html\",\"css\":\"child-css\",\"filename\":\"child-ide-export.html\",\"title\":\"Child IDE Export\",\"log\":\"child-log\"}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #fff",
+        "padding": "7px 12px",
+        "border-radius": "3px",
+        "font-size": "11px",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "ExportChildHTML",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M7": {
+      "id": "M7",
+      "tag": "div",
+      "name": "workspace",
+      "attrs": {},
+      "text": "",
+      "children": [
+        "M8",
+        "M17",
+        "M25"
+      ],
+      "parentId": "M1",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "grid",
+        "grid-template-columns": "260px minmax(360px, 1fr) 360px",
+        "min-height": "calc(100vh - 90px)",
+        "overflow": "hidden"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M8": {
+      "id": "M8",
+      "tag": "aside",
+      "name": "left_panel",
+      "attrs": {},
+      "text": "",
+      "children": [
+        "M9",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16"
+      ],
+      "parentId": "M7",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#080808",
+        "border-right": "1px solid #fff",
+        "padding": "14px",
+        "overflow": "auto"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M9": {
+      "id": "M9",
+      "tag": "h3",
+      "name": "palette_heading",
+      "attrs": {},
+      "text": "Machines",
+      "children": [],
+      "parentId": "M8",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "11px",
+        "letter-spacing": "2px",
+        "text-transform": "uppercase",
+        "margin": "0 0 12px 0",
+        "color": "#ccc"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M10": {
+      "id": "M10",
+      "tag": "button",
+      "name": "add_heading_button",
+      "attrs": {},
+      "text": "+ h1",
+      "children": [],
+      "parentId": "M8",
+      "wires": [
+        {
+          "eventName": "AddHeading",
+          "targetId": "M20",
+          "action": "appendValue",
+          "actionArgs": "{\"field\":\"child-html\",\"value\":\"\\n<h1>New Heading</h1>\",\"log\":\"child-log\",\"message\":\"Added h1 machine\",\"render\":{\"html\":\"child-html\",\"css\":\"child-css\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "width": "100%",
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #444",
+        "padding": "8px",
+        "border-radius": "3px",
+        "margin-bottom": "7px",
+        "text-align": "left",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "AddHeading",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M11": {
+      "id": "M11",
+      "tag": "button",
+      "name": "add_paragraph_button",
+      "attrs": {},
+      "text": "+ p",
+      "children": [],
+      "parentId": "M8",
+      "wires": [
+        {
+          "eventName": "AddParagraph",
+          "targetId": "M20",
+          "action": "appendValue",
+          "actionArgs": "{\"field\":\"child-html\",\"value\":\"\\n<p>New paragraph text.</p>\",\"log\":\"child-log\",\"message\":\"Added p machine\",\"render\":{\"html\":\"child-html\",\"css\":\"child-css\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "width": "100%",
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #444",
+        "padding": "8px",
+        "border-radius": "3px",
+        "margin-bottom": "7px",
+        "text-align": "left",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "AddParagraph",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M12": {
+      "id": "M12",
+      "tag": "button",
+      "name": "add_button_button",
+      "attrs": {},
+      "text": "+ button",
+      "children": [],
+      "parentId": "M8",
+      "wires": [
+        {
+          "eventName": "AddButton",
+          "targetId": "M20",
+          "action": "appendValue",
+          "actionArgs": "{\"field\":\"child-html\",\"value\":\"\\n<button>Button</button>\",\"log\":\"child-log\",\"message\":\"Added button machine\",\"render\":{\"html\":\"child-html\",\"css\":\"child-css\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "width": "100%",
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #444",
+        "padding": "8px",
+        "border-radius": "3px",
+        "margin-bottom": "7px",
+        "text-align": "left",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "AddButton",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M13": {
+      "id": "M13",
+      "tag": "button",
+      "name": "add_card_button",
+      "attrs": {},
+      "text": "+ card",
+      "children": [],
+      "parentId": "M8",
+      "wires": [
+        {
+          "eventName": "AddCard",
+          "targetId": "M20",
+          "action": "appendValue",
+          "actionArgs": "{\"field\":\"child-html\",\"value\":\"\\n<section class=\\\"card\\\"><h2>Card</h2><p>Reusable section content.</p></section>\",\"log\":\"child-log\",\"message\":\"Added card machine\",\"render\":{\"html\":\"child-html\",\"css\":\"child-css\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "width": "100%",
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #444",
+        "padding": "8px",
+        "border-radius": "3px",
+        "margin-bottom": "16px",
+        "text-align": "left",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "AddCard",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M14": {
+      "id": "M14",
+      "tag": "h3",
+      "name": "state_heading",
+      "attrs": {},
+      "text": "State",
+      "children": [],
+      "parentId": "M8",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "11px",
+        "letter-spacing": "2px",
+        "text-transform": "uppercase",
+        "margin": "0 0 12px 0",
+        "color": "#ccc"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M15": {
+      "id": "M15",
+      "tag": "button",
+      "name": "sync_json_button",
+      "attrs": {},
+      "text": "Sync JSON State",
+      "children": [],
+      "parentId": "M8",
+      "wires": [
+        {
+          "eventName": "SyncChildJSON",
+          "targetId": "M24",
+          "action": "syncJSONFromFields",
+          "actionArgs": "{\"target\":\"child-json\",\"fields\":{\"html\":\"child-html\",\"css\":\"child-css\"},\"projectName\":\"Child IDE Project\",\"log\":\"child-log\"}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "width": "100%",
+        "background": "#fff",
+        "color": "#000",
+        "border": "1px solid #fff",
+        "padding": "8px",
+        "border-radius": "3px",
+        "margin-bottom": "7px",
+        "text-align": "left",
+        "cursor": "pointer",
+        "font-weight": "700"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "SyncChildJSON",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M16": {
+      "id": "M16",
+      "tag": "p",
+      "name": "help_text",
+      "attrs": {},
+      "text": "This child IDE stores its project as HTML, CSS, and JSON text. It can preview and export from inside an exported HTML page.",
+      "children": [],
+      "parentId": "M8",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "11px",
+        "line-height": "1.7",
+        "color": "#888",
+        "margin": "14px 0 0 0"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M17": {
+      "id": "M17",
+      "tag": "main",
+      "name": "editor_panel",
+      "attrs": {},
+      "text": "",
+      "children": [
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24"
+      ],
+      "parentId": "M7",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#000",
+        "padding": "14px",
+        "overflow": "auto"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M18": {
+      "id": "M18",
+      "tag": "h3",
+      "name": "editor_heading",
+      "attrs": {},
+      "text": "Editor",
+      "children": [],
+      "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "11px",
+        "letter-spacing": "2px",
+        "text-transform": "uppercase",
+        "margin": "0 0 10px 0",
+        "color": "#ccc"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M19": {
+      "id": "M19",
+      "tag": "label",
+      "name": "html_label",
+      "attrs": {},
+      "text": "HTML",
+      "children": [],
+      "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "font-size": "10px",
+        "letter-spacing": "2px",
+        "color": "#777",
+        "margin-bottom": "6px"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M20": {
+      "id": "M20",
+      "tag": "textarea",
+      "name": "html_editor",
+      "attrs": {
+        "id": "child-html",
+        "rows": "12",
+        "spellcheck": "false"
+      },
+      "text": "<section class=\"hero\"><p class=\"kicker\">Child IDE Export</p><h1>Hello from a generated app.</h1><p>Edit HTML and CSS, then run preview or export.</p><button>Sample Action</button></section>",
+      "children": [],
+      "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "width": "100%",
+        "background": "#080808",
+        "color": "#fff",
+        "border": "1px solid #444",
+        "border-radius": "3px",
+        "padding": "10px",
+        "font-size": "12px",
+        "line-height": "1.55",
+        "font-family": "Consolas, monospace",
+        "resize": "vertical",
+        "margin-bottom": "12px"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M21": {
+      "id": "M21",
+      "tag": "label",
+      "name": "css_label",
+      "attrs": {},
+      "text": "CSS",
+      "children": [],
+      "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "font-size": "10px",
+        "letter-spacing": "2px",
+        "color": "#777",
+        "margin-bottom": "6px"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M22": {
+      "id": "M22",
+      "tag": "textarea",
+      "name": "css_editor",
+      "attrs": {
+        "id": "child-css",
+        "rows": "10",
+        "spellcheck": "false"
+      },
+      "text": "body{margin:0;background:#0b0b0b;color:#fff;font-family:system-ui,sans-serif}.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:48px;box-sizing:border-box}.kicker{letter-spacing:3px;text-transform:uppercase;color:#aaa;font-size:12px}h1{font-size:56px;line-height:1;margin:0 0 18px}p{max-width:620px;line-height:1.7;color:#d0d0d0}button{background:#fff;color:#000;border:0;border-radius:3px;padding:12px 18px;font-weight:700;width:max-content}",
+      "children": [],
+      "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "width": "100%",
+        "background": "#080808",
+        "color": "#fff",
+        "border": "1px solid #444",
+        "border-radius": "3px",
+        "padding": "10px",
+        "font-size": "12px",
+        "line-height": "1.55",
+        "font-family": "Consolas, monospace",
+        "resize": "vertical",
+        "margin-bottom": "12px"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M23": {
+      "id": "M23",
+      "tag": "label",
+      "name": "json_label",
+      "attrs": {},
+      "text": "JSON State",
+      "children": [],
+      "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "display": "block",
+        "font-size": "10px",
+        "letter-spacing": "2px",
+        "color": "#777",
+        "margin-bottom": "6px"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M24": {
+      "id": "M24",
+      "tag": "textarea",
+      "name": "json_editor",
+      "attrs": {
+        "id": "child-json",
+        "rows": "8",
+        "spellcheck": "false"
+      },
+      "text": "{\n  \"version\": \"1.0.0\",\n  \"project\": { \"name\": \"Child IDE Project\" },\n  \"html\": \"Edit the HTML panel, then sync JSON.\",\n  \"css\": \"Edit the CSS panel, then sync JSON.\"\n}",
+      "children": [],
+      "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "width": "100%",
+        "background": "#080808",
+        "color": "#fff",
+        "border": "1px solid #444",
+        "border-radius": "3px",
+        "padding": "10px",
+        "font-size": "12px",
+        "line-height": "1.55",
+        "font-family": "Consolas, monospace",
+        "resize": "vertical"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M25": {
+      "id": "M25",
+      "tag": "aside",
+      "name": "preview_panel",
+      "attrs": {},
+      "text": "",
+      "children": [
+        "M26",
+        "M27",
+        "M36",
+        "M28",
+        "M29",
+        "M30"
+      ],
+      "parentId": "M7",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#080808",
+        "border-left": "1px solid #fff",
+        "padding": "14px",
+        "overflow": "auto"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M26": {
+      "id": "M26",
+      "tag": "h3",
+      "name": "preview_heading",
+      "attrs": {},
+      "text": "Preview",
+      "children": [],
+      "parentId": "M25",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "11px",
+        "letter-spacing": "2px",
+        "text-transform": "uppercase",
+        "margin": "0 0 10px 0",
+        "color": "#ccc"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M27": {
+      "id": "M27",
+      "tag": "div",
+      "name": "preview_frame",
+      "attrs": {
+        "id": "child-frame"
+      },
+      "text": "Click Run Preview to render the HTML editor here.",
+      "children": [],
+      "parentId": "M25",
+      "wires": [
+        {
+          "eventName": "view:app",
+          "targetId": "M27",
+          "action": "renderPreview",
+          "actionArgs": "{\"html\":\"child-html\",\"css\":\"child-css\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "width": "100%",
+        "min-height": "420px",
+        "border": "1px solid #444",
+        "background": "#fff",
+        "color": "#111",
+        "border-radius": "3px",
+        "display": "block",
+        "margin-bottom": "12px",
+        "overflow": "auto"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M28": {
+      "id": "M28",
+      "tag": "h3",
+      "name": "inspector_heading",
+      "attrs": {},
+      "text": "Inspector",
+      "children": [],
+      "parentId": "M25",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "11px",
+        "letter-spacing": "2px",
+        "text-transform": "uppercase",
+        "margin": "14px 0 10px 0",
+        "color": "#ccc"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M29": {
+      "id": "M29",
+      "tag": "p",
+      "name": "inspector_text",
+      "attrs": {},
+      "text": "Current project has editable HTML, CSS, and JSON documents. Use palette buttons to append simple machines, then preview or export.",
+      "children": [],
+      "parentId": "M25",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "font-size": "12px",
+        "line-height": "1.7",
+        "color": "#aaa",
+        "margin": "0 0 12px 0"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M30": {
+      "id": "M30",
+      "tag": "p",
+      "name": "runtime_log",
+      "attrs": {
+        "id": "child-log"
+      },
+      "text": "Ready.",
+      "children": [],
+      "parentId": "M25",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#000",
+        "border": "1px solid #333",
+        "border-radius": "3px",
+        "padding": "10px",
+        "font-size": "11px",
+        "line-height": "1.6",
+        "color": "#ccc",
+        "margin": "0"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M31": {
+      "id": "M31",
+      "tag": "button",
+      "name": "export_json_button",
+      "attrs": {},
+      "text": "Export JSON",
+      "children": [],
+      "parentId": "M4",
+      "wires": [
+        {
+          "eventName": "ExportChildJSON",
+          "targetId": "M24",
+          "action": "exportJSONFromFields",
+          "actionArgs": "{\"fields\":{\"html\":\"child-html\",\"css\":\"child-css\",\"json\":\"child-json\"},\"projectName\":\"Child IDE Project\",\"filename\":\"child-ide-project.json\",\"log\":\"child-log\"}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #fff",
+        "padding": "7px 12px",
+        "border-radius": "3px",
+        "font-size": "11px",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "ExportChildJSON",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M32": {
+      "id": "M32",
+      "tag": "button",
+      "name": "import_json_button",
+      "attrs": {},
+      "text": "Import JSON",
+      "children": [],
+      "parentId": "M4",
+      "wires": [
+        {
+          "eventName": "ImportChildJSON",
+          "targetId": "M24",
+          "action": "importJSONToFields",
+          "actionArgs": "{\"source\":\"child-json\",\"fields\":{\"html\":\"child-html\",\"css\":\"child-css\"},\"log\":\"child-log\",\"render\":{\"html\":\"child-html\",\"css\":\"child-css\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #fff",
+        "padding": "7px 12px",
+        "border-radius": "3px",
+        "font-size": "11px",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "ImportChildJSON",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M33": {
+      "id": "M33",
+      "tag": "button",
+      "name": "clear_button",
+      "attrs": {},
+      "text": "Clear",
+      "children": [],
+      "parentId": "M4",
+      "wires": [
+        {
+          "eventName": "ClearChildProject",
+          "targetId": "M20",
+          "action": "clearFields",
+          "actionArgs": "{\"fields\":[\"child-html\",\"child-css\",\"child-json\"],\"json\":\"child-json\",\"targets\":[\"child-frame\",\"child-live-preview\"],\"log\":\"child-log\"}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#000",
+        "color": "#ef4444",
+        "border": "1px solid #ef4444",
+        "padding": "7px 12px",
+        "border-radius": "3px",
+        "font-size": "11px",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "ClearChildProject",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M34": {
+      "id": "M34",
+      "tag": "button",
+      "name": "replicate_button",
+      "attrs": {},
+      "text": "Replicate",
+      "children": [],
+      "parentId": "M4",
+      "wires": [
+        {
+          "eventName": "ReplicateChild",
+          "targetId": "M24",
+          "action": "syncJSONFromFields",
+          "actionArgs": "{\"target\":\"child-json\",\"fields\":{\"html\":\"child-html\",\"css\":\"child-css\"},\"projectName\":\"Child IDE Replica\",\"log\":\"child-log\"}"
+        }
+      ],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "background": "#111",
+        "color": "#fff",
+        "border": "1px solid #777",
+        "padding": "7px 12px",
+        "border-radius": "3px",
+        "font-size": "11px",
+        "cursor": "pointer"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "ReplicateChild",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M35": {
+      "id": "M35",
+      "tag": "footer",
+      "name": "bottom_log_bar",
+      "attrs": {},
+      "text": "Self-hosting demo: parent IDE imports this JSON, child IDE previews and exports its own HTML/JSON.",
+      "children": [],
+      "parentId": "M1",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "height": "40px",
+        "display": "flex",
+        "align-items": "center",
+        "padding": "0 16px",
+        "background": "#080808",
+        "border-top": "1px solid #fff",
+        "font-size": "11px",
+        "color": "#aaa",
+        "flex-shrink": "0"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    },
+    "M36": {
+      "id": "M36",
+      "tag": "div",
+      "name": "live_preview_fallback",
+      "attrs": {
+        "id": "child-live-preview"
+      },
+      "text": "Live preview fallback appears here when iframe preview is blocked.",
+      "children": [],
+      "parentId": "M25",
+      "wires": [],
+      "pipeBindings": [],
+      "viewBinding": null,
+      "css": {
+        "width": "100%",
+        "min-height": "220px",
+        "border": "1px solid #444",
+        "background": "#fff",
+        "color": "#111",
+        "border-radius": "3px",
+        "display": "block",
+        "margin-bottom": "12px",
+        "overflow": "auto"
+      },
+      "dbSource": null,
+      "emitOnInput": "",
+      "emitOnClick": "",
+      "transferOnClick": {
+        "fromId": "",
+        "eventName": ""
+      },
+      "inputTransform": {
+        "filter": "",
+        "arg": ""
+      },
+      "outputTransform": {
+        "filter": "",
+        "arg": ""
+      }
+    }
+  },
+  "events": {
+    "RunPreview": {
+      "name": "RunPreview",
+      "payload": "{}"
+    },
+    "ExportChildHTML": {
+      "name": "ExportChildHTML",
+      "payload": "{}"
+    },
+    "ExportChildJSON": {
+      "name": "ExportChildJSON",
+      "payload": "{}"
+    },
+    "ImportChildJSON": {
+      "name": "ImportChildJSON",
+      "payload": "{}"
+    },
+    "ClearChildProject": {
+      "name": "ClearChildProject",
+      "payload": "{}"
+    },
+    "ReplicateChild": {
+      "name": "ReplicateChild",
+      "payload": "{}"
+    },
+    "AddHeading": {
+      "name": "AddHeading",
+      "payload": "{}"
+    },
+    "AddParagraph": {
+      "name": "AddParagraph",
+      "payload": "{}"
+    },
+    "AddButton": {
+      "name": "AddButton",
+      "payload": "{}"
+    },
+    "AddCard": {
+      "name": "AddCard",
+      "payload": "{}"
+    },
+    "SyncChildJSON": {
+      "name": "SyncChildJSON",
+      "payload": "{}"
+    },
+    "view:app": {
+      "name": "view:app",
+      "payload": "{}"
+    }
+  },
+  "pipes": {},
+  "views": {
+    "app": {
+      "name": "app",
+      "description": "Initial exported child IDE view"
+    }
+  },
+  "loops": {},
+  "vars": {},
+  "logic": {
+    "M1": {
+      "blocks": []
+    },
+    "M2": {
+      "blocks": []
+    },
+    "M3": {
+      "blocks": []
+    },
+    "M4": {
+      "blocks": []
+    },
+    "M5": {
+      "blocks": []
+    },
+    "M6": {
+      "blocks": []
+    },
+    "M7": {
+      "blocks": []
+    },
+    "M8": {
+      "blocks": []
+    },
+    "M9": {
+      "blocks": []
+    },
+    "M10": {
+      "blocks": []
+    },
+    "M11": {
+      "blocks": []
+    },
+    "M12": {
+      "blocks": []
+    },
+    "M13": {
+      "blocks": []
+    },
+    "M14": {
+      "blocks": []
+    },
+    "M15": {
+      "blocks": []
+    },
+    "M16": {
+      "blocks": []
+    },
+    "M17": {
+      "blocks": []
+    },
+    "M18": {
+      "blocks": []
+    },
+    "M19": {
+      "blocks": []
+    },
+    "M20": {
+      "blocks": []
+    },
+    "M21": {
+      "blocks": []
+    },
+    "M22": {
+      "blocks": []
+    },
+    "M23": {
+      "blocks": []
+    },
+    "M24": {
+      "blocks": []
+    },
+    "M25": {
+      "blocks": []
+    },
+    "M26": {
+      "blocks": []
+    },
+    "M27": {
+      "blocks": []
+    },
+    "M28": {
+      "blocks": []
+    },
+    "M29": {
+      "blocks": []
+    },
+    "M30": {
+      "blocks": []
+    },
+    "M31": {
+      "blocks": []
+    },
+    "M32": {
+      "blocks": []
+    },
+    "M33": {
+      "blocks": []
+    },
+    "M34": {
+      "blocks": []
+    },
+    "M35": {
+      "blocks": []
+    },
+    "M36": {
+      "blocks": []
+    }
+  },
+  "dbCollections": [],
+  "_nextId": 37
+}

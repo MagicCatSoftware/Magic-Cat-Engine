@@ -1,0 +1,124 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "04 — Notification Toast" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M8","M11"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff", "position": "relative" }
+    },
+    "M2": {
+      "id": "M2", "tag": "div", "name": "main_content",
+      "attrs": {}, "text": "", "children": ["M3","M4","M5","M6","M7"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "max-width": "600px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Notification Toast", "children": [],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "8px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M4": {
+      "id": "M4", "tag": "p", "name": "desc",
+      "attrs": {},
+      "text": "Click the button to trigger a toast notification. The toast machine listens for showToast and runs two wires in sequence: show (display) then fadeIn (opacity animation). Dismiss fires hideToast which hides the toast immediately.",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "color": "#888", "font-size": "14px", "margin-bottom": "32px", "line-height": "1.7" }
+    },
+    "M5": {
+      "id": "M5", "tag": "button", "name": "trigger_btn",
+      "attrs": { "onclick": "EventBus.emit('showToast',{})" },
+      "text": "Show Notification",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#fff", "color": "#000", "border": "2px solid #fff", "padding": "12px 28px", "font-size": "15px", "cursor": "pointer", "border-radius": "3px", "display": "inline-block", "letter-spacing": "1px", "margin-right": "12px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "error_btn",
+      "attrs": { "onclick": "EventBus.emit('showError',{})" },
+      "text": "Show Error",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "color": "#ef4444", "border": "2px solid #ef4444", "padding": "12px 28px", "font-size": "15px", "cursor": "pointer", "border-radius": "3px", "display": "inline-block", "letter-spacing": "1px", "margin-right": "12px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "fadeblack_btn",
+      "attrs": { "onclick": "EventBus.emit('doFadeBlack',{})" },
+      "text": "Fade to Black",
+      "children": [], "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "color": "#888", "border": "2px solid #444", "padding": "12px 28px", "font-size": "15px", "cursor": "pointer", "border-radius": "3px", "display": "inline-block", "letter-spacing": "1px" }
+    },
+    "M8": {
+      "id": "M8", "tag": "div", "name": "toast_success",
+      "attrs": {}, "text": "", "children": ["M9","M10"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "showToast",   "action": "show",   "actionArgs": "" },
+        { "eventName": "showToast",   "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "hideToast",   "action": "hide",   "actionArgs": "" },
+        { "eventName": "showError",   "action": "hide",   "actionArgs": "" },
+        { "eventName": "doFadeBlack", "action": "fadeToBlack", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "position": "fixed", "bottom": "32px", "right": "32px", "background": "#111", "border": "1px solid #fff", "padding": "20px 28px", "border-radius": "4px", "min-width": "280px", "display": "none", "opacity": "0" }
+    },
+    "M9": {
+      "id": "M9", "tag": "p", "name": "toast_text",
+      "attrs": {}, "text": "✦  Action completed successfully.",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "15px", "margin-bottom": "12px", "color": "#fff" }
+    },
+    "M10": {
+      "id": "M10", "tag": "button", "name": "dismiss_btn",
+      "attrs": { "onclick": "EventBus.emit('hideToast',{})" },
+      "text": "✕  Dismiss",
+      "children": [], "parentId": "M8", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "5px 14px", "font-size": "12px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M11": {
+      "id": "M11", "tag": "div", "name": "toast_error",
+      "attrs": {}, "text": "", "children": ["M12","M13"],
+      "parentId": "M1",
+      "wires": [
+        { "eventName": "showError", "action": "show",   "actionArgs": "" },
+        { "eventName": "showError", "action": "fadeIn", "actionArgs": "" },
+        { "eventName": "hideError", "action": "hide",   "actionArgs": "" },
+        { "eventName": "showToast", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "position": "fixed", "bottom": "32px", "right": "32px", "background": "#1a0000", "border": "1px solid #ef4444", "padding": "20px 28px", "border-radius": "4px", "min-width": "280px", "display": "none", "opacity": "0" }
+    },
+    "M12": {
+      "id": "M12", "tag": "p", "name": "error_text",
+      "attrs": {}, "text": "⚠  Something went wrong. Please try again.",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "15px", "margin-bottom": "12px", "color": "#ef4444" }
+    },
+    "M13": {
+      "id": "M13", "tag": "button", "name": "dismiss_error_btn",
+      "attrs": { "onclick": "EventBus.emit('hideError',{})" },
+      "text": "✕  Dismiss",
+      "children": [], "parentId": "M11", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "1px solid #444", "padding": "5px 14px", "font-size": "12px", "cursor": "pointer", "border-radius": "3px" }
+    }
+  },
+  "events": {
+    "showToast":   { "name": "showToast",   "payload": "{}" },
+    "hideToast":   { "name": "hideToast",   "payload": "{}" },
+    "showError":   { "name": "showError",   "payload": "{}" },
+    "hideError":   { "name": "hideError",   "payload": "{}" },
+    "doFadeBlack": { "name": "doFadeBlack", "payload": "{}" }
+  },
+  "pipes": {},
+  "views": {},
+  "logic": {
+    "M1":  { "blocks": [] }, "M2":  { "blocks": [] }, "M3":  { "blocks": [] },
+    "M4":  { "blocks": [] }, "M5":  { "blocks": [] }, "M6":  { "blocks": [] },
+    "M7":  { "blocks": [] }, "M8":  { "blocks": [] }, "M9":  { "blocks": [] },
+    "M10": { "blocks": [] }, "M11": { "blocks": [] }, "M12": { "blocks": [] },
+    "M13": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 14
+}

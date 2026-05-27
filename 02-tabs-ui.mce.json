@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "02 — Tabs UI" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M3","M9","M10","M11"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "#000", "min-height": "100vh", "padding": "48px", "font-family": "sans-serif", "color": "#fff" }
+    },
+    "M2": {
+      "id": "M2", "tag": "h1", "name": "heading",
+      "attrs": {}, "text": "Tabs UI", "children": [],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "font-size": "32px", "letter-spacing": "3px", "margin-bottom": "32px", "border-bottom": "1px solid #fff", "padding-bottom": "12px" }
+    },
+    "M3": {
+      "id": "M3", "tag": "div", "name": "tab_bar",
+      "attrs": {}, "text": "", "children": ["M4","M5","M6"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null,
+      "css": { "display": "flex", "border-bottom": "1px solid #fff", "margin-bottom": "0" }
+    },
+    "M4": {
+      "id": "M4", "tag": "button", "name": "tab_overview_btn",
+      "attrs": { "onclick": "EventBus.emit('selectTab1',{})", "class": "tab-active" },
+      "text": "Overview", "children": [],
+      "parentId": "M3",
+      "wires": [
+        { "eventName": "selectTab1", "action": "addClass",    "actionArgs": "tab-active" },
+        { "eventName": "selectTab2", "action": "removeClass", "actionArgs": "tab-active" },
+        { "eventName": "selectTab3", "action": "removeClass", "actionArgs": "tab-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "none", "border-right": "1px solid #333", "padding": "10px 22px", "cursor": "pointer", "font-size": "14px", "letter-spacing": "1px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "button", "name": "tab_features_btn",
+      "attrs": { "onclick": "EventBus.emit('selectTab2',{})" },
+      "text": "Features", "children": [],
+      "parentId": "M3",
+      "wires": [
+        { "eventName": "selectTab2", "action": "addClass",    "actionArgs": "tab-active" },
+        { "eventName": "selectTab1", "action": "removeClass", "actionArgs": "tab-active" },
+        { "eventName": "selectTab3", "action": "removeClass", "actionArgs": "tab-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "none", "border-right": "1px solid #333", "padding": "10px 22px", "cursor": "pointer", "font-size": "14px", "letter-spacing": "1px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "tab_about_btn",
+      "attrs": { "onclick": "EventBus.emit('selectTab3',{})" },
+      "text": "About", "children": [],
+      "parentId": "M3",
+      "wires": [
+        { "eventName": "selectTab3", "action": "addClass",    "actionArgs": "tab-active" },
+        { "eventName": "selectTab1", "action": "removeClass", "actionArgs": "tab-active" },
+        { "eventName": "selectTab2", "action": "removeClass", "actionArgs": "tab-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "background": "transparent", "color": "#888", "border": "none", "padding": "10px 22px", "cursor": "pointer", "font-size": "14px", "letter-spacing": "1px" }
+    },
+    "M9": {
+      "id": "M9", "tag": "div", "name": "tab1_content",
+      "attrs": {},
+      "text": "OVERVIEW — The Magic Cat Engine is a machine-based HTML/JS builder. Every element is a Machine. Machines listen for events and execute actions. No code required — everything is wired through the interface.",
+      "children": [], "parentId": "M1",
+      "wires": [
+        { "eventName": "selectTab1", "action": "show",   "actionArgs": "" },
+        { "eventName": "selectTab2", "action": "hide",   "actionArgs": "" },
+        { "eventName": "selectTab3", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "28px", "border": "1px solid #fff", "border-top": "none", "line-height": "1.9", "font-size": "15px" }
+    },
+    "M10": {
+      "id": "M10", "tag": "div", "name": "tab2_content",
+      "attrs": {},
+      "text": "FEATURES — ✦ Machine architecture  ✦ Event bus (pub/sub)  ✦ Pipe system (DB read/write)  ✦ View system (URL routing)  ✦ Visual logic builder (if/elseif/else)  ✦ Live CSS editor  ✦ Self-replication as JSON",
+      "children": [], "parentId": "M1",
+      "wires": [
+        { "eventName": "selectTab1", "action": "hide",   "actionArgs": "" },
+        { "eventName": "selectTab2", "action": "show",   "actionArgs": "" },
+        { "eventName": "selectTab3", "action": "hide",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "28px", "border": "1px solid #fff", "border-top": "none", "line-height": "1.9", "font-size": "15px", "display": "none" }
+    },
+    "M11": {
+      "id": "M11", "tag": "div", "name": "tab3_content",
+      "attrs": {},
+      "text": "ABOUT — Built by Adom Patchett. Magic Cat Software. The Machine Constant concept: any component, in any language, can be described as a transmissible JSON object. Visit magiccatsoftware.ca",
+      "children": [], "parentId": "M1",
+      "wires": [
+        { "eventName": "selectTab1", "action": "hide",   "actionArgs": "" },
+        { "eventName": "selectTab2", "action": "hide",   "actionArgs": "" },
+        { "eventName": "selectTab3", "action": "show",   "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null,
+      "css": { "padding": "28px", "border": "1px solid #fff", "border-top": "none", "line-height": "1.9", "font-size": "15px", "display": "none" }
+    }
+  },
+  "events": {
+    "selectTab1": { "name": "selectTab1", "payload": "{}" },
+    "selectTab2": { "name": "selectTab2", "payload": "{}" },
+    "selectTab3": { "name": "selectTab3", "payload": "{}" }
+  },
+  "pipes": {},
+  "views": {},
+  "logic": {
+    "M1": { "blocks": [] }, "M2": { "blocks": [] }, "M3": { "blocks": [] },
+    "M4": { "blocks": [] }, "M5": { "blocks": [] }, "M6": { "blocks": [] },
+    "M9": { "blocks": [] }, "M10": { "blocks": [] }, "M11": { "blocks": [] }
+  },
+  "dbCollections": [],
+  "_nextId": 12
+}

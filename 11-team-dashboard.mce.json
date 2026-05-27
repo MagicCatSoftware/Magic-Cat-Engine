@@ -1,0 +1,819 @@
+{
+  "version": "1.0.0",
+  "project": { "name": "11 — Team Task Dashboard (4 Views · 6 Pipes · 3 DB Collections)" },
+  "rootOrder": ["M1"],
+  "machines": {
+    "M1": {
+      "id": "M1", "tag": "div", "name": "page",
+      "attrs": {}, "text": "", "children": ["M2","M9","M31","M49","M66","M85"],
+      "parentId": null, "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#000", "min-height": "100vh", "font-family": "sans-serif", "color": "#fff" }
+    },
+
+    "M2": {
+      "id": "M2", "tag": "nav", "name": "navbar",
+      "attrs": {}, "text": "", "children": ["M3","M4"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "justify-content": "space-between", "align-items": "center", "padding": "18px 48px", "border-bottom": "1px solid #1a1a1a", "position": "sticky", "top": "0", "background": "#000", "z-index": "10" }
+    },
+    "M3": {
+      "id": "M3", "tag": "span", "name": "logo",
+      "attrs": { "onclick": "ViewSystem.navigate('dashboard',{})" },
+      "text": "✦ Team Dashboard", "children": [],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "15px", "font-weight": "bold", "letter-spacing": "2px", "color": "#a855f7", "cursor": "pointer" }
+    },
+    "M4": {
+      "id": "M4", "tag": "div", "name": "nav_links",
+      "attrs": {}, "text": "", "children": ["M5","M6","M7","M8"],
+      "parentId": "M2", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "gap": "4px" }
+    },
+    "M5": {
+      "id": "M5", "tag": "button", "name": "btn_dashboard",
+      "attrs": { "onclick": "ViewSystem.navigate('dashboard',{})" },
+      "text": "Dashboard", "children": [],
+      "parentId": "M4",
+      "wires": [
+        { "eventName": "view:dashboard", "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "view:tasks",     "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:team",      "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:settings",  "action": "removeClass", "actionArgs": "nav-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M6": {
+      "id": "M6", "tag": "button", "name": "btn_tasks",
+      "attrs": { "onclick": "ViewSystem.navigate('tasks',{})" },
+      "text": "Tasks", "children": [],
+      "parentId": "M4",
+      "wires": [
+        { "eventName": "view:tasks",     "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "view:dashboard", "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:team",      "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:settings",  "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:tasks",     "action": "loopRender",  "actionArgs": "loadTasks" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M7": {
+      "id": "M7", "tag": "button", "name": "btn_team",
+      "attrs": { "onclick": "ViewSystem.navigate('team',{})" },
+      "text": "Team", "children": [],
+      "parentId": "M4",
+      "wires": [
+        { "eventName": "view:team",      "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "view:dashboard", "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:tasks",     "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:settings",  "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:team",      "action": "loopRender",  "actionArgs": "loadTeam" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M8": {
+      "id": "M8", "tag": "button", "name": "btn_settings",
+      "attrs": { "onclick": "ViewSystem.navigate('settings',{})" },
+      "text": "Settings", "children": [],
+      "parentId": "M4",
+      "wires": [
+        { "eventName": "view:settings",  "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "view:dashboard", "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:tasks",     "action": "removeClass", "actionArgs": "nav-active" },
+        { "eventName": "view:team",      "action": "removeClass", "actionArgs": "nav-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 16px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+
+    "M9": {
+      "id": "M9", "tag": "section", "name": "dashboard_section",
+      "attrs": {}, "text": "", "children": ["M10","M13","M23","M27","M28"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "dashboard", "dbSource": null,
+      "css": { "padding": "48px 48px 120px" }
+    },
+    "M10": {
+      "id": "M10", "tag": "div", "name": "dash_header",
+      "attrs": {}, "text": "", "children": ["M11","M12"],
+      "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "40px" }
+    },
+    "M11": {
+      "id": "M11", "tag": "h1", "name": "dash_title",
+      "attrs": {}, "text": "Project Overview",
+      "children": [], "parentId": "M10", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "36px", "font-weight": "700", "letter-spacing": "2px", "margin-bottom": "10px" }
+    },
+    "M12": {
+      "id": "M12", "tag": "p", "name": "dash_subtitle",
+      "attrs": {}, "text": "4 views: dashboard / tasks / team / settings. 6 pipes (3× GET, 2× POST, 1× PUT). 2 loops. 3 DB collections. 44 wires. 14 events. Tasks + team auto-load via loopRender on view activation.",
+      "children": [], "parentId": "M10", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "color": "#555", "font-size": "13px", "line-height": "1.7", "max-width": "640px" }
+    },
+
+    "M13": {
+      "id": "M13", "tag": "div", "name": "stats_grid",
+      "attrs": {}, "text": "", "children": ["M14","M17","M20"],
+      "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "gap": "20px", "margin-bottom": "36px", "flex-wrap": "wrap" }
+    },
+    "M14": {
+      "id": "M14", "tag": "div", "name": "card_total",
+      "attrs": {}, "text": "", "children": ["M15","M16"],
+      "parentId": "M13", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "border-radius": "6px", "padding": "28px 32px", "flex": "1", "min-width": "160px", "background": "#080808" }
+    },
+    "M15": {
+      "id": "M15", "tag": "h2", "name": "card_total_num",
+      "attrs": {}, "text": "—", "children": [], "parentId": "M14",
+      "wires": [],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "52px", "font-weight": "700", "margin-bottom": "4px", "color": "#a855f7", "line-height": "1" }
+    },
+    "M16": {
+      "id": "M16", "tag": "p", "name": "card_total_label",
+      "attrs": {}, "text": "Total Tasks",
+      "children": [], "parentId": "M14", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#444", "text-transform": "uppercase", "letter-spacing": "1px", "margin": "0" }
+    },
+    "M17": {
+      "id": "M17", "tag": "div", "name": "card_open",
+      "attrs": {}, "text": "", "children": ["M18","M19"],
+      "parentId": "M13", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "border-radius": "6px", "padding": "28px 32px", "flex": "1", "min-width": "160px", "background": "#080808" }
+    },
+    "M18": {
+      "id": "M18", "tag": "h2", "name": "card_open_num",
+      "attrs": {}, "text": "—", "children": [], "parentId": "M17",
+      "wires": [],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "52px", "font-weight": "700", "margin-bottom": "4px", "color": "#f59e0b", "line-height": "1" }
+    },
+    "M19": {
+      "id": "M19", "tag": "p", "name": "card_open_label",
+      "attrs": {}, "text": "Open Tasks",
+      "children": [], "parentId": "M17", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#444", "text-transform": "uppercase", "letter-spacing": "1px", "margin": "0" }
+    },
+    "M20": {
+      "id": "M20", "tag": "div", "name": "card_team",
+      "attrs": {}, "text": "", "children": ["M21","M22"],
+      "parentId": "M13", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "border-radius": "6px", "padding": "28px 32px", "flex": "1", "min-width": "160px", "background": "#080808" }
+    },
+    "M21": {
+      "id": "M21", "tag": "h2", "name": "card_team_num",
+      "attrs": {}, "text": "—", "children": [], "parentId": "M20",
+      "wires": [],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "52px", "font-weight": "700", "margin-bottom": "4px", "color": "#22c55e", "line-height": "1" }
+    },
+    "M22": {
+      "id": "M22", "tag": "p", "name": "card_team_label",
+      "attrs": {}, "text": "Team Members",
+      "children": [], "parentId": "M20", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#444", "text-transform": "uppercase", "letter-spacing": "1px", "margin": "0" }
+    },
+
+    "M23": {
+      "id": "M23", "tag": "div", "name": "dash_actions",
+      "attrs": {}, "text": "", "children": ["M24","M25","M26"],
+      "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "gap": "12px", "margin-bottom": "24px", "flex-wrap": "wrap" }
+    },
+    "M24": {
+      "id": "M24", "tag": "button", "name": "btn_load_stats",
+      "attrs": { "onclick": "PipeSystem.fetch('loadStats').then(function(r){if(r&&r.status===200)EventBus.emit('statsLoaded',{})})" },
+      "text": "↓ Load Stats", "children": [],
+      "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#a855f7", "color": "#fff", "border": "none", "padding": "10px 22px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    },
+    "M25": {
+      "id": "M25", "tag": "button", "name": "btn_go_tasks",
+      "attrs": { "onclick": "ViewSystem.navigate('tasks',{})" },
+      "text": "→ Tasks", "children": [],
+      "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M26": {
+      "id": "M26", "tag": "button", "name": "btn_go_team",
+      "attrs": { "onclick": "ViewSystem.navigate('team',{})" },
+      "text": "→ Team", "children": [],
+      "parentId": "M23", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "10px 20px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px" }
+    },
+
+    "M27": {
+      "id": "M27", "tag": "p", "name": "dash_status",
+      "attrs": {}, "text": "", "children": [], "parentId": "M9",
+      "wires": [
+        { "eventName": "statsLoaded", "action": "show",    "actionArgs": "" },
+        { "eventName": "statsLoaded", "action": "setText", "actionArgs": "✦  Stats loaded from GET /api/stats — totalTasks: 6  openTasks: 4  teamSize: 4" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "12px", "color": "#555", "font-family": "monospace", "margin-bottom": "24px", "display": "none" }
+    },
+
+    "M28": {
+      "id": "M28", "tag": "div", "name": "stats_raw_wrap",
+      "attrs": {}, "text": "", "children": ["M29","M30"],
+      "parentId": "M9", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": {}
+    },
+    "M29": {
+      "id": "M29", "tag": "p", "name": "stats_raw_label",
+      "attrs": {}, "text": "Raw API Response — loadStats GET /api/stats (pipeBinding → textContent)",
+      "children": [], "parentId": "M28", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#2a2a2a", "font-family": "monospace", "margin-bottom": "8px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M30": {
+      "id": "M30", "tag": "pre", "name": "stats_raw_pre",
+      "attrs": {}, "text": "", "children": [], "parentId": "M28", "wires": [],
+      "pipeBindings": [{ "pipeName": "loadStats", "target": "textContent" }],
+      "viewBinding": null, "dbSource": null,
+      "css": { "background": "#080808", "border": "1px solid #1a1a1a", "padding": "14px", "border-radius": "3px", "font-size": "11px", "color": "#444", "font-family": "monospace", "overflow": "auto", "max-height": "160px", "white-space": "pre-wrap", "margin": "0" }
+    },
+
+    "M31": {
+      "id": "M31", "tag": "section", "name": "tasks_section",
+      "attrs": {}, "text": "", "children": ["M32","M36","M43","M44","M47","M48"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "tasks", "dbSource": null,
+      "css": { "padding": "48px 48px 120px" }
+    },
+    "M32": {
+      "id": "M32", "tag": "div", "name": "tasks_header",
+      "attrs": {}, "text": "", "children": ["M33","M34","M35"],
+      "parentId": "M31", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "align-items": "center", "gap": "16px", "margin-bottom": "32px", "flex-wrap": "wrap" }
+    },
+    "M33": {
+      "id": "M33", "tag": "h2", "name": "tasks_title",
+      "attrs": {}, "text": "Task Board",
+      "children": [], "parentId": "M32", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "28px", "font-weight": "700", "letter-spacing": "1px", "margin": "0", "flex": "1" }
+    },
+    "M34": {
+      "id": "M34", "tag": "button", "name": "btn_load_tasks",
+      "attrs": { "onclick": "PipeSystem.fetch('loadTasks').then(r=>{if(r&&r.status===200)EventBus.emit('tasksLoaded',{})})" },
+      "text": "↺ Refresh", "children": [],
+      "parentId": "M32", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 18px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M35": {
+      "id": "M35", "tag": "span", "name": "task_count_badge",
+      "attrs": {}, "text": "", "children": [], "parentId": "M32",
+      "wires": [
+        { "eventName": "tasksLoaded", "action": "show",    "actionArgs": "" },
+        { "eventName": "tasksLoaded", "action": "setText", "actionArgs": "✦ 6 tasks from /api/tasks" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "display": "none" }
+    },
+
+    "M36": {
+      "id": "M36", "tag": "div", "name": "new_task_panel",
+      "attrs": {}, "text": "", "children": ["M37","M38","M39","M40","M41","M42"],
+      "parentId": "M31", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "border-radius": "6px", "padding": "28px 32px", "margin-bottom": "32px", "background": "#080808" }
+    },
+    "M37": {
+      "id": "M37", "tag": "p", "name": "new_task_heading",
+      "attrs": {}, "text": "New Task — POST /api/tasks via createTask pipe  ·  also fires updateStats PUT /api/stats",
+      "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "20px" }
+    },
+    "M38": {
+      "id": "M38", "tag": "input", "name": "task_title_inp",
+      "attrs": { "type": "text", "id": "ti", "placeholder": "Task title" },
+      "text": "", "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "10px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M39": {
+      "id": "M39", "tag": "input", "name": "task_assignee_inp",
+      "attrs": { "type": "text", "id": "ta", "placeholder": "Assignee name" },
+      "text": "", "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "10px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M40": {
+      "id": "M40", "tag": "input", "name": "task_priority_inp",
+      "attrs": { "type": "text", "id": "tp", "placeholder": "Priority: High / Medium / Low" },
+      "text": "", "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "10px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M41": {
+      "id": "M41", "tag": "input", "name": "task_due_inp",
+      "attrs": { "type": "text", "id": "td", "placeholder": "Due date e.g. 2026-07-01" },
+      "text": "", "children": [], "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "16px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M42": {
+      "id": "M42", "tag": "button", "name": "btn_submit_task",
+      "attrs": { "onclick": "var t=document.getElementById('ti').value,a=document.getElementById('ta').value,p=document.getElementById('tp').value,d=document.getElementById('td').value;if(t&&a){PipeSystem.execute('createTask',{title:t,assignee:a,priority:p||'Medium',due:d||'TBD',status:'Open',created:new Date().toLocaleDateString()}).then(function(r){if(r&&r.status===200){PipeSystem.fetch('loadTasks').then(function(r2){var tasks=Array.isArray(r2.data)?r2.data:(r2.data?[r2.data]:[]);var open=tasks.filter(function(x){return x.status==='Open'}).length;PipeSystem.execute('updateStats',{totalTasks:tasks.length,openTasks:open,completedTasks:tasks.length-open,lastAction:'Created: '+t,lastUpdated:new Date().toLocaleDateString()});EventBus.emit('taskCreated',{});EventBus.emit('tasksLoaded',{});});}});}" },
+      "text": "✦ Create Task", "children": [],
+      "parentId": "M36", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#a855f7", "color": "#fff", "border": "none", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    },
+
+    "M43": {
+      "id": "M43", "tag": "p", "name": "task_form_status",
+      "attrs": {}, "text": "", "children": [], "parentId": "M31",
+      "wires": [
+        { "eventName": "taskCreated", "action": "show",    "actionArgs": "" },
+        { "eventName": "taskCreated", "action": "setText", "actionArgs": "✦  Task written via POST /api/tasks — updateStats PUT /api/stats fired — loadTasks re-fetched — taskList loop re-rendered" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "12px", "color": "#555", "font-family": "monospace", "margin-bottom": "24px", "display": "none" }
+    },
+
+    "M44": {
+      "id": "M44", "tag": "div", "name": "tasks_list_wrap",
+      "attrs": {}, "text": "", "children": ["M45","M46"],
+      "parentId": "M31", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "32px" }
+    },
+    "M45": {
+      "id": "M45", "tag": "p", "name": "tasks_list_label",
+      "attrs": {}, "text": "taskList loop — template: {{title}}, {{assignee}}, {{priority}}, {{due}}, {{status}}, {{created}}, {{_index}}, {{_total}} — auto-renders on view:tasks",
+      "children": [], "parentId": "M44", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#2a2a2a", "font-family": "monospace", "margin-bottom": "12px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M46": {
+      "id": "M46", "tag": "div", "name": "tasks_container",
+      "attrs": {}, "text": "", "children": [],
+      "parentId": "M44", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": {}
+    },
+
+    "M47": {
+      "id": "M47", "tag": "p", "name": "tasks_raw_label",
+      "attrs": {}, "text": "Raw API Response — loadTasks GET /api/tasks (pipeBinding → textContent)",
+      "children": [], "parentId": "M31", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#2a2a2a", "font-family": "monospace", "margin-bottom": "8px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M48": {
+      "id": "M48", "tag": "pre", "name": "tasks_raw_pre",
+      "attrs": {}, "text": "", "children": [], "parentId": "M31", "wires": [],
+      "pipeBindings": [{ "pipeName": "loadTasks", "target": "textContent" }],
+      "viewBinding": null, "dbSource": null,
+      "css": { "background": "#080808", "border": "1px solid #1a1a1a", "padding": "14px", "border-radius": "3px", "font-size": "11px", "color": "#444", "font-family": "monospace", "overflow": "auto", "max-height": "200px", "white-space": "pre-wrap", "margin": "0" }
+    },
+
+    "M49": {
+      "id": "M49", "tag": "section", "name": "team_section",
+      "attrs": {}, "text": "", "children": ["M50","M54","M60","M61","M64","M65"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "team", "dbSource": null,
+      "css": { "padding": "48px 48px 120px" }
+    },
+    "M50": {
+      "id": "M50", "tag": "div", "name": "team_header",
+      "attrs": {}, "text": "", "children": ["M51","M52","M53"],
+      "parentId": "M49", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "align-items": "center", "gap": "16px", "margin-bottom": "32px", "flex-wrap": "wrap" }
+    },
+    "M51": {
+      "id": "M51", "tag": "h2", "name": "team_title",
+      "attrs": {}, "text": "Team Roster",
+      "children": [], "parentId": "M50", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "28px", "font-weight": "700", "letter-spacing": "1px", "margin": "0", "flex": "1" }
+    },
+    "M52": {
+      "id": "M52", "tag": "button", "name": "btn_load_team",
+      "attrs": { "onclick": "PipeSystem.fetch('loadTeam').then(r=>{if(r&&r.status===200)EventBus.emit('teamLoaded',{})})" },
+      "text": "↺ Refresh", "children": [],
+      "parentId": "M50", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 18px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M53": {
+      "id": "M53", "tag": "span", "name": "team_count_badge",
+      "attrs": {}, "text": "", "children": [], "parentId": "M50",
+      "wires": [
+        { "eventName": "teamLoaded", "action": "show",    "actionArgs": "" },
+        { "eventName": "teamLoaded", "action": "setText", "actionArgs": "✦ 4 members from /api/team" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "display": "none" }
+    },
+
+    "M54": {
+      "id": "M54", "tag": "div", "name": "add_member_panel",
+      "attrs": {}, "text": "", "children": ["M55","M56","M57","M58","M59"],
+      "parentId": "M49", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "border-radius": "6px", "padding": "28px 32px", "margin-bottom": "32px", "background": "#080808" }
+    },
+    "M55": {
+      "id": "M55", "tag": "p", "name": "add_member_heading",
+      "attrs": {}, "text": "Add Member — POST /api/team via addMember pipe",
+      "children": [], "parentId": "M54", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "font-family": "monospace", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "20px" }
+    },
+    "M56": {
+      "id": "M56", "tag": "input", "name": "member_name_inp",
+      "attrs": { "type": "text", "id": "mn", "placeholder": "Full name" },
+      "text": "", "children": [], "parentId": "M54", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "10px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M57": {
+      "id": "M57", "tag": "input", "name": "member_role_inp",
+      "attrs": { "type": "text", "id": "mr", "placeholder": "Role / title" },
+      "text": "", "children": [], "parentId": "M54", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "10px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M58": {
+      "id": "M58", "tag": "input", "name": "member_email_inp",
+      "attrs": { "type": "email", "id": "me", "placeholder": "Email address" },
+      "text": "", "children": [], "parentId": "M54", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "width": "100%", "background": "#111", "border": "1px solid #333", "color": "#fff", "padding": "10px 14px", "font-size": "14px", "margin-bottom": "16px", "border-radius": "3px", "display": "block", "box-sizing": "border-box" }
+    },
+    "M59": {
+      "id": "M59", "tag": "button", "name": "btn_add_member",
+      "attrs": { "onclick": "var n=document.getElementById('mn').value,r=document.getElementById('mr').value,e=document.getElementById('me').value;if(n&&r){PipeSystem.execute('addMember',{name:n,role:r,email:e||'—',joined:new Date().toLocaleDateString()}).then(function(res){if(res&&res.status===200){PipeSystem.fetch('loadTeam').then(function(r2){var team=Array.isArray(r2.data)?r2.data:(r2.data?[r2.data]:[]);PipeSystem.execute('updateStats',{teamSize:team.length,lastAction:'Added: '+n,lastUpdated:new Date().toLocaleDateString()});EventBus.emit('memberAdded',{});EventBus.emit('teamLoaded',{});});}})};" },
+      "text": "✦ Add Member", "children": [],
+      "parentId": "M54", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#a855f7", "color": "#fff", "border": "none", "padding": "10px 24px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    },
+
+    "M60": {
+      "id": "M60", "tag": "p", "name": "member_form_status",
+      "attrs": {}, "text": "", "children": [], "parentId": "M49",
+      "wires": [
+        { "eventName": "memberAdded", "action": "show",    "actionArgs": "" },
+        { "eventName": "memberAdded", "action": "setText", "actionArgs": "✦  Member added via POST /api/team — loadTeam re-fetched — teamCards loop re-rendered" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "12px", "color": "#555", "font-family": "monospace", "margin-bottom": "24px", "display": "none" }
+    },
+
+    "M61": {
+      "id": "M61", "tag": "div", "name": "team_list_wrap",
+      "attrs": {}, "text": "", "children": ["M62","M63"],
+      "parentId": "M49", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "32px" }
+    },
+    "M62": {
+      "id": "M62", "tag": "p", "name": "team_list_label",
+      "attrs": {}, "text": "teamCards loop — template: {{name}}, {{role}}, {{email}}, {{joined}}, {{_index}}, {{_total}} — auto-renders on view:team",
+      "children": [], "parentId": "M61", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#2a2a2a", "font-family": "monospace", "margin-bottom": "12px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M63": {
+      "id": "M63", "tag": "div", "name": "team_container",
+      "attrs": {}, "text": "", "children": [],
+      "parentId": "M61", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": {}
+    },
+
+    "M64": {
+      "id": "M64", "tag": "p", "name": "team_raw_label",
+      "attrs": {}, "text": "Raw API Response — loadTeam GET /api/team (pipeBinding → textContent)",
+      "children": [], "parentId": "M49", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#2a2a2a", "font-family": "monospace", "margin-bottom": "8px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M65": {
+      "id": "M65", "tag": "pre", "name": "team_raw_pre",
+      "attrs": {}, "text": "", "children": [], "parentId": "M49", "wires": [],
+      "pipeBindings": [{ "pipeName": "loadTeam", "target": "textContent" }],
+      "viewBinding": null, "dbSource": null,
+      "css": { "background": "#080808", "border": "1px solid #1a1a1a", "padding": "14px", "border-radius": "3px", "font-size": "11px", "color": "#444", "font-family": "monospace", "overflow": "auto", "max-height": "200px", "white-space": "pre-wrap", "margin": "0" }
+    },
+
+    "M66": {
+      "id": "M66", "tag": "section", "name": "settings_section",
+      "attrs": {}, "text": "", "children": ["M67","M70","M75","M79","M81","M82"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": "settings", "dbSource": null,
+      "css": { "padding": "48px 48px 120px" }
+    },
+    "M67": {
+      "id": "M67", "tag": "div", "name": "settings_header",
+      "attrs": {}, "text": "", "children": ["M68","M69"],
+      "parentId": "M66", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "36px" }
+    },
+    "M68": {
+      "id": "M68", "tag": "h2", "name": "settings_title",
+      "attrs": {}, "text": "Settings",
+      "children": [], "parentId": "M67", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "28px", "font-weight": "700", "letter-spacing": "1px", "margin-bottom": "8px" }
+    },
+    "M69": {
+      "id": "M69", "tag": "p", "name": "settings_subtitle",
+      "attrs": {}, "text": "Preference toggles wired to themeDark / themeLight / notifOn / notifOff events via addClass, removeClass, show, hide wires. Save fires settingsSaved. loadStats pipeBinding shown again here to demonstrate one pipe bound to two separate elements.",
+      "children": [], "parentId": "M67", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "color": "#555", "font-size": "13px", "line-height": "1.7", "max-width": "600px" }
+    },
+
+    "M70": {
+      "id": "M70", "tag": "div", "name": "theme_section",
+      "attrs": {}, "text": "", "children": ["M71","M72"],
+      "parentId": "M66", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "border-radius": "6px", "padding": "24px 28px", "margin-bottom": "16px", "background": "#080808" }
+    },
+    "M71": {
+      "id": "M71", "tag": "p", "name": "theme_heading",
+      "attrs": {}, "text": "Colour Theme",
+      "children": [], "parentId": "M70", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "14px", "font-family": "monospace" }
+    },
+    "M72": {
+      "id": "M72", "tag": "div", "name": "theme_buttons",
+      "attrs": {}, "text": "", "children": ["M73","M74"],
+      "parentId": "M70", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "display": "flex", "gap": "8px" }
+    },
+    "M73": {
+      "id": "M73", "tag": "button", "name": "btn_theme_dark",
+      "attrs": { "onclick": "EventBus.emit('themeDark',{})" },
+      "text": "Dark", "children": [], "parentId": "M72",
+      "wires": [
+        { "eventName": "themeDark",  "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "themeLight", "action": "removeClass", "actionArgs": "nav-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M74": {
+      "id": "M74", "tag": "button", "name": "btn_theme_light",
+      "attrs": { "onclick": "EventBus.emit('themeLight',{})" },
+      "text": "Light", "children": [], "parentId": "M72",
+      "wires": [
+        { "eventName": "themeLight", "action": "addClass",    "actionArgs": "nav-active" },
+        { "eventName": "themeDark",  "action": "removeClass", "actionArgs": "nav-active" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#aaa", "border": "1px solid #333", "padding": "8px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+
+    "M75": {
+      "id": "M75", "tag": "div", "name": "notif_section",
+      "attrs": {}, "text": "", "children": ["M76","M77","M78"],
+      "parentId": "M66", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "border": "1px solid #1a1a1a", "border-radius": "6px", "padding": "24px 28px", "margin-bottom": "28px", "background": "#080808" }
+    },
+    "M76": {
+      "id": "M76", "tag": "p", "name": "notif_heading",
+      "attrs": {}, "text": "Notifications — toggle (show / hide wires)",
+      "children": [], "parentId": "M75", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#555", "text-transform": "uppercase", "letter-spacing": "1px", "margin-bottom": "14px", "font-family": "monospace" }
+    },
+    "M77": {
+      "id": "M77", "tag": "button", "name": "btn_notif_on",
+      "attrs": { "onclick": "EventBus.emit('notifOff',{})" },
+      "text": "● Notifications ON", "children": [], "parentId": "M75",
+      "wires": [
+        { "eventName": "notifOff", "action": "hide", "actionArgs": "" },
+        { "eventName": "notifOn",  "action": "show", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#22c55e", "border": "1px solid #22c55e", "padding": "8px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px" }
+    },
+    "M78": {
+      "id": "M78", "tag": "button", "name": "btn_notif_off",
+      "attrs": { "onclick": "EventBus.emit('notifOn',{})" },
+      "text": "○ Notifications OFF", "children": [], "parentId": "M75",
+      "wires": [
+        { "eventName": "notifOff", "action": "show", "actionArgs": "" },
+        { "eventName": "notifOn",  "action": "hide", "actionArgs": "" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "transparent", "color": "#555", "border": "1px solid #333", "padding": "8px 20px", "font-size": "13px", "cursor": "pointer", "border-radius": "3px", "display": "none" }
+    },
+
+    "M79": {
+      "id": "M79", "tag": "div", "name": "settings_actions",
+      "attrs": {}, "text": "", "children": ["M80"],
+      "parentId": "M66", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "margin-bottom": "24px" }
+    },
+    "M80": {
+      "id": "M80", "tag": "button", "name": "btn_save_settings",
+      "attrs": { "onclick": "EventBus.emit('settingsSaved',{})" },
+      "text": "✦ Save Settings", "children": [],
+      "parentId": "M79", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "background": "#a855f7", "color": "#fff", "border": "none", "padding": "12px 28px", "font-size": "14px", "cursor": "pointer", "border-radius": "3px", "font-weight": "bold" }
+    },
+
+    "M81": {
+      "id": "M81", "tag": "p", "name": "settings_saved_msg",
+      "attrs": {}, "text": "", "children": [], "parentId": "M66",
+      "wires": [
+        { "eventName": "settingsSaved", "action": "show",    "actionArgs": "" },
+        { "eventName": "settingsSaved", "action": "fadeIn",  "actionArgs": "" },
+        { "eventName": "settingsSaved", "action": "setText", "actionArgs": "✦  settingsSaved event fired — theme + notification state held in session" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "12px", "color": "#555", "font-family": "monospace", "margin-bottom": "32px", "display": "none", "opacity": "0" }
+    },
+
+    "M82": {
+      "id": "M82", "tag": "div", "name": "settings_debug_wrap",
+      "attrs": {}, "text": "", "children": ["M83","M84"],
+      "parentId": "M66", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": {}
+    },
+    "M83": {
+      "id": "M83", "tag": "p", "name": "settings_debug_label",
+      "attrs": {}, "text": "Live DB Snapshot — loadStats GET /api/stats re-bound here: one pipe, two pipeBinding elements (M30 on dashboard + M84 here)",
+      "children": [], "parentId": "M82", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "font-size": "11px", "color": "#2a2a2a", "font-family": "monospace", "margin-bottom": "8px", "text-transform": "uppercase", "letter-spacing": "1px" }
+    },
+    "M84": {
+      "id": "M84", "tag": "pre", "name": "settings_debug_pre",
+      "attrs": {}, "text": "", "children": [], "parentId": "M82", "wires": [],
+      "pipeBindings": [{ "pipeName": "loadStats", "target": "textContent" }],
+      "viewBinding": null, "dbSource": null,
+      "css": { "background": "#080808", "border": "1px solid #1a1a1a", "padding": "14px", "border-radius": "3px", "font-size": "11px", "color": "#444", "font-family": "monospace", "overflow": "auto", "max-height": "160px", "white-space": "pre-wrap", "margin": "0" }
+    },
+
+    "M85": {
+      "id": "M85", "tag": "div", "name": "url_bar",
+      "attrs": {}, "text": "", "children": ["M86","M87"],
+      "parentId": "M1", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "position": "fixed", "bottom": "0", "left": "0", "right": "0", "background": "#080808", "border-top": "1px solid #1a1a1a", "padding": "8px 48px", "display": "flex", "align-items": "center", "gap": "12px", "font-size": "11px", "color": "#333", "font-family": "monospace", "z-index": "20" }
+    },
+    "M86": {
+      "id": "M86", "tag": "span", "name": "url_label",
+      "attrs": {}, "text": "URL →", "children": [],
+      "parentId": "M85", "wires": [], "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": {}
+    },
+    "M87": {
+      "id": "M87", "tag": "span", "name": "url_display",
+      "attrs": {}, "text": "?view=dashboard", "children": [], "parentId": "M85",
+      "wires": [
+        { "eventName": "view:dashboard", "action": "setText", "actionArgs": "?view=dashboard" },
+        { "eventName": "view:tasks",     "action": "setText", "actionArgs": "?view=tasks" },
+        { "eventName": "view:team",      "action": "setText", "actionArgs": "?view=team" },
+        { "eventName": "view:settings",  "action": "setText", "actionArgs": "?view=settings" }
+      ],
+      "pipeBindings": [], "viewBinding": null, "dbSource": null,
+      "css": { "color": "#a855f7" }
+    }
+  },
+
+  "events": {
+    "view:dashboard": { "name": "view:dashboard", "payload": "{}" },
+    "view:tasks":     { "name": "view:tasks",     "payload": "{}" },
+    "view:team":      { "name": "view:team",      "payload": "{}" },
+    "view:settings":  { "name": "view:settings",  "payload": "{}" },
+    "statsLoaded":    { "name": "statsLoaded",    "payload": "{}" },
+    "tasksLoaded":    { "name": "tasksLoaded",    "payload": "{}" },
+    "taskCreated":    { "name": "taskCreated",    "payload": "{}" },
+    "teamLoaded":     { "name": "teamLoaded",     "payload": "{}" },
+    "memberAdded":    { "name": "memberAdded",    "payload": "{}" },
+    "settingsSaved":  { "name": "settingsSaved",  "payload": "{}" },
+    "themeDark":      { "name": "themeDark",      "payload": "{}" },
+    "themeLight":     { "name": "themeLight",     "payload": "{}" },
+    "notifOn":        { "name": "notifOn",        "payload": "{}" },
+    "notifOff":       { "name": "notifOff",       "payload": "{}" }
+  },
+
+  "pipes": {
+    "loadStats": {
+      "name": "loadStats", "method": "GET", "endpoint": "/api/stats", "collection": "stats",
+      "schema": [], "description": "Fetch the stats single-doc from DB", "delay": 200
+    },
+    "updateStats": {
+      "name": "updateStats", "method": "PUT", "endpoint": "/api/stats", "collection": "stats",
+      "schema": [
+        { "key": "lastAction",  "type": "text" },
+        { "key": "lastUpdated", "type": "text" }
+      ],
+      "description": "Update the stats single-doc after task creation", "delay": 150
+    },
+    "loadTasks": {
+      "name": "loadTasks", "method": "GET", "endpoint": "/api/tasks", "collection": "tasks",
+      "schema": [], "description": "Fetch all tasks from DB", "delay": 300
+    },
+    "createTask": {
+      "name": "createTask", "method": "POST", "endpoint": "/api/tasks", "collection": "tasks",
+      "schema": [
+        { "key": "title",    "type": "text" },
+        { "key": "assignee", "type": "text" },
+        { "key": "priority", "type": "text" },
+        { "key": "due",      "type": "text" },
+        { "key": "status",   "type": "text" },
+        { "key": "created",  "type": "text" }
+      ],
+      "description": "Write a new task to the tasks collection", "delay": 300
+    },
+    "loadTeam": {
+      "name": "loadTeam", "method": "GET", "endpoint": "/api/team", "collection": "team",
+      "schema": [], "description": "Fetch all team members from DB", "delay": 250
+    },
+    "addMember": {
+      "name": "addMember", "method": "POST", "endpoint": "/api/team", "collection": "team",
+      "schema": [
+        { "key": "name",   "type": "text" },
+        { "key": "role",   "type": "text" },
+        { "key": "email",  "type": "text" },
+        { "key": "joined", "type": "text" }
+      ],
+      "description": "Write a new team member to the team collection", "delay": 250
+    }
+  },
+
+  "views": {
+    "dashboard": { "name": "dashboard", "title": "Dashboard", "description": "Stats overview — load stats, navigate to other views", "params": [] },
+    "tasks":     { "name": "tasks",     "title": "Tasks",     "description": "Task board — taskList loop auto-renders on view:tasks, form POSTs new task", "params": [] },
+    "team":      { "name": "team",      "title": "Team",      "description": "Team roster — teamCards loop auto-renders on view:team, form POSTs new member", "params": [] },
+    "settings":  { "name": "settings",  "title": "Settings",  "description": "Preference toggles — theme/notif events, save fires settingsSaved", "params": [] }
+  },
+
+  "loops": {
+    "statTotal": {
+      "name": "statTotal",
+      "pipeName": "loadStats",
+      "targetId": "M15",
+      "description": "Renders {{totalTasks}} from stats single-doc into the Total Tasks counter",
+      "template": "{{totalTasks}}"
+    },
+    "statOpen": {
+      "name": "statOpen",
+      "pipeName": "loadStats",
+      "targetId": "M18",
+      "description": "Renders {{openTasks}} from stats single-doc into the Open Tasks counter",
+      "template": "{{openTasks}}"
+    },
+    "statTeam": {
+      "name": "statTeam",
+      "pipeName": "loadStats",
+      "targetId": "M21",
+      "description": "Renders {{teamSize}} from stats single-doc into the Team Members counter",
+      "template": "{{teamSize}}"
+    },
+    "taskList": {
+      "name": "taskList",
+      "pipeName": "loadTasks",
+      "targetId": "M46",
+      "description": "Render each task as a card — auto-triggered by loopRender wire on view:tasks event",
+      "template": "<div style=\"display:flex;align-items:flex-start;gap:16px;padding:16px 18px;border:1px solid #1a1a1a;border-radius:4px;margin-bottom:8px;background:#0d0d0d\"><div style=\"padding-top:2px;flex-shrink:0\"><span style=\"font-size:10px;padding:2px 8px;border-radius:10px;font-family:monospace;border:1px solid #2a2a2a;color:#888\">{{status}}</span></div><div style=\"flex:1;min-width:0\"><div style=\"font-weight:bold;font-size:14px;margin-bottom:4px;color:#fff\">{{title}}</div><div style=\"font-size:12px;color:#666;margin-bottom:4px\">→ <span style=\"color:#a855f7\">{{assignee}}</span></div><div style=\"font-size:11px;color:#444;font-family:monospace\">{{priority}} · Due {{due}} · Created {{created}} · entry {{_index}} of {{_total}}</div></div></div>"
+    },
+    "teamCards": {
+      "name": "teamCards",
+      "pipeName": "loadTeam",
+      "targetId": "M63",
+      "description": "Render each team member — auto-triggered by loopRender wire on view:team event",
+      "template": "<div style=\"padding:20px 24px;border:1px solid #1a1a1a;border-radius:4px;margin-bottom:8px;background:#0d0d0d;display:flex;justify-content:space-between;align-items:center\"><div><div style=\"font-weight:bold;font-size:15px;margin-bottom:4px\">{{name}}</div><div style=\"font-size:12px;color:#a855f7;margin-bottom:6px\">{{role}}</div><div style=\"font-size:11px;color:#555;font-family:monospace\">{{email}} · Joined {{joined}}</div></div><div style=\"font-size:10px;color:#2a2a2a;font-family:monospace\">{{_index}}/{{_total}}</div></div>"
+    }
+  },
+
+  "logic": {
+    "M1": {"blocks":[]}, "M2": {"blocks":[]}, "M3": {"blocks":[]}, "M4": {"blocks":[]},
+    "M5": {"blocks":[]}, "M6": {"blocks":[]}, "M7": {"blocks":[]}, "M8": {"blocks":[]},
+    "M9": {"blocks":[]}, "M10": {"blocks":[]}, "M11": {"blocks":[]}, "M12": {"blocks":[]},
+    "M13": {"blocks":[]}, "M14": {"blocks":[]}, "M15": {"blocks":[]}, "M16": {"blocks":[]},
+    "M17": {"blocks":[]}, "M18": {"blocks":[]}, "M19": {"blocks":[]}, "M20": {"blocks":[]},
+    "M21": {"blocks":[]}, "M22": {"blocks":[]}, "M23": {"blocks":[]}, "M24": {"blocks":[]},
+    "M25": {"blocks":[]}, "M26": {"blocks":[]}, "M27": {"blocks":[]}, "M28": {"blocks":[]},
+    "M29": {"blocks":[]}, "M30": {"blocks":[]}, "M31": {"blocks":[]}, "M32": {"blocks":[]},
+    "M33": {"blocks":[]}, "M34": {"blocks":[]}, "M35": {"blocks":[]}, "M36": {"blocks":[]},
+    "M37": {"blocks":[]}, "M38": {"blocks":[]}, "M39": {"blocks":[]}, "M40": {"blocks":[]},
+    "M41": {"blocks":[]}, "M42": {"blocks":[]}, "M43": {"blocks":[]}, "M44": {"blocks":[]},
+    "M45": {"blocks":[]}, "M46": {"blocks":[]}, "M47": {"blocks":[]}, "M48": {"blocks":[]},
+    "M49": {"blocks":[]}, "M50": {"blocks":[]}, "M51": {"blocks":[]}, "M52": {"blocks":[]},
+    "M53": {"blocks":[]}, "M54": {"blocks":[]}, "M55": {"blocks":[]}, "M56": {"blocks":[]},
+    "M57": {"blocks":[]}, "M58": {"blocks":[]}, "M59": {"blocks":[]}, "M60": {"blocks":[]},
+    "M61": {"blocks":[]}, "M62": {"blocks":[]}, "M63": {"blocks":[]}, "M64": {"blocks":[]},
+    "M65": {"blocks":[]}, "M66": {"blocks":[]}, "M67": {"blocks":[]}, "M68": {"blocks":[]},
+    "M69": {"blocks":[]}, "M70": {"blocks":[]}, "M71": {"blocks":[]}, "M72": {"blocks":[]},
+    "M73": {"blocks":[]}, "M74": {"blocks":[]}, "M75": {"blocks":[]}, "M76": {"blocks":[]},
+    "M77": {"blocks":[]}, "M78": {"blocks":[]}, "M79": {"blocks":[]}, "M80": {"blocks":[]},
+    "M81": {"blocks":[]}, "M82": {"blocks":[]}, "M83": {"blocks":[]}, "M84": {"blocks":[]},
+    "M85": {"blocks":[]}, "M86": {"blocks":[]}, "M87": {"blocks":[]}
+  },
+
+  "dbCollections": [
+    {
+      "name": "stats",
+      "isArray": false,
+      "seed": [
+        { "totalTasks": 6, "openTasks": 4, "completedTasks": 2, "teamSize": 4, "lastAction": "Task completed: Mobile Responsiveness", "lastUpdated": "2026-05-20" }
+      ]
+    },
+    {
+      "name": "tasks",
+      "isArray": true,
+      "seed": [
+        { "title": "Auth Bug Fix",              "assignee": "Zara Ahmed", "priority": "High",   "due": "2026-05-25", "status": "Completed", "created": "2026-04-01" },
+        { "title": "DB Schema Migration",       "assignee": "Leo Chen",   "priority": "High",   "due": "2026-05-28", "status": "Open",      "created": "2026-04-15" },
+        { "title": "Dashboard UI Rebuild",      "assignee": "Maya Patel", "priority": "Medium", "due": "2026-06-05", "status": "Open",      "created": "2026-04-20" },
+        { "title": "Email Notification System", "assignee": "Zara Ahmed", "priority": "Medium", "due": "2026-06-10", "status": "Open",      "created": "2026-05-01" },
+        { "title": "API Rate Limiting",         "assignee": "Leo Chen",   "priority": "Low",    "due": "2026-06-20", "status": "Open",      "created": "2026-05-05" },
+        { "title": "Mobile Responsiveness",     "assignee": "Maya Patel", "priority": "High",   "due": "2026-05-30", "status": "Completed", "created": "2026-04-10" }
+      ]
+    },
+    {
+      "name": "team",
+      "isArray": true,
+      "seed": [
+        { "name": "Zara Ahmed", "role": "Lead Developer",  "email": "zara@example.com", "joined": "2024-01-10" },
+        { "name": "Leo Chen",   "role": "Backend Engineer", "email": "leo@example.com",  "joined": "2024-03-15" },
+        { "name": "Maya Patel", "role": "UI Designer",      "email": "maya@example.com", "joined": "2024-06-01" },
+        { "name": "Sam Rivera", "role": "QA Engineer",      "email": "sam@example.com",  "joined": "2025-01-20" }
+      ]
+    }
+  ],
+
+  "_nextId": 88
+}
