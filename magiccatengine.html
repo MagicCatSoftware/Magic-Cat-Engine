@@ -1099,6 +1099,11 @@ const MachineSystem = {
         catch(e) { Logger.error(`Logic condition: ${e.message}`); }
       } else if (block.type === 'else') { pass = true; }
       if (pass) {
+        if (block.actions && block.actions.length) {
+          block.actions.forEach(a => {
+            if (a.action) MachineSystem.executeAction(a.targetId || id, a.action, context, a.actionArgs || '');
+          });
+        }
         if (block.code) {
           try { eval(`(function(ctx, DB, EventBus, PipeSystem, ViewSystem, machine){ ${block.code} })(context, DB, EventBus, PipeSystem, ViewSystem, MCE.machines['${id}'])`); }
           catch(e) { Logger.error(`Logic code: ${e.message}`); }
@@ -2113,20 +2118,41 @@ const UI = {
     if (!blocks || !blocks.length) return '';
     const ea = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const colorMap = { if: 'var(--info)', elseif: 'var(--warn)', else: 'var(--ok)' };
+    const allActions = ['show','hide','toggle','fadeIn','fadeOut','fadeToBlack','addClass','removeClass','toggleClass','setText','setHTML','setValue','emit','navigate','pipeIn','pipeOut','log','dbPull','dbPush','loopRender'];
+    const treeIds = MachineSystem.flatOrder();
+    const buildTargetOpts = selId => `<option value="" ${!selId?'selected':''}>self</option>` + treeIds.map(tid => { const tm = MCE.machines[tid]; return tm ? `<option value="${tid}" ${selId===tid?'selected':''}>${tm.name} &lt;${tm.tag}&gt;</option>` : ''; }).join('');
     return blocks.map((b, i) => {
       const path = pathPrefix ? `${pathPrefix}.${i}` : `${i}`;
       const col = colorMap[b.type] || 'var(--txt3)';
       const childCount = (b.children || []).length;
+      const blockActions = b.actions || [];
+      const actionRows = blockActions.map((a, ai) => `
+        <div style="display:flex;gap:4px;align-items:center;min-width:0;margin-bottom:3px">
+          <select style="flex:1.5;min-width:0" onchange="UI._logicSetAction('${mid}','${path}',${ai},'targetId',this.value)">
+            ${buildTargetOpts(a.targetId)}
+          </select>
+          <span style="color:var(--txt3);font-size:12px;flex-shrink:0">→</span>
+          <select style="flex:1;min-width:0" onchange="UI._logicSetAction('${mid}','${path}',${ai},'action',this.value)">
+            ${allActions.map(ac => `<option ${a.action===ac?'selected':''}>${ac}</option>`).join('')}
+          </select>
+          <input style="flex:1;min-width:0" value="${ea(a.actionArgs||'')}" placeholder="args…" oninput="UI._logicSetAction('${mid}','${path}',${ai},'actionArgs',this.value)">
+          <button class="small danger" style="flex-shrink:0;padding:1px 5px" onclick="UI._logicRemoveAction('${mid}','${path}',${ai})">&#x2715;</button>
+        </div>`).join('');
       return `<div class="logic-block logic-${b.type}" style="border-left:2px solid ${col};margin-bottom:4px">
   <div class="logic-block-header" onclick="this.parentElement.classList.toggle('open')">
     <span class="logic-type" style="color:${col}">${b.type.toUpperCase()}</span>
     ${b.type !== 'else' ? `<span style="color:var(--txt2);font-size:10px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0 6px">${ea(b.condition||'no condition')}</span>` : '<span style="flex:1"></span>'}
-    ${childCount ? `<span class="badge" style="flex-shrink:0">${childCount}</span>` : ''}
+    ${childCount + blockActions.length ? `<span class="badge" style="flex-shrink:0">${childCount + blockActions.length}</span>` : ''}
     <button class="small danger" style="flex-shrink:0;padding:1px 5px" onclick="event.stopPropagation();UI._logicRemoveBlock('${mid}','${path}')">&#x2715;</button>
   </div>
   <div class="logic-block-body">
     ${b.type !== 'else' ? `<div class="field"><label>Condition</label><input value="${ea(b.condition||'')}" placeholder="ctx.value > 10" oninput="UI._logicSetField('${mid}','${path}','condition',this.value)"></div>` : ''}
-    <div class="field"><label>Code</label><textarea rows="3" placeholder="EventBus.emit('done', ctx);" oninput="UI._logicSetField('${mid}','${path}','code',this.value)">${ea(b.code||'')}</textarea></div>
+    <div style="margin-bottom:8px">
+      <div style="font-size:9px;color:var(--txt3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Actions</div>
+      ${actionRows}
+      <button class="small" style="margin-top:2px" onclick="UI._logicAddAction('${mid}','${path}')">+ action</button>
+    </div>
+    <div class="field"><label style="color:var(--txt3)">Code <span style="font-size:9px;font-weight:normal">(optional)</span></label><textarea rows="3" placeholder="EventBus.emit('done', ctx);" oninput="UI._logicSetField('${mid}','${path}','code',this.value)">${ea(b.code||'')}</textarea></div>
     <div style="background:var(--bg0);border-radius:3px;padding:6px;margin-top:4px">
       <div style="font-size:9px;color:var(--txt3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">&#x25B8; nested chain</div>
       ${this._renderBlockChain(mid, b.children || [], path, depth + 1)}
@@ -2149,7 +2175,7 @@ const UI = {
   },
   _logicAddBlock(id, parentPath, type) {
     if (!MCE.logic[id]) MCE.logic[id] = { blocks: [] };
-    const nb = { type, condition: '', code: '', children: [] };
+    const nb = { type, condition: '', code: '', actions: [], children: [] };
     if (parentPath === '') {
       MCE.logic[id].blocks.push(nb);
     } else {
@@ -2171,6 +2197,23 @@ const UI = {
   _logicSetField(id, pathStr, field, value) {
     const block = this._logicGetBlock(id, pathStr);
     if (block) block[field] = value;
+  },
+  _logicAddAction(id, pathStr) {
+    const block = this._logicGetBlock(id, pathStr);
+    if (!block) return;
+    if (!block.actions) block.actions = [];
+    block.actions.push({ targetId: '', action: 'show', actionArgs: '' });
+    this.renderLogicPanel();
+  },
+  _logicRemoveAction(id, pathStr, aIdx) {
+    const block = this._logicGetBlock(id, pathStr);
+    if (!block || !block.actions) return;
+    block.actions.splice(aIdx, 1);
+    this.renderLogicPanel();
+  },
+  _logicSetAction(id, pathStr, aIdx, field, value) {
+    const block = this._logicGetBlock(id, pathStr);
+    if (block && block.actions && block.actions[aIdx]) block.actions[aIdx][field] = value;
   },
   _runLogicWithCtx(id) {
     const raw = document.getElementById('logic-ctx').value || '{}';
@@ -2678,6 +2721,15 @@ const UI = {
           catch(e) { console.error('Logic condition:', e); }
         } else if (block.type === 'else') { pass = true; }
         if (pass) {
+          if (block.actions && block.actions.length) {
+            block.actions.forEach(function(a) {
+              if (!a.action) return;
+              var tgt = a.targetId
+                ? (document.querySelector('[data-mce-id="' + a.targetId + '"]'))
+                : (document.querySelector('[data-mce-id="' + id + '"]'));
+              if (tgt) applyAction(tgt, a.action, a.actionArgs || '', ctx);
+            });
+          }
           if (block.code) {
             try { (new Function('ctx','EventBus','MCE_VARS', block.code))(ctx, EventBus, window.MCE_VARS || {}); }
             catch(e) { console.error('Logic code:', e); }
@@ -3177,7 +3229,7 @@ const UI = {
     MCE.vars = Object.fromEntries(Object.entries(_rawVars).map(([k, v]) => [k, (v && typeof v === 'object') ? v : { value: String(v || ''), desc: '' }]));
     MCE._nextId = data._nextId || 1;
     // Backfill children:[] on any logic blocks that predate the recursive system
-    const _backfillBlocks = blocks => { if (!blocks) return; blocks.forEach(b => { if (!b.children) b.children = []; _backfillBlocks(b.children); }); };
+    const _backfillBlocks = blocks => { if (!blocks) return; blocks.forEach(b => { if (!b.children) b.children = []; if (!b.actions) b.actions = []; _backfillBlocks(b.children); }); };
     Object.values(MCE.logic || {}).forEach(l => { if (l && l.blocks) _backfillBlocks(l.blocks); });
     // Auto-create DB collections declared in the project (with optional seed data)
     if (Array.isArray(data.dbCollections)) {
